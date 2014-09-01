@@ -1,0 +1,45 @@
+
+
+<div id="cartDiv">
+	
+	<div class="cartBox">
+		
+		<if condition="$order_status eq 0 ">
+			<div class="cartHead">
+			成功提交订单，付款
+			</div>
+			<div class="wrapPaymentDiv">
+				<div class="paymentDiv">
+					<img src="__PUBLIC__/image/cart/payment.png"/>
+					<strong class="fe7000">请尽快付款以完成订单！</strong><br />
+					<span class="paymentSpan">您的订单号：<span id="payNum"></span></span><br />
+					<span class="paymentSpan">订单总额：<strong class="fe7000"> ￥ <font id="total"></font> </strong>元</span>
+				</div>
+				<a class="settlement" id="payment" href="javascript:;">支付</a>
+			</div>
+		<else />
+			<div class="order_error" >{$order_info}</div>
+			<div class="error_return"><a  id="back" href="javascript:void(0);">返回修改</a></div>
+		</if>
+		
+		
+		
+	</div>
+    <input type="hidden"  id="order_id" value='{$order_id}'/>
+    <input type="hidden"  id="order_price" value='{$order_price}'/>
+</div>
+
+
+<script type="text/javascript">
+    var order_id = $("#order_id").val();
+    var order_price = $("#order_price").val();
+    $("#payNum").html(order_id);
+    $("#total").html(order_price);
+    $("#payment").click(function(){  
+        window.location.href="__URL__/bank_pay?orderid=" + order_id;
+    });
+
+    $("#back").click(function(){
+	    window.location.href="__URL__/choose_software" ;
+	});
+</script>

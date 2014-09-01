@@ -1,0 +1,15 @@
+<div>
+    支付接口。。。。。。未完待续。。。。。。。。。。。
+    <input type="button" id="paymentBtn" value="支付" />
+    <input type="hidden"  id="idPromotion" value='{$_GET["promotion"]}'/>
+</div>
+<script type="text/javascript">
+    var isPromotion=$("#idPromotion").val();
+    $("#paymentBtn").click(function(){
+        if(isPromotion){
+            window.location.href="__URL__/payStep_6?promotion=1"; 
+        }else{
+          window.location.href="__URL__/payStep_6";   
+        }  
+    });
+</script>

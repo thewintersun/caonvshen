@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="/Public/css/head.css">
+        <link rel="stylesheet" href="/Public/css/index.css">
+        <link rel="stylesheet" href="/Public/css/footer.css">
+        <link rel="stylesheet" href="/Public/css/productInfo.css">
+        <link rel="stylesheet" href="/Public/css/download.css">
+        <link rel="stylesheet" href="/Public/css/userCase.css">
+        <link rel="stylesheet" href="/Public/css/payment.css">
+        <link rel="stylesheet" href="/Public/css/cart.css">
+        <link rel="shortcut icon" href="__PUBLIC__/image/ddkf_icon.ico">
+        <script type="text/javascript" src="/Public/js/jquery-1.7.2.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/CCountAnimate.js"></script>
+        
+        
+        <!--域名-->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // 在这里写你的代码...
+                function getRegistersNum() {
+                    $.getJSON("__APP__/Index/getRegistersNum", {}, function(json) {
+                        if(json.status == 1) {
+                            var shownum = json.data;
+                            for( i = json.data.length; i < 6; i++) {
+                                shownum = '0' + shownum;
+                            }
+                            CCont(shownum, true);
+                        }
+                    })
+                }
+                //getRegistersNum();
+            });
+        </script>
+        <if condition="$_SESSION['account_name'] neq NULL ">
+            <script type="text/javascript">
+                //用户退出时间设置
+                function userLogoutTime() {
+                    $.getJSON("__APP__/User/setLogoutTime", {}, function(json) {
+                        if(json.status == 1) {
+                        } else {
+                        }
+                    });
+                }
+                userLogoutTime();
+                setInterval(userLogoutTime, 5000 * 60);
+            </script>
+        </if>
+        <title>嘀嘀客服</title>
+    </head>
+    <body>
+        <div id="secondShowBar">
+            <!--用户栏-->
+            <div class="Box-userBar">
+                <div class="logInfo">
+                    <span class="logInfo-span2">
+                        <if condition="$_SESSION['account_name'] eq NULL ">
+                            <a class="logInfo-a" href="__APP__/Index/index">首页</a>
+                            |
+                            <a id="registerA" class="logInfo-a" href="__APP__/User/register">注册</a>
+                            |
+                            <a class="logInfo-a" href="__APP__/User/login">登录</a>
+                            <else />
+                            <span >账户：</span>
+                            <span style="color:#000;">{$_SESSION["account_name"]}</span>&nbsp; <span >工号：</span>
+                            <span style="color:#000">{$_SESSION["user_name"]}</span>&nbsp;&nbsp; <a id="registerA" class="logInfo-a" href="__APP__/WorkPlat/personalCenter?item=0&identity={$_SESSION['role']}" target="_blank">我的工作平台</a>
+                            |
+                            <a class="logInfo-a" href="__APP__/User/logout">退出</a>
+                        </if> </span>
+                </div>
+            </div>
+            <!--用户栏结束-->
+            <!--logobar显示栏-->
+            <div id="logoAndRnum">
+            	<!--
+                <div id="logPosition">
+                    <img src="__PUBLIC__/image/index/logoImg.png"><span class="logoSpan">全球领先的实时沟通平台</span>
+                </div>
+               -->
+            </div>
+            
+            
+            <!--首页菜单栏-->
+            <div id="showArea">
+                <ul id="index_bar">
+                    <if condition=" ($pi neq 2) AND  ($pi neq 3) AND  ($pi neq 4) AND  ($pi neq 5) AND  ($pi neq 6) AND  ($pi neq 7) AND  ($pi neq 8) ">
+                        <li id="firstPage" class="index_bar_button_raw index_bar_button">
+                            <a class="index_bar_li_a_click" href="__APP__/Index/indexBar?pageIndex=1">首页</a>
+                        </li>
+                        <else />
+                        <li id="firstPage" class="index_bar_button_raw">
+                            <a class="index_bar_li_a_noclick" href="__APP__/Index/indexBar?pageIndex=1">首页</a>
+                        </li>
+                    </if>
+                    <if condition=" $pi eq 2 ">
+                        <li id="productIntro" class="index_bar_button_raw index_bar_button">
+                            <a class="index_bar_li_a_click" href="__APP__/Index/indexBar?pageIndex=2">产品中心</a>
+                        </li>
+                        <else />
+                        <li id="productIntro" class="index_bar_button_raw">
+                            <a class="index_bar_li_a_noclick" href="__APP__/Index/indexBar?pageIndex=2">产品中心</a>
+                        </li>
+                    </if>
+                    <if condition=" $pi eq 3 ">
+                        <li id="swDownload" class="index_bar_button_raw index_bar_button">
+                            <a class="index_bar_li_a_click" href="__APP__/Index/indexBar?pageIndex=3">优惠套餐</a>
+                        </li>
+                        <else />
+                        <li id="swDownload" class="index_bar_button_raw">
+                            <a class="index_bar_li_a_noclick" href="__APP__/Index/indexBar?pageIndex=3">优惠套餐</a>
+                        </li>
+                    </if>
+                    <if condition=" $pi eq 4 ">
+                        <li id="customerEx" class="index_bar_button_raw index_bar_button">
+                            <a class="index_bar_li_a_click" href="__APP__/Index/indexBar?pageIndex=4">客户案例</a>
+                        </li>
+                        <else />
+                        <li id="customerEx" class="index_bar_button_raw">
+                            <a class="index_bar_li_a_noclick" href="__APP__/Index/indexBar?pageIndex=4">客户案例</a>
+                        </li>
+                    </if>
+                    <if condition=" $pi eq 5 ">
+                        <li id="purchaseProd" class="index_bar_button_raw index_bar_button">
+                            <a class="index_bar_li_a_click" href="__APP__/Index/indexBar?pageIndex=5">购买支付</a>
+                        </li>
+                        <else />
+                        <li id="purchaseProd" class="index_bar_button_raw ">
+                            <a class="index_bar_li_a_noclick" href="__APP__/Index/indexBar?pageIndex=5">购买支付</a>
+                        </li>
+                    </if>
+                    <if condition=" $pi eq 6 ">
+                        <li id="kfCenter" class="index_bar_button_raw index_bar_button">
+                            <a class="index_bar_li_a_click" href="__APP__/Index/indexBar?pageIndex=6">软件下载</a>
+                        </li>
+                        <else />
+                        <li id="kfCenter" class="index_bar_button_raw">
+                            <a class="index_bar_li_a_noclick" href="__APP__/Index/indexBar?pageIndex=6">软件下载</a>
+                        </li>
+                    </if>
+                    <if condition=" $pi eq 7 ">
+                        <li id="agencyCenter" class="index_bar_button_raw index_bar_button">
+                            <a class="index_bar_li_a_click" href="__APP__/Index/indexBar?pageIndex=7">关于我们</a>
+                        </li>
+                        <else />
+                        <li id="agencyCenter" class="index_bar_button_raw">
+                            <a class="index_bar_li_a_noclick" href="__APP__/Index/indexBar?pageIndex=7">关于我们</a>
+                        </li>
+                    </if>
+                </ul>
+            </div>
+
+            
+        </div>
+
+        <!--logobar结束-->

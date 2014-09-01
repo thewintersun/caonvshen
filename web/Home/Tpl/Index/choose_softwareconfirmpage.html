@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="/Public/css/choose_softwareconfirm.css">
+
+<div id="cartDiv">
+	<div class="cartBox">
+		<div class="cartHead">
+			核对订单信息
+			<a class="backToCart" id="back" href="javascript:void(0);">返回购物车修改</a>
+		</div>
+		<div class="cartBody">
+			<table class="cartTable" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead id="cartTableHead">
+					<tr>
+						<!--<th width="40"></th>-->
+						<th>套餐</th>
+						<th width="160">单价</th>
+						<th width="160">购买时长(月)</th>
+						<th width="160">原有升级补偿差价</th>
+						<th width="160">总计</th>
+					</tr>
+				</thead>
+				<tbody id="cartTableBody">
+					<tr>
+						<!--<td><input id="cart_key_0" type="checkbox" checked="" value="0" name="cart_key"></td>-->
+						<td id="tName"></td>
+						<td id="unitPrice"></td>
+						<td id="buymonth"></td>
+						<td id="upgrade_price"></td>
+						<td id="tTotal"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="cartStatistics">
+				<span class="price"> 总计： <strong class="fe7000"> ￥ <font id="total"></font> </strong> </span>
+			</div>
+			<div class="cartHead">
+				填写订单留言
+			</div>
+			
+			<form id="msgForm" name="msgForm" action="__URL__/choose_success" method="post">
+			    <div class="leaveMessage">
+                    <span class="msgSpan">填写订单留言：</span>
+                    <textarea rows="4" cols="60" maxlength="128" id="msgText" name="msgText" style="width:90%;"></textarea>
+                </div>
+    			<div class="cartStatistics">
+    				<span class="price"> 订单总额： <strong class="fe7000"> ￥ <font id="totalAll"></font> </strong> 元</span>
+    				<a class="settlement" id="settleA">提交订单</a>
+    			</div>
+			</form>
+		</div>
+		<input type="hidden" id="tType" value='{$_SESSION["payment"]["tType"]}' />
+		<input type="hidden" id="tValue" value='{$_SESSION["payment"]["tValue"]}' />
+		<input type="hidden" id="tCountSession" value='{$_SESSION["payment"]["tCount"]}' />
+		<input type="hidden" id="buy_month_session" value='{$_SESSION["payment"]["buy_month"]}' />
+		<input type="hidden" id="upgrade_price_session" value='{$_SESSION["payment"]["upgrade_price"]}' />
+	</div>
+</div>
+<script type="text/javascript">
+	var tType=$("#tType").val();
+	var tCount=$("#tCountSession").val();
+	var buymonth=$("#buy_month_session").val();
+	var upgrade_price = $("#upgrade_price_session").val();
+	var tValue = $("#tValue").val();
+	
+	$("#tName").html(tType);
+	$("#unitPrice").html('￥ '+tValue + ' 元');
+	$("#buymonth").html(buymonth+" 月");
+	$("#upgrade_price").html('￥ '+upgrade_price + " 元");
+	
+	
+	$("#tTotal").html('￥ '+tCount +' 元');
+	$("#total").html(tCount +'元');
+	$("#totalAll").html(tCount );
+	$("#back").click(function(){
+		window.location.href="__URL__/choose_software" ;
+	});
+	//对留言内容进行编码
+	$("#settleA").click(function(){
+	    $("#msgForm").submit();
+	});
+</script>

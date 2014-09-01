@@ -1,0 +1,294 @@
+<div id="wrapDiv">
+    <div id="leftDiv">
+         <include file="Index:paymentList"/>
+        <div id="helpInfo" class="help-info">
+             <include file="WorkPlat:helpCenter"/>
+        </div>
+    </div>
+
+    <div id="rankDiv" class="clearfix">
+        <div class="tit_box">
+            <img src="__PUBLIC__/image/payment/tc-1.png" />
+        </div>
+        <ul class="p_border tit_vip">
+            <li class="p_bgtit tc4_head_li">
+                功能列表
+            </li>
+            <li class="p_bgA ">
+                在线客服聊天
+            </li>
+            <li class="p_bgB ">
+                文件传输
+            </li>
+
+            <li class="p_bgA ">
+                图片发送
+            </li>
+            <li class="p_bgB ">
+                坐席个数
+            </li>
+
+            <li class="p_bgA ">
+                接听多访客
+            </li>
+            <li class="p_bgB ">
+                同时接听最大访客数
+            </li>
+            <li class="p_bgA ">
+                常用语设置
+            </li>
+            <li class="p_bgB ">
+                访客阻止
+            </li>
+            <li class="p_bgA ">
+                客服转接
+            </li>
+            <li class="p_bgB ">
+                风格设置
+            </li>
+            <li class="p_bgA ">
+                套餐价格
+            </li>
+            <li class="p_bgB ">
+                
+            </li>
+        </ul>
+        <ul class="p_border novip">
+            <li class="p_bgtit tc1_head_li">
+                基本套餐(500元)
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[1]['chat'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[1]['file'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[1]['image'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                {$user_meal[1]['user_num']}
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[1]['listen_more'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                {$user_meal[1]['max_listen']}
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[1]['commen_lang'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[1]['ban_guest'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[1]['tran_guest'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[1]['theme_set'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class="p_bgA ">
+                {$user_meal[1]['price']}/年
+            </li>
+            <li class="p_bgB ">
+                <img class="rankBtn" id="1" src="__PUBLIC__/image/payment/buy.png">
+            </li>
+        </ul>
+        <ul class="p_border vip1">
+            <li class="p_bgtit tc2_head_li">
+                标准套餐(600元)
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[2]['chat'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[2]['file'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[2]['image'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                {$user_meal[2]['user_num']}
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[2]['listen_more'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                {$user_meal[2]['max_listen']}
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[2]['commen_lang'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[2]['ban_guest'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[2]['tran_guest'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[2]['theme_set'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class="p_bgA ">
+                {$user_meal[2]['price']}/年
+            </li>
+            <li class="p_bgB ">
+                <img class="rankBtn" id="2" src="__PUBLIC__/image/payment/buy.png">
+            </li>
+        </ul>
+        <ul class="p_border vip2">
+            <li class="p_bgtit tc3_head_li">
+                高级套餐(800元)
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[3]['chat'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[3]['file'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[3]['image'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                {$user_meal[3]['user_num']}
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[3]['listen_more'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                {$user_meal[3]['max_listen']}
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[3]['commen_lang'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[3]['ban_guest'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgA">
+                <if condition="$user_meal[3]['tran_guest'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class=" p_bgB">
+                <if condition="$user_meal[3]['theme_set'] eq TRUE">
+                    <img src="__PUBLIC__/image/index/right.png">
+                    <else/>
+                    <img src="__PUBLIC__/image/index/error.png">
+                </if>
+            </li>
+            <li class="p_bgA ">
+                {$user_meal[3]['price']}/年
+            </li>
+            <li class="p_bgB ">
+                <img class="rankBtn" id="3" src="__PUBLIC__/image/payment/buy.png">
+            </li>
+        </ul>
+    </div>
+    <input type="hidden" id="accountId" value='{$_SESSION["account_id"]}' />
+</div>
+<script type="text/javascript" src="__PUBLIC__/js/scrollBar.js"></script>
+<script type="text/javascript">var scrollBar1 = new ScrollBar("scroll_body", "p");</script>
+<script type="text/javascript">
+    /*var modelUrl="__URL__";
+     var modelUrlArr=modelUrl.split("/");
+     var modelName=modelUrlArr[modelUrlArr.length-1];*/
+    $(".rankBtn").click(function() {
+        var accId = $("#accountId").val();
+        var btnId = $(this).attr('id');
+        if(!accId) {
+            alert("您还没有登录，请先登录！");
+            window.location.href = "__APP__/User/login";
+        } else {
+            window.location.href = "__URL__/payStep_2?tType=" + btnId;
+        }
+    });
+</script>

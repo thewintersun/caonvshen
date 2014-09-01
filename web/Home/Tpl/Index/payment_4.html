@@ -1,0 +1,58 @@
+<div id="cartDiv">
+	<div class="cartProcess">
+		<span class="processSpan span1">选择套餐</span><span class="processSpan span2">确认套餐</span><span class="processSpan span3">付款确认</span>
+		<img class="processImg" src="__PUBLIC__/image/cart/cart_process_3.png" />
+	</div>
+	<div class="cartBox">
+		<div class="cartHead">
+			成功提交订单，付款
+		</div>
+		<div class="wrapPaymentDiv">
+			<div class="paymentDiv">
+				<img src="__PUBLIC__/image/cart/payment.png"/>
+				<strong class="fe7000">请尽快付款以完成订单！</strong><br />
+				<span class="paymentSpan">您的订单号：<span id="payNum"></span></span><br />
+				<span class="paymentSpan">订单总额：<strong class="fe7000"> ￥ <font id="total"></font> </strong>元</span>
+			</div>
+			<a class="settlement" id="payment" href="javascript:;">支付</a>
+		</div>
+	</div>
+	<input type="hidden" id="tType" value='{$_SESSION["payment"]["tType"]}' />
+    <input type="hidden" id="tCount" value='{$_SESSION["payment"]["tCount"]}' />
+    <input type="hidden" id="tValue" value='{$_SESSION["payment"]["tValue"]}' />
+	<input type="hidden"  id="msgText" value='{$_SESSION["payment"]["msgText"]}'/> 
+    <input type="hidden"  id="idPromotion" value='{$_GET["promotion"]}'/>
+    <input type="hidden"  id="totalNeeded" value='{$_SESSION["promotion"]["totalNeeded"]}'/>
+</div>
+
+
+<script type="text/javascript">
+    var tType=$("#tType").val();
+    var tCount=$("#tCount").val();
+    var tValue=$("#tValue").val();
+    var isPromotion=$("#idPromotion").val();
+    var payTime=new Date();
+    var payNum=payTime.getTime();
+    $("#payNum").html(payNum);
+    /*留言内容*/
+    //var msgText=$("#msgText").val();
+    if(isPromotion){
+        //套餐升级
+        var tempValue=$("#totalNeeded").val();
+        $("#total").html(tempValue);
+        $("#payment").click(function(){  
+            window.location.href="__URL__/payStep_5?promotion=1"; 
+        });
+    }else{
+        //套餐购买
+        var paySum=tCount*tValue;
+        $("#total").html(paySum);
+        $("#payment").click(function(){  
+            $.getJSON("__URL__/savePaySum",{"paySum":paySum},function(json){
+                if(json.status){
+                    window.location.href="__URL__/payStep_5";
+                }               
+            });
+        });
+    }
+</script>

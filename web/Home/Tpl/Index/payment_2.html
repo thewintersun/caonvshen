@@ -1,0 +1,130 @@
+<div id="cartDiv">
+	<div class="cartProcess">
+		<span class="processSpan span1">选择套餐</span><span class="processSpan span2">确认套餐</span><span class="processSpan span3">付款确认</span>
+		<img class="processImg" src="__PUBLIC__/image/cart/cart_process_1.png" />
+	</div>
+	<div class="cartBox">
+		<div class="cartHead">
+			已购买的商品
+		</div>
+		<div class="cartBody">
+			<table class="cartTable" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead id="cartTableHead">
+					<tr>
+						<!--<th width="40"></th>-->
+						<th>套餐</th>
+						<th width="160">单价</th>
+						<th width="160">现价</th>
+						<th width="160">数量</th>
+						<th width="160">总计</th>
+					</tr>
+				</thead>
+				<tbody id="cartTableBody">
+					<tr>
+						<!--<td><input id="cart_key_0" type="checkbox" checked="" value="0" name="cart_key"></td>-->
+						<td id="tName"></td>
+						<td id="unitPrice"></td>
+						<td id="currentPrice"></td>
+						<td>
+						<div class="detail_confirm_num">
+							<a class="minus" id="decrease"></a>
+							<input id="cart_list_num_0" class="t" type="text" value="1">
+							<input id="hidden_cart_list_num_0" type="hidden" name="goods_num" value="1">
+							<a class="plus" id="increase"></a>
+						</div></td>
+						<td><strong class="fe7000"> ￥ <font id="sub_total_0"></font> </strong></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="cartStatistics">
+				<span class="price"> 总计： <strong class="fe7000"> ￥ <font id="total"></font> </strong> </span>
+				<a class="settlement" id="settle" >去结算</a>
+			</div>	
+		</div>
+		<input type="hidden" id="tType" value='{$_SESSION["payment"]["tType"]}' />
+		<input type="hidden" id="tValue" value='{$_SESSION["payment"]["tValue"]}' />
+	</div>
+</div>
+<script type="text/javascript">
+	function IsInt(v) {
+		var vArr = v.match(/^[0-9]+$/);
+		if(vArr == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+    
+    
+	function count_num_cart(type, key, product_price) {
+		var cart_list_num = document.getElementById("cart_list_num_" + key);
+		var hidden_cart_list_num = document.getElementById("hidden_cart_list_num_" + key);
+		var sub_total = document.getElementById("sub_total_" + key).innerHTML;
+		var total = document.getElementById("total").innerHTML;
+		if(!IsInt(cart_list_num.value) || cart_list_num.value == 0) {
+			if(!IsInt(hidden_cart_list_num.value))
+				hidden_cart_list_num.value = 1;
+			cart_list_num.value = hidden_cart_list_num.value;
+		}
+		if(type == "1") {
+			if(cart_list_num.value == "1") {
+				cart_list_num.value = 1;
+			} else {
+				cart_list_num.value = parseInt(cart_list_num.value) - 1;
+				document.getElementById("sub_total_" + key).innerHTML = parseInt(sub_total) - parseInt(product_price);
+				document.getElementById("total").innerHTML = parseInt(total) - parseInt(product_price);
+			}
+		} else if(type == "2") {
+			cart_list_num.value = parseInt(cart_list_num.value) + 1;
+			document.getElementById("sub_total_" + key).innerHTML = parseInt(sub_total) + parseInt(product_price);
+			document.getElementById("total").innerHTML = parseInt(total) + parseInt(product_price);
+		} else if(type == "3") {
+			if(!isNaN(cart_list_num.value)) {
+				if(parseInt(cart_list_num.value) < 1) {
+					cart_list_num.value = hidden_cart_list_num.value;
+				}
+			}
+			if(parseInt(cart_list_num.value) > parseInt(hidden_cart_list_num.value)) {
+				document.getElementById("sub_total_" + key).innerHTML = parseInt(sub_total) + (parseInt(product_price) * (parseInt(cart_list_num.value) - parseInt(hidden_cart_list_num.value)));
+				document.getElementById("total").innerHTML = parseInt(total) + (parseInt(product_price) * (parseInt(cart_list_num.value) - parseInt(hidden_cart_list_num.value)));
+			} else {
+				document.getElementById("sub_total_" + key).innerHTML = parseInt(sub_total) - (parseInt(product_price) * (parseInt(hidden_cart_list_num.value) - parseInt(cart_list_num.value)));
+				document.getElementById("total").innerHTML = parseInt(total) - (parseInt(product_price) * (parseInt(hidden_cart_list_num.value) - parseInt(cart_list_num.value)));
+			}
+		}
+		hidden_cart_list_num.value = cart_list_num.value;
+	}
+
+</script>
+<script type="text/javascript">
+	//套餐类型
+	
+	var tType=$("#tType").val();
+	//套餐价格
+	//var tValue=tType*100;
+	var tValue=$("#tValue").val();
+	var tValueStr=tValue+"";
+	$("#unitPrice").html('￥'+tValue);
+	$("#currentPrice").html('￥'+tValue);
+	$("#sub_total_0").html(tValue);
+	$("#total").html(tValue);
+	//套餐名称
+	if(tType==1){
+		$("#tName").html("基本套餐");
+		
+	}else if(tType==2){
+		$("#tName").html("标准套餐");
+		
+	}else if(tType==3){
+		$("#tName").html("高级套餐");
+	}
+	$("#decrease").click(function(){count_num_cart(1,'0',tValueStr)});
+    $("#increase").click(function(){count_num_cart(2,'0',tValueStr)});
+    $("#cart_list_num_0").keyup(function(){count_num_cart(3,'0',tValueStr)});
+	//点击去结算按钮
+	$("#settle").click(function(){
+		var tCount=$("#cart_list_num_0").val();
+		//href="__URL__/payStep_3"
+		window.location.href="__URL__/payStep_3"+"?tCount="+tCount;
+	});
+</script>

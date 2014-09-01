@@ -1,0 +1,81 @@
+<div id="cartDiv">
+	<div class="cartProcess">
+		<span class="processSpan span1">选择套餐</span><span class="processSpan span2">确认套餐</span><span class="processSpan span3">付款确认</span>
+		<img class="processImg" src="__PUBLIC__/image/cart/cart_process_2.png" />
+	</div>
+	<div class="cartBox">
+		<div class="cartHead">
+			核对订单信息
+			<a class="backToCart" id="back" href="javascript:void(0);">返回购物车修改</a>
+		</div>
+		<div class="cartBody">
+			<table class="cartTable" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead id="cartTableHead">
+					<tr>
+						<!--<th width="40"></th>-->
+						<th>套餐</th>
+						<th width="160">单价</th>
+						<th width="160">现价</th>
+						<th width="160">数量</th>
+						<th width="160">总计</th>
+					</tr>
+				</thead>
+				<tbody id="cartTableBody">
+					<tr>
+						<!--<td><input id="cart_key_0" type="checkbox" checked="" value="0" name="cart_key"></td>-->
+						<td id="tName"></td>
+						<td id="unitPrice"></td>
+						<td id="currentPrice"></td>
+						<td id="tCount"></td>
+						<td id="tTotal"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="cartStatistics">
+				<span class="price"> 总计： <strong class="fe7000"> ￥ <font id="total"></font> </strong> </span>
+			</div>
+			<div class="cartHead">
+				填写订单留言
+			</div>
+			
+			<form id="msgForm" name="msgForm" action="__URL__/payStep_4" method="post">
+			    <div class="leaveMessage">
+                    <span class="msgSpan">填写订单留言：</span>
+                    <textarea rows="4" cols="60" maxlength="128" id="msgText" name="msgText"></textarea>
+                </div>
+    			<div class="cartStatistics">
+    				<span class="price"> 订单总额： <strong class="fe7000"> ￥ <font id="totalAll"></font> </strong> 元</span>
+    				<a class="settlement" id="settleA">提交订单</a>
+    			</div>
+			</form>
+		</div>
+		<input type="hidden" id="tType" value='{$_SESSION["payment"]["tType"]}' />
+		<input type="hidden" id="tValue" value='{$_SESSION["payment"]["tValue"]}' />
+		<input type="hidden" id="tCountSession" value='{$_SESSION["payment"]["tCount"]}' />
+	</div>
+</div>
+<script type="text/javascript">
+	var tType=$("#tType").val();
+	var tCount=$("#tCountSession").val();
+	var tValue=$("#tValue").val();
+	if(tType==1){
+		$("#tName").html("基本套餐");
+	}else if(tType==2){
+		$("#tName").html("标准套餐");
+	}else if(tType==3){
+		$("#tName").html("高级套餐");
+	}
+	$("#unitPrice").html('￥'+tValue);
+	$("#currentPrice").html('￥'+tValue);
+	$("#tCount").html(tCount);
+	$("#tTotal").html('￥'+tCount*tValue);
+	$("#total").html(tCount*tValue);
+	$("#totalAll").html(tCount*tValue);
+	$("#back").click(function(){
+	    history.back();
+	});
+	//对留言内容进行编码
+	$("#settleA").click(function(){
+	    $("#msgForm").submit();
+	});
+</script>
