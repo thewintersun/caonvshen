@@ -5,17 +5,7 @@ require_once 'Home/Common/DDlog.class.php';
 // 本类由系统自动生成，仅供测试用途
 class IndexAction extends Action {
     public function index(){
-        $dataAcc["account_id"]=$_SESSION["account_id"];
-        $account=M("account");
-        $accList = $account -> where($dataAcc) -> find();
-        if($accList){
-            $this -> assign("accList", $accList);
-            
-        }else if($accList===FALSE){
-        	ddlog::warn("index:index not find account info. accountid is ".$dataAcc["account_id"]);
-            dump("没有找到account");
-        }
-    	$this->assign("pi",1);
+        echo "aaaaa";
     	$this->display("Index:index");
     	
 	}
