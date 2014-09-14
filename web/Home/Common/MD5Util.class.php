@@ -5,7 +5,7 @@
  */
 class MD5Util  {
 	
-	private static  $auth_plus = "ddkf";
+	private static  $auth_plus = "caonvshen";
 	
 	public static function GenAuthCode($str){
 		$str_plus = $str.self::$auth_plus;
