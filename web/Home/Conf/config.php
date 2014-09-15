@@ -1,15 +1,15 @@
 <?php
-$domain='127.0.0.1';
+$domain='www.caonvshen.com';
 return array(
 	//'配置项'=>'配置值'
 	 /* 数据库设置 */
     'DB_TYPE'               => 'mysql',     // 数据库类型
-	'DB_HOST'               => '127.0.0.1', // 服务器地址
-	'DB_NAME'               => 'ddkf',          // 数据库名
+	'DB_HOST'               => 'www.caonvshen.com', // 服务器地址
+	'DB_NAME'               => 'caonvshen',          // 数据库名
 	'DB_USER'               => 'root',      // 用户名
-	'DB_PWD'                => '',          // 密码
+	'DB_PWD'                => '7788521',          // 密码
 	'DB_PORT'               => '3306',        // 端口
-	'DB_PREFIX'             => 'dd_',    // 数据库表前缀
+	'DB_PREFIX'             => 'cns_',    // 数据库表前缀
 	
 	//cookie的域和路径配置
 	'DD_COOKIE_PATH' =>'/',
