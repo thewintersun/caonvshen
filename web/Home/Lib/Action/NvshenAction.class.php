@@ -58,6 +58,7 @@ class NvshenAction extends Action {
 		$sql = "select wb_id from cns_nvshendata order by id desc limit 1";
 		$result = $nvshendata->query($sql);
 		if($result){
+			// get lastest weibo id
 			$since_id = $result[0]['wb_id'];
 		}
 		
@@ -65,8 +66,8 @@ class NvshenAction extends Action {
 		$wb_token = C('WEIBO_TOKEN');
 		$weibo = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);
 		
-		
-		$newestweibo = $weibo->home_timeline(1, 50, $since_id, 0, 0, 1);
+		// 原创微博
+		$newestweibo = $weibo->home_timeline(1, 50, $since_id, 0, 0, 3);
 		if(isset($newestweibo) && isset($newestweibo['statuses']) && count($newestweibo['statuses'])>0 )
 		{
 			$wblist = $newestweibo['statuses'];
@@ -74,8 +75,20 @@ class NvshenAction extends Action {
 				$add_data['wb_text'] = $wblist[$i]['text'];
 				$add_data['wb_id'] = $wblist[$i]['id'];
 				
-				echo count($wblist[$i]['pic_urls']);
-				echo "<br>";
+				$pic_number =  count($wblist[$i]['pic_urls']);
+				
+				// 没有图片
+				if($pic_number==0){
+					
+				}
+				if(preg_match('/(http:\/\/t\.cn)+[\w\/\.\-]*/', $add_data['wb_text'], $matched)){
+					$short_url = 	$matched[0];
+					echo 'url:'.$matched[0]."<br>";
+					echo $add_data['wb_text']."<br>";
+					echo json_encode($wblist[$i])."<br><br><br>";
+				}
+				
+				echo "picnumber is ".$pic_number."<br>";
 				for($j=0;$j<count($wblist[$i]['pic_urls']); $j++){
 					echo $wblist[$i]['pic_urls'][$j]['thumbnail_pic'];
 					echo "<br>";
@@ -91,4 +104,15 @@ class NvshenAction extends Action {
 		
 	}
   
+	public function test(){
+		$matched = array();
+		if(preg_match('/(http:\/\/t\.cn)+[\w\/\.\-]*/', "http://t.cn/RhJEmqq", $matched)){
+			echo $matched[0];
+		}
+		$wb_token = C('WEIBO_TOKEN');
+		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
+		
+		//$a = $c->get_info_by_shorturl('http://t.cn/RhJEmqq');
+		//echo json_encode($a);
+	}
 }

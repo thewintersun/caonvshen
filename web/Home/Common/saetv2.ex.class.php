@@ -3246,7 +3246,13 @@ class SaeTClientV2
 	}
 
 
-
+	// 自己添加的，批量获取短链接的富内容信息
+	function get_info_by_shorturl( $short_url )
+	{
+		$params = array();
+		$params['url_short'] = $short_url;
+		return $this->oauth->post( 'short_url/info', $params);
+	}
 	// =========================================
 
 	/**
