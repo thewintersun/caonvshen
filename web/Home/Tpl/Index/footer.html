@@ -1,17 +1,77 @@
-<div id="footPosition">
-	<div id="footer">
-		<div class="footlink">
-			<a class="foota" href="#" target="_blank">关于嘀嘀客服</a><i class="footi">|</i>
-			<a class="foota" href="#" target="_blank">联系我们</a><i class="footi">|</i>
-			<a class="foota" href="#" target="_blank">付款方式</a><i class="footi">|</i>
-			<a class="foota" href="#" target="_blank">会员俱乐部</a><i class="footi">|</i>
-			<a class="foota" href="#" target="_blank">人才招聘</a><i class="footi">|</i>
-			<a class="foota" href="#" target="_blank">个人中心</a>
-		</div>
-		<div class="copyright">
-			Copyright © 2005-2012 快服科技 版权所有 全国统一受理热线：400-611-9153
-			<br />
-			客服邮箱：kefu@ddkefu.com 增值电信业务经营许可证：浙B2-20090169
-		</div>
-	</div>
+<div class="ui inverted" id="nvshenmenu">
+    <div class="container" style="height:60px;padding:0px 10px;clear:both">
+        <div style="width:70%;float:left">
+         <div class="ui divided horizontal list">
+            <div class="item"><a href="http://lunvshen.com/about" target="_blank" class="foota">关于我们</a></div>
+            <div class="item"><a href="http://lunvshen.com/advertise" target="_blank" class="foota">广告投放</a></div>
+            <div class="item"><a href="http://lunvshen.com/link" target="_blank" class="foota">友链交换</a></div>
+             <div class="item"><a href="http://lunvshen.com/declear" target="_blank" class="foota">免责申明</a></div>
+             <!--
+                         <div class="item"><a href="http://lunvshen.com/pp" target="_blank" class="foota">女神相册</a></div>
+                          <div class="item"><a href="http://lunvshen.com/video" target="_blank" class="foota">女神视频</a></div>
+            <div class="item"><a href="http://lunvshen.com/users" target="_blank" class="foota">女神排行</a></div>
+            <div class="item"><a href="http://lunvshen.com/add" target="_blank" class="foota">推荐女神</a></div>
+        -->
+
+        </div>
+        <br/><br/>
+
+        <div style="font-size: 13px;">
+            <span>友情链接:&nbsp;&nbsp;&nbsp;</span> <a style="margin-right:10px" target="_blank" href="http://youai123.com">有爱导航</a>
+            <a style="margin-right:10px" target="_blank" href="http://site.youai123.com">上什么</a>
+        </div>
+
+    </div>
+     <div style="width:30%;float:right;text-align:right">
+        <span style="font-weight:500">关注撸女神</span>
+        <br/>
+        <br/>
+                <a href="http://t.qq.com/lunvshen" class="f-qq" target="_blank" title="撸女神的腾讯微博"></a>
+        <a href="http://weibo.com/lunvshen" class="f-sina" target="_blank" title="撸女神的新浪微博"></a>
+
+     </div>
+    </div>
 </div>
+<div id="toolBackTop" class="backtop sl-fixed sl-fixed-bottom sl-fixed-right" style="display: none;">
+<a class="br-s bs-l" onclick="window.scrollTo(0,0);return false;"></a>
+</div>
+<!--
+<script type="text/javascript" src="http://unionjs.dianxin.com/dl.js" name="dl" data-said="32329" data-width="120" data-height="270" data-type="0" charset="utf-8" ></script>
+-->
+<script src="http://f.ku63.com/f.asp?u=62610&m=3&n=" charset="gb2312"></script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5906485'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5906485%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<script type="text/javascript">
+
+$(document).ready(function () {
+        var bt = $('#toolBackTop');
+        var sw = $(document.body)[0].clientWidth;
+
+        var limitsw = (sw - 840) / 2 - 80;
+        if (limitsw > 0){
+                limitsw = parseInt(limitsw);
+                bt.css("right",limitsw);
+        }
+
+        $(window).scroll(function() {
+                var st = $(window).scrollTop();
+                if(st > 30){
+                        bt.show();
+                }else{
+                        bt.hide();
+                }
+        });
+})
+
+</script>
+            </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function($) {
+        
+    });
+    </script>
+
+    </body>
+</html>
