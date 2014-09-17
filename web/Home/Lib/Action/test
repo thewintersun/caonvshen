@@ -1,29 +1,63 @@
-{"urls":[
-{"result":true,"last_modified":1410694026,
-"title":"\u5206\u4eab@\u5b5f\u6653\u827adana \u7684MV\u201c\u97e9\u56fd\u7684\u508d\u665a\u5f88\u8ff7\u4eba\uff0c\u5de5\u4f5c\u4e86\u4e00\u5929\u7ec8\u4e8e\u53ef\u4ee5\u4f11\u606f\u4e00\u4e0b\u3002\u6bcf\u5929\u5403\u5927\u767d\u83dc\u771f\u7684\u597d\u60f3\u6765\u7897\u70b8\u9171\u9762\u554a\ud83d\ude14\u201d\u5feb\u6765\u770b\u770b>>",
-"description":"",
-"url_short":"http:\/\/t.cn\/RhJEmqq",
-"annotations":[{
-"object_type":"video","activate_status":"0",
-"last_modified":"Sun Sep 14 19:27:08 CST 2014",
-"safe_status":1,"containerid":"2303274e4c132ac28f5350ab90ed862340f22d",
-"object_id":"2014131001:4e4c132ac28f5350ab90ed862340f22d",
-"act_status":"12","object":{
-"summary":"\u97e9\u56fd\u7684\u508d\u665a\u5f88\u8ff7\u4eba\uff0c\u5de5\u4f5c\u4e86\u4e00\u5929\u7ec8\u4e8e\u53ef\u4ee5\u4f11\u606f\u4e00\u4e0b\u3002\u6bcf\u5929\u5403\u5927\u767d\u83dc\u771f\u7684\u597d\u60f3\u6765\u7897\u70b8\u9171\u9762\u554a\ud83d\ude14",
-"stream":{
-"hd_url":"http:\/\/mvvideo2.meitudata.com\/54157a64a2e6c1831.mp4","format":"mp4",
-"url":"http:\/\/mvvideo2.meitudata.com\/54157a64a2e6c1831.mp4"},"create_at":"2014-09-14",
-"image":{"height":480,"width":480,
-"url":"http:\/\/mvimg1.meitudata.com\/54157b8af10915303.jpg"},
-"links":{"display_name":"\u7acb\u5373\u89c2\u770b",
-"scheme":"http:\/\/www.meipai.com\/media\/125584290",
-"url":"http:\/\/www.meipai.com\/media\/125584290"},
-"custom_data":{"source":"\u7f8e\u62cd"},"biz":{"biz_id":"230327",
-"containerid":"2303274e4c132ac28f5350ab90ed862340f22d"},
-"url":"http:\/\/www.meipai.com\/media\/125584290",
-"object_type":"video","author":{"object_type":"person",
-"display_name":"\u5b5f\u6653\u827adana"},
-"display_name":"\u7f8e\u62cd",
-"embed_code":"http:\/\/img.app.meitudata.com\/meitumv\/swf\/mtplayer.swf?IsAutoPlay=1&IsContinue=1&data=%7B%22id%22%3A%22125584290%22%2C%22source%22%3A%22weibo%22%7D&vcastr_file=http%3A%2F%2Fmvvideo2.meitudata.com%2F54157a64a2e6c1831.mp4",
-"target_url":"http:\/\/www.meipai.com\/media\/125584290"},"uuid":3754785256788216,"show_status":"11","object_domain_id":"2014131001"}],
-"url_long":"http:\/\/www.meipai.com\/media\/125584290","type":39,"transcode":2}]}
+{
+    "urls": [
+        {
+            "result": true,
+            "last_modified": 1410694026,
+            "title": "分享@孟晓艺dana 的MV“韩国的傍晚很迷人，工作了一天终于可以休息一下。每天吃大白菜真的好想来碗炸酱面啊😔”快来看看>>",
+            "description": "",
+            "url_short": "http://t.cn/RhJEmqq",
+            "annotations": [
+                {
+                    "object_type": "video",
+                    "activate_status": "0",
+                    "last_modified": "Sun Sep 14 19:27:08 CST 2014",
+                    "safe_status": 1,
+                    "containerid": "2303274e4c132ac28f5350ab90ed862340f22d",
+                    "object_id": "2014131001:4e4c132ac28f5350ab90ed862340f22d",
+                    "act_status": "12",
+                    "object": {
+                        "summary": "韩国的傍晚很迷人，工作了一天终于可以休息一下。每天吃大白菜真的好想来碗炸酱面啊😔",
+                        "stream": {
+                            "hd_url": "http://mvvideo2.meitudata.com/54157a64a2e6c1831.mp4",
+                            "format": "mp4",
+                            "url": "http://mvvideo2.meitudata.com/54157a64a2e6c1831.mp4"
+                        },
+                        "create_at": "2014-09-14",
+                        "image": {
+                            "height": 480,
+                            "width": 480,
+                            "url": "http://mvimg1.meitudata.com/54157b8af10915303.jpg"
+                        },
+                        "links": {
+                            "display_name": "立即观看",
+                            "scheme": "http://www.meipai.com/media/125584290",
+                            "url": "http://www.meipai.com/media/125584290"
+                        },
+                        "custom_data": {
+                            "source": "美拍"
+                        },
+                        "biz": {
+                            "biz_id": "230327",
+                            "containerid": "2303274e4c132ac28f5350ab90ed862340f22d"
+                        },
+                        "url": "http://www.meipai.com/media/125584290",
+                        "object_type": "video",
+                        "author": {
+                            "object_type": "person",
+                            "display_name": "孟晓艺dana"
+                        },
+                        "display_name": "美拍",
+                        "embed_code": "http://img.app.meitudata.com/meitumv/swf/mtplayer.swf?IsAutoPlay=1&IsContinue=1&data=%7B%22id%22%3A%22125584290%22%2C%22source%22%3A%22weibo%22%7D&vcastr_file=http%3A%2F%2Fmvvideo2.meitudata.com%2F54157a64a2e6c1831.mp4",
+                        "target_url": "http://www.meipai.com/media/125584290"
+                    },
+                    "uuid": 3754785256788216,
+                    "show_status": "11",
+                    "object_domain_id": "2014131001"
+                }
+            ],
+            "url_long": "http://www.meipai.com/media/125584290",
+            "type": 39,
+            "transcode": 2
+        }
+    ]
+}
