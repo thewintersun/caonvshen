@@ -55,7 +55,7 @@ class NvshenAction extends Action {
 		$since_id = 0;
 		
 		$nvshendata = M('nvshendata');
-		$sql = "select wb_id from cns_nvshendata order by id desc limit 1";
+		$sql = "select wb_id from cns_nvshendata order by wb_id desc limit 1";
 		$result = $nvshendata->query($sql);
 		if($result){
 			// get lastest weibo id
@@ -66,53 +66,115 @@ class NvshenAction extends Action {
 		$wb_token = C('WEIBO_TOKEN');
 		$weibo = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);
 		
-		// 原创微博
-		$newestweibo = $weibo->home_timeline(1, 50, $since_id, 0, 0, 3);
-		if(isset($newestweibo) && isset($newestweibo['statuses']) && count($newestweibo['statuses'])>0 )
+		// 视频微博，3
+		$video_weibo = $weibo->home_timeline(1, 100, $since_id, 0, 0, 3);
+		// 图片微博，3
+		$pic_weibo = $weibo->home_timeline(1, 100, $since_id, 0, 0, 2);
+		
+		
+		if(isset($video_weibo) && isset($video_weibo['statuses']) && count($video_weibo['statuses'])>0 )
 		{
-			$wblist = $newestweibo['statuses'];
-			for($i=0; $i<count($wblist); $i++){
+			$wblist = $video_weibo['statuses'];
+			for( $i=count($wblist)-1; $i>=0; $i--){
 				$add_data['wb_text'] = $wblist[$i]['text'];
 				$add_data['wb_id'] = $wblist[$i]['id'];
 				
-				$pic_number =  count($wblist[$i]['pic_urls']);
-				
-				// 没有图片
-				if($pic_number==0){
-					
-				}
+				//  匹配短网址
 				if(preg_match('/(http:\/\/t\.cn)+[\w\/\.\-]*/', $add_data['wb_text'], $matched)){
 					$short_url = 	$matched[0];
-					echo 'url:'.$matched[0]."<br>";
-					echo $add_data['wb_text']."<br>";
-					echo json_encode($wblist[$i])."<br><br><br>";
+					$short_detail = $weibo->get_info_by_shorturl($short_url);
+					$detail_object = $short_detail['urls'][0]['annotations'][0]['object'];
+					$video_url = $detail_object['stream']['hd_url'];
+					$video_image = $detail_object['image']['url'];
+					$video_embed_code  = $detail_object['embed_code'];
+					
+					//  可能存在获取视频不对的情况
+					if($video_url==null || $video_url==""){
+						$annotations 	= $short_detail['urls'][0]['annotations'][0];
+						$video_url 		= $annotations['url'];
+						$video_image	= $annotations['pic'];
+					}
+					
+					
+					
+					$add_data['type'] = 3;
+					$add_data['nvshen_user_id'] 			= $wblist[$i]['user']['id'];
+					$add_data['nvshen_screen_name'] 		= $wblist[$i]['user']['screen_name'];
+					$add_data['nvshen_profile_image'] 		= $wblist[$i]['user']['profile_image_url'];
+					$add_data['nvshen_big_profile_image'] 	= $wblist[$i]['user']['cover_image_phone'];
+					
+					$add_data['video_url'] = $video_url;
+					$add_data['video_image'] = $video_image;
+					$add_data['video_embed_code'] = $video_embed_code;
+					$add_data['like_times'] = 0;
+					$add_data['isok'] = 0;
+					
+					
+					
+					$result = $nvshendata->add($add_data);
+					if(!$result){
+						ddlog::warn("add nvshen video data fail. wb_id is  ". $add_data['wb_id']);
+					}
+					unset($add_data);
 				}
-				
-				echo "picnumber is ".$pic_number."<br>";
-				for($j=0;$j<count($wblist[$i]['pic_urls']); $j++){
-					echo $wblist[$i]['pic_urls'][$j]['thumbnail_pic'];
-					echo "<br>";
-					echo "<br>";
+				else{
+					continue;
 				}
-				echo json_encode($wblist[$i]['pic_urls']);
-				
-				
 			}
 		}
-		echo json_encode($newestweibo);
 		
 		
+		// 图片
+		if(isset($pic_weibo) && isset($pic_weibo['statuses']) && count($pic_weibo['statuses'])>0 )
+		{
+			$wblist = $pic_weibo['statuses'];
+			for( $i=count($wblist)-1; $i>=0; $i--){
+				unset($add_data);
+			//for( $i=0;$i<count($wblist);  $i++){
+				$pic_array 	= $wblist[$i]['pic_urls'];
+				$pic_number =  count($pic_array);
+				// 没有图片
+				if($pic_number==0){
+					continue;
+				}
+				
+				$add_data['wb_text'] = $wblist[$i]['text'];
+				$add_data['wb_id'] = $wblist[$i]['id'];
+				
+				$add_data['type'] = 2;
+				$add_data['nvshen_user_id'] 			= $wblist[$i]['user']['id'];
+				$add_data['nvshen_screen_name'] 		= $wblist[$i]['user']['screen_name'];
+				$add_data['nvshen_profile_image'] 		= $wblist[$i]['user']['profile_image_url'];
+				$add_data['nvshen_big_profile_image'] 	= $wblist[$i]['user']['cover_image_phone'];
+				
+				$add_data['like_times'] = 0;
+				$add_data['isok'] = 0;
+				
+				for($j=0;$j<count($pic_array);$j++){
+					$thumbnail_pic = $pic_array[$j]['thumbnail_pic'];
+					$bmiddle_pic = str_replace("thumbnail", "bmiddle", $thumbnail_pic);
+					$large_pic 	= str_replace("thumbnail", "large", $thumbnail_pic);
+					
+					$add_data['pic_url'] 		= $large_pic;
+					$add_data['thumbnail_pic'] 	= $thumbnail_pic;
+					$add_data['bmiddle_pic'] 	= $bmiddle_pic;
+					$add_data['large_pic'] 		= $large_pic;
+					
+					$result = $nvshendata->add($add_data);
+					if(!$result){
+						ddlog::warn("add nvshen video data fail. wb_id is  ". $add_data['wb_id']);
+					}
+				}
+			}
+		}
+		$this->ajaxReturn('ok','ok',0);
 	}
   
 	public function test(){
-		$matched = array();
-		if(preg_match('/(http:\/\/t\.cn)+[\w\/\.\-]*/', "http://t.cn/RhJEmqq", $matched)){
-			echo $matched[0];
-		}
 		$wb_token = C('WEIBO_TOKEN');
 		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
 		
-		//$a = $c->get_info_by_shorturl('http://t.cn/RhJEmqq');
-		//echo json_encode($a);
+		$a = $c->get_info_by_shorturl('http://t.cn/RvTbPbi');
+		echo json_encode($a);
 	}
 }
