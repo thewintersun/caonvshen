@@ -12,7 +12,7 @@ class IndexAction extends Action {
 		$this->assign("nvshen_name", "绮里嘉ula");
 		$this->assign("imgcount", 6);
 		$this->assign("url_zipai", "http://ww1.sinaimg.cn/bmiddle/dd6868a6jw1ek3zaa7z6ij20hs0qo76i.jpg");
-		
+		 
 		/*
 		$nvshenInfo = array(
 	        'url_caonvshen_nvshenpage' => 'http://lunvshen.com/u?name=绮里嘉ula',
