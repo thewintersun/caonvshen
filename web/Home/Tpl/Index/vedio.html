@@ -6,10 +6,10 @@
  <title>女神自拍视频-撸女神（lunvshen.com）</title>
 <meta name="description" content="撸女神lunvshen.com-真实女神的自拍视频分享社区。汇集最新、最全、最HOT的美女视频，最新女神排行榜，实乃撸管必备神器！ ">
 <meta name="keywords" content="女神,美女,女神排行榜,宅男女神,宅男女神排行榜,美女视频,美女自拍视频,女神自拍,女神视频,美女排行榜,撸管,撸美女,撸女神,撸妹纸">
-<link rel="stylesheet" type="text/css" href="semantic/packaged/css/semantic.css" />
-<script src="semantic/packaged/javascript/jquery.js"></script>
-<script src="semantic/packaged/javascript/semantic.min.js"></script>
-<link rel="shortcut icon" href="http://lunvshen.com/favicon.ico" /> 
+<link rel="stylesheet" type="text/css" href="/public/semantic/packaged/css/semantic.css" />
+<script src="/public/semantic/packaged/javascript/jquery.js"></script>
+<script src="/public/semantic/packaged/javascript/semantic.min.js"></script>
+<link rel="shortcut icon" href="http://localhost:8080/favicon.ico" /> 
 </head>
 <style>
 #example{
@@ -26,7 +26,7 @@ html,body{
     margin: 0px auto;
 }
 .maindiv{
-    background-image: url("/img/background.png");
+    background-image: url("/public/image/background.png");
     width: 100%;
 }
 #nvshenmenu{
@@ -90,23 +90,327 @@ margin-bottom: -37px;
 <div class="ui red inverted menu" id="nvshenmenu">
     <div class="container">
             <div class="title item" style="margin-right:40px;float:left">
-                <a href="http://lunvshen.com"><b>撸女神</b></a>
-            </div>     
-         <a class="item" href="http://lunvshen.com">首页</a>
-         <a class="item" href="http://lunvshen.com/pp">相册</a>
-         <a class="item" href="http://lunvshen.com/video">视频</a>
-         <a class="item" href="http://lunvshen.com/random">随机撸</a>
-         <a class="item" href="http://lunvshen.com/users">女神排行</a>
-         <a class="item" href="http://lunvshen.com/add">推荐女神</a>
+                <a href="http://localhost:8080"><b>撸女神</b></a>
+            </div>
+        <div style="float:left">     
+         <a class="item" href="http://localhost:8080">首页</a>
+         <a class="item" href="http://localhost:8080/pp">相册</a>
+         <a class="item" href="http://localhost:8080/video">视频</a>
+         <a class="item" href="http://localhost:8080/random">随机撸</a>
+         <a class="item" href="http://localhost:8080/users">女神排行</a>
+         <a class="item" href="http://localhost:8080/add">推荐女神</a>
+     </div>
+         <div style="float:right">
+             <a class='item' id='loginbt'>登录</a><a class='item' id='signupbt'>注册</a><div class="ui small modal" id="signupbox">
+        <i class="close icon"></i>
+        <div class="header">
+            注册
+        </div>
+        <div class="content">
+            <div class="ui" style="width:55%;float:left">
+                <div class="ui left labeled icon input">
+                    <input id="username" type="text" placeholder="用户名">
+                    <i class="user icon"></i>
+                    <input name="username_flag" id="username_flag" type="hidden" value="-1">
+                </div>
+                <p class="signupp" id="usernamep"><i class="large info icon" style="color:#009FDA"></i>2-18个字符,可使用中文,字母,数字,下划线</p>
+                <div class="ui left labeled icon input">
+                    <input id="password" type="password" placeholder="密码">
+                    <i class="lock icon"></i>
+                    <input name="password_flag" id="password_flag" type="hidden" value="-1">
+                </div>
+                <p class="signupp" id="passwordp"><i class="large info icon" style="color:#009FDA"></i>密码必须有5-18个字符</p>
+                <div class="ui left labeled icon input">
+                    <input id="email" type="text" placeholder="邮箱地址">
+                    <i class="mail icon"></i>
+                    <input name="email_flag" id="email_flag" type="hidden" value="-1">
+                </div>
+                <p class="signupp" id="emailp"><i class="large info icon" style="color:#009FDA"></i>找回密码时使用</p>
+            </div>
+            <div class="ui" style="width:45%;float:right">
+                <h3 class="ui red header" style="margin-left:45px">
+            撸友特权
+            </h3>
+            <ul style="list-style-type: none;font-size: 12px;
+color: #888;">
+            <li style="padding: 9px 0 9px 3px;
+border-bottom: 1px #ddd dashed;"><b class="NO">1</b> <span>收藏女神的自拍照或自拍视频，随时随地翻出来撸一发</span> </li>
+            <li style="padding: 9px 0 9px 3px;
+border-bottom: 1px #ddd dashed;"><b class="NO">2</b> <span>关注你喜欢的女神，快人一步获取女神作品，为女神点120个赞</span> </li>
+            <li style="padding: 9px 0 9px 3px;
+"><b class="NO">3</b> <span>更多特权不注册我是不会告诉你的╭(╯^╰)╮</span> </li>
+        </ul>
+            </div>
+        </div>
+        <div style="padding: 1rem 2rem;text-align: left;">
+            <a class="ui red button" onclick="signup()">注册帐号</a>
+            <span style="margin-left:50px;color: #bbb;">已有帐号，马上<a href="#" onclick="login1()">登录</a><span>
+        </div>
     </div>
-</div>    <div class="maindiv" style="text-shadow: 0 1px 0 #fff;">
+
+
+<div class="ui small modal" id="loginbox">
+        <i class="close icon"></i>
+        <div class="header">
+            登录
+        </div>
+        <div class="content">
+            <div class="ui" style="width:55%;float:left">
+                <div class="ui left labeled icon input">
+                    <input id="loginusername" type="text" placeholder="用户名">
+                    <i class="user icon"></i>
+                </div>
+                <p class="signupp" style="height:12px"></p>
+                <div class="ui left labeled icon input">
+                    <input id="loginpassword" type="password" placeholder="密码">
+                    <i class="lock icon"></i>
+                </div>
+                <p class="signupp" style="height:12px" ></p>
+                <p class="signupp redp" id="loginp"></p>
+            </div>
+            <div class="ui" style="width:45%;float:right">
+                <h3 class="ui red header" style="margin-left:45px">
+            撸友特权
+            </h3>
+            <ul style="list-style-type: none;font-size: 12px;
+color: #888;">
+            <li style="padding: 9px 0 9px 3px;
+border-bottom: 1px #ddd dashed;"><b class="NO">1</b> <span>收藏女神的自拍照或自拍视频，随时随地翻出来撸一发</span> </li>
+            <li style="padding: 9px 0 9px 3px;
+border-bottom: 1px #ddd dashed;"><b class="NO">2</b> <span>关注你喜欢的女神，快人一步获取女神作品，为女神点120个赞</span> </li>
+            <li style="padding: 9px 0 9px 3px;
+"><b class="NO">3</b> <span>更多特权不注册我是不会告诉你的╭(╯^╰)╮</span> </li>
+        </ul>
+            </div>
+        </div>
+        <div style="padding: 1rem 2rem;text-align: left;">
+            <a class="ui red button" onclick="login()">登录</a>
+            <span style="margin-left:50px;color: #bbb;">还没有账号？<a href="#" onclick="signup1()">免费注册</a><span>
+        </div>
+    </div>
+    <script type="text/javascript">
+function login1(){
+    //$(".ui.modal").modal("hide others");
+    $("#loginbox").modal("show");
+    $("#signupbox").removeClass("visible active");
+    $("#signupbox").addClass("hidden");
+    $("#loginbox").removeClass("hidden");
+    $("#loginbox").addClass("visible active");
+}
+function signup1(){
+    //$(".ui.modal").modal("hide others");
+    $("#signupbox").modal("show");
+        $("#loginbox").removeClass("visible active");
+    $("#loginbox").addClass("hidden");
+    $("#signupbox").removeClass("hidden");
+        $("#signupbox").addClass("visible active");
+}
+function login(){
+    if($("#loginusername").val()==""){
+    $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名不能为空");
+            return false;
+    }
+    if($("#loginpassword").val()==""){
+    $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码不能为空");
+            return false;
+    }
+            $.get("../ajax/login.php", {password:$("#loginpassword").val(),username:$("#loginusername").val()},function(data){
+                        if(data==1){
+                          window.location.reload();
+                        }else if(data==0){
+                            $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名与密码错误");
+                            return false;
+                        }
+         });
+}
+function signup(){
+    if($("#username").val().length<2 || $("#username").val().length>18){
+             $("#username_flag").val("-1");
+            $("#usernamep").addClass("redp");
+            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名必须为2-18个字符");
+            return false;
+    }
+     if($("#password").val().length<5 || $("#password").val().length>18){
+                         $("#password_flag").val("-1");
+            $("#passwordp").addClass("redp");
+            $("#passwordp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码必须为5-18个字符");
+            return false;
+        }
+        if(!$("#email").val().match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)){
+                $("#email_flag").val("-1");
+                $("#emailp").addClass("redp");
+                $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>邮箱格式不正确");
+                 return false;
+        }
+        $.get("../ajax/signupcheck.php", {password:$("#password").val(),email:$("#email").val(),username:$("#username").val()},function(data){
+                        if(data==1){
+                            $("#email_flag").val("-1");
+                            $("#emailp").addClass("redp");
+                            $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此邮箱已注册过");
+                            return false;
+                        }else if(data==2){
+                            $("#username_flag").val("-1");
+                            $("#usernamep").addClass("redp");
+                            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此用户名已注册过");
+                            return false;
+                        }else if(data==4){
+                            alert("注册失败，请稍后再试！");
+                            return false;
+                        }else if(data==3){
+                            window.location.reload();
+                        }
+         });
+
+}
+$("#username").focus(function(){
+        $("#usernamep").removeClass("redp");
+        $("#usernamep").removeClass("greenp");
+        $("#usernamep").html("<i class='large info icon' style='color:#009FDA'></i>2-18个字符,可使用中文,字母,数字,下划线");
+    });
+    $("#username").blur(function(){
+        if($("#username").val().length<2 || $("#username").val().length>18){
+             $("#username_flag").val("-1");
+            $("#usernamep").addClass("redp");
+            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名必须为2-18个字符");
+            return false;
+        }else{
+                $.get("../ajax/checkusername.php", {username:$("#username").val()},function(data){
+                        if(data!=0){
+                            $("#username_flag").val("-1");
+                            $("#usernamep").addClass("redp");
+                            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此用户名已注册过");
+                            return false;
+                        }else{
+                                    $("#username_flag").val("1");
+                                     $("#usernamep").addClass("greenp");
+                                    $("#usernamep").html("<i class='large  green checkmark icon' style='color:#009FDA'></i>输入正确!");
+                        }
+                });
+            }
+    });
+    $("#password").focus(function(){
+        $("#passwordp").removeClass("redp");
+        $("#passwordp").removeClass("greenp");
+        $("#passwordp").html("<i class='large info icon' style='color:#009FDA'></i>密码必须有5-18个字符");
+    });
+    $("#password").blur(function(){
+         if($("#password").val().length<5 || $("#password").val().length>18){
+                         $("#password_flag").val("-1");
+            $("#passwordp").addClass("redp");
+            $("#passwordp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码必须为5-18个字符");
+            return false;
+        }else{
+            $("#password_flag").val("1");
+        $("#passwordp").addClass("greenp");
+        $("#passwordp").html("<i class='large  green checkmark icon' style='color:#009FDA'></i>输入正确!");  
+         }
+    });
+    $("#email").focus(function(){
+        $("#emailp").removeClass("redp");
+        $("#emailp").removeClass("greenp");
+        $("#emailp").html("<i class='large info icon' style='color:#009FDA'></i>找回密码时使用");
+    });
+    $("#email").blur(function(){
+        if(!$("#email").val().match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)){
+                $("#email_flag").val("-1");
+                $("#emailp").addClass("redp");
+                $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>邮箱格式不正确");
+                 return false;
+        }else{
+            $.get("../ajax/checkemail.php", {email:$("#email").val()},function(data){
+                        if(data!=0){
+                            $("#email_flag").val("-1");
+                            $("#emailp").addClass("redp");
+                            $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此邮箱已注册过");
+                            return false;
+                        }else{
+                                    $("#email_flag").val("1");
+                                       $("#emailp").addClass("greenp");
+        $("#emailp").html("<i class='large  green checkmark icon' style='color:#009FDA'></i>输入正确!");
+                        }
+                });
+        }
+    });
+    $("#signupbt").click(function(){
+        $('#signupbox').modal('show');
+    });
+    $("#loginbt").click(function(){
+        $('#loginbox').modal('show');
+    });
+</script>        </div>
+    </div>
+</div>
+    <div class="maindiv" style="text-shadow: 0 1px 0 #fff;">
         <div class="container" style="padding: 20px 0px 30px 0px;">
+            <div style="margin-top:-10px; margin-bottom:17px">
+              <div class="ui secondary pointing red menu">
+            <a class="item active"  href="http://localhost:8080/video">
+            最新
+            </a>
+            <a class="item  "  href="http://localhost:8080/video?sort=hot">
+            最热
+            </a>
+            <div class="right menu">
+            </div>
+        </div>
+            </div>
            <div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly" class="imga">
-                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2239626153/50/5698962772/0" alt="Dj_kelly的主页，Dj_kelly的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly">Dj_kelly</a><br/>
+                <a target="_blank" href="http://localhost:8080/u?name=樊玲Jolie" class="imga">
+                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp3.sinaimg.cn/3215435934/50/5693046832/0" alt="樊玲Jolie的主页，樊玲Jolie的自拍照与自拍视频">
+                </a><a target="_blank" href="http://localhost:8080/u?name=樊玲Jolie">樊玲Jolie</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/29330.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/29790.html' >
+                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/54111b2f14ee93726.jpg" alt="樊玲Jolie的自拍视频">  
+                    <i class="circular inverted blue facetime video icon imgvideo" ></i>
+                </a>
+                </div>
+                <p style="font-size: 12px;
+color: #707070; margin-right:1.55em; margin-top:-25px">发布会现场 #美拍# 录制） </p>
+                
+                <div style="height:28px">
+                    </div>
+
+            </div>
+                        <div class="ui" style="float:left;width:323px">
+                <a target="_blank" href="http://localhost:8080/u?name=Crazy吴梓嫣" class="imga">
+                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp4.sinaimg.cn/1597817011/50/40013507950/0" alt="Crazy吴梓嫣的主页，Crazy吴梓嫣的自拍照与自拍视频">
+                </a><a target="_blank" href="http://localhost:8080/u?name=Crazy吴梓嫣">Crazy吴梓嫣</a><br/>
+        <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/29640.html' >
+                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/540eb440138647953.jpg" alt="Crazy吴梓嫣的自拍视频">  
+                    <i class="circular inverted blue facetime video icon imgvideo" ></i>
+                </a>
+                </div>
+                <p style="font-size: 12px;
+color: #707070; margin-right:1.55em; margin-top:-25px">感觉你们不是很喜欢看我的美拍 </p>
+                
+                <div style="height:28px">
+                    </div>
+
+            </div>
+                        <div class="ui" style="float:left;width:323px">
+                <a target="_blank" href="http://localhost:8080/u?name=孟晓艺dana" class="imga">
+                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp3.sinaimg.cn/1914186102/50/5686221512/0" alt="孟晓艺dana的主页，孟晓艺dana的自拍照与自拍视频">
+                </a><a target="_blank" href="http://localhost:8080/u?name=孟晓艺dana">孟晓艺dana</a><br/>
+        <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/29369.html' >
+                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/540de2ee4dde1934.jpg" alt="孟晓艺dana的自拍视频">  
+                    <i class="circular inverted blue facetime video icon imgvideo" ></i>
+                </a>
+                </div>
+                <p style="font-size: 12px;
+color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：“杭州三天的演出终于结束了，虽然雷炸了但是还是忍不住臭美一下子 </p>
+                
+                <div style="height:28px">
+                    </div>
+
+            </div>
+            </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
+                <a target="_blank" href="http://localhost:8080/u?name=Dj_kelly" class="imga">
+                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2239626153/50/5698962772/0" alt="Dj_kelly的主页，Dj_kelly的自拍照与自拍视频">
+                </a><a target="_blank" href="http://localhost:8080/u?name=Dj_kelly">Dj_kelly</a><br/>
+        <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/29330.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/540dbe0681aab1586.jpg" alt="Dj_kelly的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -119,11 +423,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/5240262420/50/5704298998/0" alt="陈美琳Mandy的主页，陈美琳Mandy的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/29067.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/29067.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/540af9da435d37739.jpg" alt="陈美琳Mandy的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -136,11 +440,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">美女 </p>
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=张栩菲-ManGo" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=张栩菲-ManGo" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/5135260216/50/5703654433/0" alt="张栩菲-ManGo的主页，张栩菲-ManGo的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=张栩菲-ManGo">张栩菲-ManGo</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=张栩菲-ManGo">张栩菲-ManGo</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/29030.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/29030.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/540bfba5da4777645.jpg" alt="张栩菲-ManGo的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -153,11 +457,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">亲爱的们，下午好�
 
             </div>
             </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Lulu罗小鹿" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=Lulu罗小鹿" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2111349261/50/5674662673/0" alt="Lulu罗小鹿的主页，Lulu罗小鹿的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Lulu罗小鹿">Lulu罗小鹿</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=Lulu罗小鹿">Lulu罗小鹿</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/29008.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/29008.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://paikeimg.video.sina.com.cn/stream/WQ0~LnU3~pRJSgChYKYBFQ___m.jpg" alt="Lulu罗小鹿的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -170,11 +474,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">快来看看我的最新�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=张优ayoyo" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=张优ayoyo" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/2018594940/50/5670226109/0" alt="张优ayoyo的主页，张优ayoyo的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=张优ayoyo">张优ayoyo</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=张优ayoyo">张优ayoyo</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28972.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28972.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/540b40a3522fa9879.jpg" alt="张优ayoyo的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -187,12 +491,12 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/5240262420/50/5704298998/0" alt="陈美琳Mandy的主页，陈美琳Mandy的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28906.html' >
-                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://lunvshen.com/weibo/uploads/new/1410008035-2333.jpg" alt="陈美琳Mandy的自拍视频">  
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28906.html' >
+                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://localhost:8080/weibo/uploads/new/1410008035-2333.jpg" alt="陈美琳Mandy的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
                 </div>
@@ -204,11 +508,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">我好喜欢的视频哦/
 
             </div>
             </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=童小芯上帝寵兒" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=童小芯上帝寵兒" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/1898371385/50/39999126876/0" alt="童小芯上帝寵兒的主页，童小芯上帝寵兒的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=童小芯上帝寵兒">童小芯上帝寵兒</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=童小芯上帝寵兒">童小芯上帝寵兒</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28700.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28700.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/540988dac67527109.jpg" alt="童小芯上帝寵兒的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -221,11 +525,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=Dj_kelly" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2239626153/50/5698962772/0" alt="Dj_kelly的主页，Dj_kelly的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly">Dj_kelly</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=Dj_kelly">Dj_kelly</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28400.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28400.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/54072092a49946918.jpg" alt="Dj_kelly的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -238,11 +542,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=草莓Rasa" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=草莓Rasa" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/1785270873/50/5685582105/0" alt="草莓Rasa的主页，草莓Rasa的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=草莓Rasa">草莓Rasa</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=草莓Rasa">草莓Rasa</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28399.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28399.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/54072adf35cdb6519.jpg" alt="草莓Rasa的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -255,11 +559,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
             </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=欣鹭baby" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=欣鹭baby" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp3.sinaimg.cn/5017741750/50/5700196780/0" alt="欣鹭baby的主页，欣鹭baby的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=欣鹭baby">欣鹭baby</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=欣鹭baby">欣鹭baby</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28383.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28383.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/53f83de2e28293940.jpg" alt="欣鹭baby的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -272,12 +576,12 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=Dj_kelly" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2239626153/50/5698962772/0" alt="Dj_kelly的主页，Dj_kelly的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly">Dj_kelly</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=Dj_kelly">Dj_kelly</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28097.html' >
-                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://lunvshen.com/weibo/uploads/new/1409640796-8202.jpg" alt="Dj_kelly的自拍视频">  
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28097.html' >
+                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://localhost:8080/weibo/uploads/new/1409640796-8202.jpg" alt="Dj_kelly的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
                 </div>
@@ -289,11 +593,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">内衣太小，不是我�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/5240262420/50/5704298998/0" alt="陈美琳Mandy的主页，陈美琳Mandy的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/28080.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/28080.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/53f1a4416d4f27019.jpg" alt="陈美琳Mandy的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -306,11 +610,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
             </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/5240262420/50/5704298998/0" alt="陈美琳Mandy的主页，陈美琳Mandy的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=陈美琳Mandy">陈美琳Mandy</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27971.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27971.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/54008bec2a33d455.jpg" alt="陈美琳Mandy的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -323,11 +627,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=love陆瓷" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=love陆瓷" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/5183553200/50/5700146411/0" alt="love陆瓷的主页，love陆瓷的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=love陆瓷">love陆瓷</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=love陆瓷">love陆瓷</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27706.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27706.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/53e4ee93c7e16539.jpg" alt="love陆瓷的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -340,11 +644,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=孟晓艺dana" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=孟晓艺dana" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp3.sinaimg.cn/1914186102/50/5686221512/0" alt="孟晓艺dana的主页，孟晓艺dana的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=孟晓艺dana">孟晓艺dana</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=孟晓艺dana">孟晓艺dana</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27631.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27631.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/5400d4f6a81a04686.jpg" alt="孟晓艺dana的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -357,12 +661,12 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
             </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=苏夏妞妞" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=苏夏妞妞" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp4.sinaimg.cn/2719731143/50/40048480058/0" alt="苏夏妞妞的主页，苏夏妞妞的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=苏夏妞妞">苏夏妞妞</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=苏夏妞妞">苏夏妞妞</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27466.html' >
-                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://lunvshen.com/weibo/uploads/new/1409359996-3232.jpg" alt="苏夏妞妞的自拍视频">  
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27466.html' >
+                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://localhost:8080/weibo/uploads/new/1409359996-3232.jpg" alt="苏夏妞妞的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
                 </div>
@@ -374,12 +678,12 @@ color: #707070; margin-right:1.55em; margin-top:-25px">闪瞎 我刚刚用#微�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=Dj_kelly" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2239626153/50/5698962772/0" alt="Dj_kelly的主页，Dj_kelly的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly">Dj_kelly</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=Dj_kelly">Dj_kelly</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27385.html' >
-                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://lunvshen.com/weibo/uploads/new/1409309584-3369.jpg" alt="Dj_kelly的自拍视频">  
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27385.html' >
+                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://localhost:8080/weibo/uploads/new/1409309584-3369.jpg" alt="Dj_kelly的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
                 </div>
@@ -391,11 +695,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">内衣有货喜欢这款�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=Dj_kelly" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2239626153/50/5698962772/0" alt="Dj_kelly的主页，Dj_kelly的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Dj_kelly">Dj_kelly</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=Dj_kelly">Dj_kelly</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27291.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27291.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/53ff5f0c496e65287.jpg" alt="Dj_kelly的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -408,11 +712,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
             </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Lulu罗小鹿" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=Lulu罗小鹿" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/2111349261/50/5674662673/0" alt="Lulu罗小鹿的主页，Lulu罗小鹿的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Lulu罗小鹿">Lulu罗小鹿</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=Lulu罗小鹿">Lulu罗小鹿</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27184.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27184.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://paikeimg.video.sina.com.cn/stream/aZiqWTLbnzm89573WeE5PA___m.jpg" alt="Lulu罗小鹿的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -425,11 +729,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">快来看看我的最新�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=模特张琼瑶emma" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=模特张琼瑶emma" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp4.sinaimg.cn/1180252487/50/5696545116/0" alt="模特张琼瑶emma的主页，模特张琼瑶emma的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=模特张琼瑶emma">模特张琼瑶emma</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=模特张琼瑶emma">模特张琼瑶emma</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/27161.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/27161.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/53fec8a079c791798.jpg" alt="模特张琼瑶emma的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -442,11 +746,11 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
 
             </div>
                         <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Amanda冰冰" class="imga">
+                <a target="_blank" href="http://localhost:8080/u?name=Amanda冰冰" class="imga">
                 <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp2.sinaimg.cn/1787396321/50/5690255713/0" alt="Amanda冰冰的主页，Amanda冰冰的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Amanda冰冰">Amanda冰冰</a><br/>
+                </a><a target="_blank" href="http://localhost:8080/u?name=Amanda冰冰">Amanda冰冰</a><br/>
         <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/26873.html' >
+                                   <a class="imga boxer" target="_blank" href='http://localhost:8080/26873.html' >
                     <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/53fc8e1f4cfd3492.jpg" alt="Amanda冰冰的自拍视频">  
                     <i class="circular inverted blue facetime video icon imgvideo" ></i>
                 </a>
@@ -458,58 +762,7 @@ color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：�
                     </div>
 
             </div>
-            </div><div style='display:block;clear:both;'>            <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=小孽小囍" class="imga">
-                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp4.sinaimg.cn/1715604255/50/5679505023/0" alt="小孽小囍的主页，小孽小囍的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=小孽小囍">小孽小囍</a><br/>
-        <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/26579.html' >
-                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg2.meitudata.com/53faa2f3633dc1622.jpg" alt="小孽小囍的自拍视频">  
-                    <i class="circular inverted blue facetime video icon imgvideo" ></i>
-                </a>
-                </div>
-                <p style="font-size: 12px;
-color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：“8月26日晚上7点，我在嘟嘟语音等你守护哦！”，点此播放>>#美拍# 录制） </p>
-                
-                <div style="height:28px">
-                    </div>
-
-            </div>
-                        <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=酒才是最忠诚的男朋友" class="imga">
-                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp1.sinaimg.cn/2604627752/50/5694586383/0" alt="酒才是最忠诚的男朋友的主页，酒才是最忠诚的男朋友的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=酒才是最忠诚的男朋友">酒才是最忠诚的男朋友</a><br/>
-        <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/26564.html' >
-                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://lunvshen.com/weibo/uploads/new/1408905895-8141.jpg" alt="酒才是最忠诚的男朋友的自拍视频">  
-                    <i class="circular inverted blue facetime video icon imgvideo" ></i>
-                </a>
-                </div>
-                <p style="font-size: 12px;
-color: #707070; margin-right:1.55em; margin-top:-25px">我好喜欢的视频哦//小号传过， </p>
-                
-                <div style="height:28px">
-                    </div>
-
-            </div>
-                        <div class="ui" style="float:left;width:323px">
-                <a target="_blank" href="http://lunvshen.com/u?name=Isa-姍姍" class="imga">
-                <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="http://tp4.sinaimg.cn/1863491463/50/5691090546/0" alt="Isa-姍姍的主页，Isa-姍姍的自拍照与自拍视频">
-                </a><a target="_blank" href="http://lunvshen.com/u?name=Isa-姍姍">Isa-姍姍</a><br/>
-        <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
-                                   <a class="imga boxer" target="_blank" href='http://lunvshen.com/26487.html' >
-                    <img style="width:300px;margin-right:0em;margin-top:15px;border-radius: 8px;"  class="rounded ui  left image " src="http://mvimg1.meitudata.com/53f9c3677e7b01983.jpg" alt="Isa-姍姍的自拍视频">  
-                    <i class="circular inverted blue facetime video icon imgvideo" ></i>
-                </a>
-                </div>
-                <p style="font-size: 12px;
-color: #707070; margin-right:1.55em; margin-top:-25px">来看看我拍的MV：“ </p>
-                
-                <div style="height:28px">
-                    </div>
-
-            </div>
-            </div>            <p class='go-to-next-page'><a href='http://lunvshen.com/video?p=2'>下一页</a></p>                        <div style="width:100%;text-align: center;clear: both;">
+            </div>            <p class='go-to-next-page'><a href='http://localhost:8080/video?sort=new&p=2'>下一页</a></p>                        <div style="width:100%;text-align: center;clear: both;">
           <!--  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <ins class="adsbygoogle"
@@ -553,22 +806,45 @@ bottom: 10px;
 right: 20px;
 width: 34px;
 height: 60px;
-background: url('../img/rocket.png') no-repeat 0 0;
+background: url('/public/image/rocket.png') no-repeat 0 0;
 box-shadow: none;
 }
 .backtop a:hover {
-background-image: url('../img/rocket-active.png');
+background-image: url('/public/image/rocket-active.png');
 }
 .f-sina,.f-qq{
 float: right;
 width: 28px;
 height: 28px;
-background-image: url('../img/follow.png');
+background-image: url('/public/image/follow.png');
 background-repeat: no-repeat;
 margin: 0 2px 0 0;
 }
 .f-qq {
 background-position: -75px top;
+}
+.signupp{
+margin:0.1em 0px 0.6em 0em;
+color:#bbb;
+font-size: 0.9em;
+}
+ul li .NO {
+width: 16px;
+height: 16px;
+float: left;
+display: inline;
+margin: 0 13px 0 3px;
+line-height: 16px;
+font-size: 12px;
+color: white;
+background-color: #78cd58;
+text-align: center;
+}
+.redp{
+    color: #D95C5C;
+}
+.greenp{
+    color: #A1CF64;
 }
 </style>
 <div class="ui divider" style="margin:25px 0px 20px 0px;clear:both"></div>
@@ -576,15 +852,15 @@ background-position: -75px top;
     <div class="container" style="height:60px;padding:0px 10px;clear:both">
         <div style="width:70%;float:left">
          <div class="ui divided horizontal list">
-            <div class="item"><a href="http://lunvshen.com/about" target="_blank" class="foota">关于我们</a></div>
-            <div class="item"><a href="http://lunvshen.com/advertise" target="_blank" class="foota">广告投放</a></div>
-            <div class="item"><a href="http://lunvshen.com/link" target="_blank" class="foota">友链交换</a></div>
-             <div class="item"><a href="http://lunvshen.com/declear" target="_blank" class="foota">免责申明</a></div>
+            <div class="item"><a href="http://localhost:8080/about" target="_blank" class="foota">关于我们</a></div>
+            <div class="item"><a href="http://localhost:8080/advertise" target="_blank" class="foota">广告投放</a></div>
+            <div class="item"><a href="http://localhost:8080/link" target="_blank" class="foota">友链交换</a></div>
+             <div class="item"><a href="http://localhost:8080/declear" target="_blank" class="foota">免责申明</a></div>
              <!--
-                         <div class="item"><a href="http://lunvshen.com/pp" target="_blank" class="foota">女神相册</a></div>
-                          <div class="item"><a href="http://lunvshen.com/video" target="_blank" class="foota">女神视频</a></div>
-            <div class="item"><a href="http://lunvshen.com/users" target="_blank" class="foota">女神排行</a></div>
-            <div class="item"><a href="http://lunvshen.com/add" target="_blank" class="foota">推荐女神</a></div>
+                         <div class="item"><a href="http://localhost:8080/pp" target="_blank" class="foota">女神相册</a></div>
+                          <div class="item"><a href="http://localhost:8080/video" target="_blank" class="foota">女神视频</a></div>
+            <div class="item"><a href="http://localhost:8080/users" target="_blank" class="foota">女神排行</a></div>
+            <div class="item"><a href="http://localhost:8080/add" target="_blank" class="foota">推荐女神</a></div>
         -->
 
         </div>
@@ -617,8 +893,79 @@ background-position: -75px top;
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5906485'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5906485%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 </div>
 <script type="text/javascript">
+function login1(){
+    //$(".ui.modal").modal("hide others");
+    $("#loginbox").modal("show");
+    $("#signupbox").removeClass("visible active");
+    $("#signupbox").addClass("hidden");
+    $("#loginbox").removeClass("hidden");
+    $("#loginbox").addClass("visible active");
+}
+function signup1(){
+    //$(".ui.modal").modal("hide others");
+    $("#signupbox").modal("show");
+        $("#loginbox").removeClass("visible active");
+    $("#loginbox").addClass("hidden");
+    $("#signupbox").removeClass("hidden");
+        $("#signupbox").addClass("visible active");
+}
+function login(){
+    if($("#loginusername").val()==""){
+    $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名不能为空");
+            return false;
+    }
+    if($("#loginpassword").val()==""){
+    $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码不能为空");
+            return false;
+    }
+            $.get("../ajax/login.php", {password:$("#loginpassword").val(),username:$("#loginusername").val()},function(data){
+                        if(data==1){
+                          window.location.reload();
+                        }else if(data==0){
+                            $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名与密码错误");
+                            return false;
+                        }
+         });
+}
+function signup(){
+    if($("#username").val().length<2 || $("#username").val().length>18){
+             $("#username_flag").val("-1");
+            $("#usernamep").addClass("redp");
+            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名必须为2-18个字符");
+            return false;
+    }
+     if($("#password").val().length<5 || $("#password").val().length>18){
+                         $("#password_flag").val("-1");
+            $("#passwordp").addClass("redp");
+            $("#passwordp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码必须为5-18个字符");
+            return false;
+        }
+        if(!$("#email").val().match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)){
+                $("#email_flag").val("-1");
+                $("#emailp").addClass("redp");
+                $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>邮箱格式不正确");
+                 return false;
+        }
+        $.get("../ajax/signupcheck.php", {password:$("#password").val(),email:$("#email").val(),username:$("#username").val()},function(data){
+                        if(data==1){
+                            $("#email_flag").val("-1");
+                            $("#emailp").addClass("redp");
+                            $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此邮箱已注册过");
+                            return false;
+                        }else if(data==2){
+                            $("#username_flag").val("-1");
+                            $("#usernamep").addClass("redp");
+                            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此用户名已注册过");
+                            return false;
+                        }else if(data==4){
+                            alert("注册失败，请稍后再试！");
+                            return false;
+                        }else if(data==3){
+                            window.location.reload();
+                        }
+         });
 
-
+}
 $(document).ready(function () {
         var bt = $('#toolBackTop');
         var sw = $(document.body)[0].clientWidth;
