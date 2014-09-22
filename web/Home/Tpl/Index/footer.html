@@ -2,48 +2,96 @@
     <div class="container" style="height:60px;padding:0px 10px;clear:both">
         <div style="width:70%;float:left">
          <div class="ui divided horizontal list">
-            <div class="item"><a href="{$url_caonvshen}/about" target="_blank" class="foota">关于我们</a></div>
-            <div class="item"><a href="{$url_caonvshen}/advertise" target="_blank" class="foota">广告投放</a></div>
-            <div class="item"><a href="{$url_caonvshen}/link" target="_blank" class="foota">友链交换</a></div>
-             <div class="item"><a href="{$url_caonvshen}/declear" target="_blank" class="foota">免责申明</a></div>
-             <!--
-                         <div class="item"><a href="{$url_caonvshen}/pp" target="_blank" class="foota">女神相册</a></div>
-                          <div class="item"><a href="{$url_caonvshen}/video" target="_blank" class="foota">女神视频</a></div>
-            <div class="item"><a href="{$url_caonvshen}/users" target="_blank" class="foota">女神排行</a></div>
-            <div class="item"><a href="{$url_caonvshen}/add" target="_blank" class="foota">推荐女神</a></div>
-        -->
-
+            <div class="item"><a href="http://localhost:8080/about" target="_blank" class="foota">关于我们</a></div>
+            <div class="item"><a href="http://localhost:8080/advertise" target="_blank" class="foota">广告投放</a></div>
+            <div class="item"><a href="http://localhost:8080/link" target="_blank" class="foota">友链交换</a></div>
+             <div class="item"><a href="http://localhost:8080/declear" target="_blank" class="foota">免责申明</a></div>
         </div>
         <br/><br/>
-
-        <div style="font-size: 13px;">
-            <span>友情链接:&nbsp;&nbsp;&nbsp;</span> <a style="margin-right:10px" target="_blank" href="http://youai123.com">有爱导航</a>
-            <a style="margin-right:10px" target="_blank" href="http://site.youai123.com">上什么</a>
-        </div>
-
     </div>
      <div style="width:30%;float:right;text-align:right">
-        <span style="font-weight:500">关注撸女神</span>
+        <span style="font-weight:500">关注操女神</span>
         <br/>
         <br/>
-                <a href="http://t.qq.com/lunvshen" class="f-qq" target="_blank" title="撸女神的腾讯微博"></a>
-        <a href="http://weibo.com/lunvshen" class="f-sina" target="_blank" title="撸女神的新浪微博"></a>
-
+        <a href="http://weibo.com/u/1436870027" class="f-sina" target="_blank" title="操女神的新浪微博"></a>
      </div>
     </div>
 </div>
-<div id="toolBackTop" class="backtop sl-fixed sl-fixed-bottom sl-fixed-right" style="display: none;">
-<a class="br-s bs-l" onclick="window.scrollTo(0,0);return false;"></a>
-</div>
-<!--
-<script type="text/javascript" src="http://unionjs.dianxin.com/dl.js" name="dl" data-said="32329" data-width="120" data-height="270" data-type="0" charset="utf-8" ></script>
--->
-<script src="http://f.ku63.com/f.asp?u=62610&m=3&n=" charset="gb2312"></script>
-<div style="display:none;">
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5906485'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5906485%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-</div>
-<script type="text/javascript">
 
+<script type="text/javascript">
+function login1(){
+    //$(".ui.modal").modal("hide others");
+    $("#loginbox").modal("show");
+    $("#signupbox").removeClass("visible active");
+    $("#signupbox").addClass("hidden");
+    $("#loginbox").removeClass("hidden");
+    $("#loginbox").addClass("visible active");
+}
+function signup1(){
+    //$(".ui.modal").modal("hide others");
+    $("#signupbox").modal("show");
+        $("#loginbox").removeClass("visible active");
+    $("#loginbox").addClass("hidden");
+    $("#signupbox").removeClass("hidden");
+        $("#signupbox").addClass("visible active");
+}
+function login(){
+    if($("#loginusername").val()==""){
+    $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名不能为空");
+            return false;
+    }
+    if($("#loginpassword").val()==""){
+    $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码不能为空");
+            return false;
+    }
+            $.get("../ajax/login.php", {password:$("#loginpassword").val(),username:$("#loginusername").val()},function(data){
+                        if(data==1){
+                          window.location.reload();
+                        }else if(data==0){
+                            $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名与密码错误");
+                            return false;
+                        }
+         });
+}
+function signup(){
+    if($("#username").val().length<2 || $("#username").val().length>18){
+             $("#username_flag").val("-1");
+            $("#usernamep").addClass("redp");
+            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名必须为2-18个字符");
+            return false;
+    }
+     if($("#password").val().length<5 || $("#password").val().length>18){
+                         $("#password_flag").val("-1");
+            $("#passwordp").addClass("redp");
+            $("#passwordp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码必须为5-18个字符");
+            return false;
+        }
+        if(!$("#email").val().match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)){
+                $("#email_flag").val("-1");
+                $("#emailp").addClass("redp");
+                $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>邮箱格式不正确");
+                 return false;
+        }
+        $.get("../ajax/signupcheck.php", {password:$("#password").val(),email:$("#email").val(),username:$("#username").val()},function(data){
+                        if(data==1){
+                            $("#email_flag").val("-1");
+                            $("#emailp").addClass("redp");
+                            $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此邮箱已注册过");
+                            return false;
+                        }else if(data==2){
+                            $("#username_flag").val("-1");
+                            $("#usernamep").addClass("redp");
+                            $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>此用户名已注册过");
+                            return false;
+                        }else if(data==4){
+                            alert("注册失败，请稍后再试！");
+                            return false;
+                        }else if(data==3){
+                            window.location.reload();
+                        }
+         });
+
+}
 $(document).ready(function () {
         var bt = $('#toolBackTop');
         var sw = $(document.body)[0].clientWidth;
@@ -72,6 +120,3 @@ $(document).ready(function () {
         
     });
     </script>
-
-    </body>
-</html>
