@@ -29,25 +29,22 @@ class IndexAction extends Action {
 		$nvshendata = M("nvshendata");
 		$wb_id_list = $nvshendata->query($sql);
 		if($wb_id_list){
+			$j = 0;
+			
 			for($i=0;$i<count($wb_id_list); $i++){
 				$wb_id = $wb_id_list[$i]['wb_id'];
-				$sql = "select * from cns_nvshendata where wb_id=".$wb_id;
-				$wb_detail = $nvshendata->query($sql);
-				if($wb_detail){
-					
+				$wb_result = $this->get_wb_detail($wb_id);
+				if($wb_result != -1){
+					$result[$j] = $wb_result;
+					$j++;
 				}
 			}
 			
+			$this->assign("ns_count", $j);
+			$this->assign("ns_detail",$result);
 		}
 		
 		
-		
-        $this->assign("url_caonvshen_nvshenpage", "http://lunvshen.com/u?name=绮里嘉ula");
-		$this->assign("nvshen_head_img", "http://tp3.sinaimg.cn/3714607270/50/5700847258/0");
-		$this->assign("nvshen_name", "绮里嘉ula");
-		$this->assign("imgcount", 6);
-		$this->assign("url_zipai", "http://ww1.sinaimg.cn/bmiddle/dd6868a6jw1ek3zaa7z6ij20hs0qo76i.jpg");
-		 
     	$this->display("Index:index");
 	}
 	
@@ -68,4 +65,55 @@ class IndexAction extends Action {
 		$name = $_GET['name'];
 		
 	}
+	
+	// 根据微博的id获取到这个微博的详细信息
+	private function get_wb_detail($wb_id){
+		$nvshendata = M("nvshendata");
+		$sql = "select * from cns_nvshendata where wb_id=".$wb_id;
+		$wb_detail = $nvshendata->query($sql);
+		if($wb_detail){
+			$wb_detail_count = count($wb_detail);
+			if($wb_detail_count>0){
+				$result['wb_text'] 			= $wb_detail[0]['wb_text'];
+				$result['wb_id'] 			= $wb_detail[0]['wb_id'];
+				$result['like_times'] 		= $wb_detail[0]['like_times'];
+				$result['nvshen_user_id'] 	= $wb_detail[0]['nvshen_user_id'];
+				$result['nvshen_screen_name']		= $wb_detail[0]['nvshen_screen_name'];
+				$result['nvshen_profile_image']		= $wb_detail[0]['nvshen_profile_image'];
+				$result['nvshen_big_profile_image']	= $wb_detail[0]['nvshen_big_profile_image'];
+
+			
+				$type = $wb_detail[0]['type'];
+				
+				// 图片微博
+				if($type == 2){
+					$result['type'] = 2;
+					for($i=0; $i<$wb_detail_count; $i++){
+						$result['pic'][$i]['thumbnail_pic'] = $wb_detail[$i]['thumbnail_pic'];
+						$result['pic'][$i]['bmiddle_pic'] = $wb_detail[$i]['bmiddle_pic'];
+						$result['pic'][$i]['large_pic'] = $wb_detail[$i]['large_pic'];
+					}
+					$result['pic_count'] = $i;
+				}
+				
+				// 视频微博
+				if($type == 3){
+					$result['type'] = 3;
+						$result['video_url'] 		= $wb_detail[0]['video_url'];
+						$result['video_image'] 		= $wb_detail[0]['video_image'];
+						$result['video_embed_code'] = $wb_detail[0]['video_embed_code'];
+				}
+				
+				return $result;
+			}
+			else{
+				return -1;
+			}
+		}
+		else{
+			return -1;
+		}
+	}
+	
+	
 }
