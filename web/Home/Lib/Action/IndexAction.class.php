@@ -44,6 +44,13 @@ class IndexAction extends Action {
 			$this->assign("ns_detail",$result);
 		}
 		
+		$next_page = $p+1;
+		$next_page_param = "sort=new";
+		if($hot ==1){
+			$next_page_param = "sort=hot";
+		}
+		$this->assign('next_page',$next_page);
+		$this->assign("next_page_param", $next_page_param);
 		
     	$this->display("Index:index");
 	}
