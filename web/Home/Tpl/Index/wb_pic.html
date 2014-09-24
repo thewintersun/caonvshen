@@ -36,53 +36,15 @@ color: #707070;">
                          <script>
                          var img=[
                          
-                         
-                         {
-                                        'href':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ukb88l7j21kw2dc1cb.jpg',
-        								'alt':'许诺Sabrina的自拍照',
-        								'src':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ukb88l7j21kw2dc1cb.jpg',
-        								'smallSrc':'http://ww3.sinaimg.cn/thumbnail/3d463f6cgw1ek7ukb88l7j21kw2dc1cb.jpg'
-                                    },{
-                                        'href':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ufyakyvj21kw2dck6g.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ufyakyvj21kw2dck6g.jpg',
-        'smallSrc':'http://ww3.sinaimg.cn/thumbnail/3d463f6cgw1ek7ufyakyvj21kw2dck6g.jpg'
-                                    },{
-                                        'href':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug0nt5ej21kw2dc7k2.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug0nt5ej21kw2dc7k2.jpg',
-        'smallSrc':'http://ww1.sinaimg.cn/thumbnail/3d463f6cgw1ek7ug0nt5ej21kw2dc7k2.jpg'
-                                    },{
-                                        'href':'http://ww2.sinaimg.cn/large/3d463f6cgw1ek7ug3zwuzj21kw2dc4g5.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww2.sinaimg.cn/large/3d463f6cgw1ek7ug3zwuzj21kw2dc4g5.jpg',
-        'smallSrc':'http://ww2.sinaimg.cn/thumbnail/3d463f6cgw1ek7ug3zwuzj21kw2dc4g5.jpg'
-                                    },{
-                                        'href':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ugtautej21kw2dcqm8.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ugtautej21kw2dcqm8.jpg',
-        'smallSrc':'http://ww3.sinaimg.cn/thumbnail/3d463f6cgw1ek7ugtautej21kw2dcqm8.jpg'
-                                    },{
-                                        'href':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug6h7e8j21kw2dctox.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug6h7e8j21kw2dctox.jpg',
-        'smallSrc':'http://ww1.sinaimg.cn/thumbnail/3d463f6cgw1ek7ug6h7e8j21kw2dctox.jpg'
-                                    },{
-                                        'href':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ui4f3h3j21kw2dc1bd.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww3.sinaimg.cn/large/3d463f6cgw1ek7ui4f3h3j21kw2dc1bd.jpg',
-        'smallSrc':'http://ww3.sinaimg.cn/thumbnail/3d463f6cgw1ek7ui4f3h3j21kw2dc1bd.jpg'
-                                    },{
-                                        'href':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug74xrnj21kw2dch1c.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug74xrnj21kw2dch1c.jpg',
-        'smallSrc':'http://ww1.sinaimg.cn/thumbnail/3d463f6cgw1ek7ug74xrnj21kw2dch1c.jpg'
-                                    },{
-                                        'href':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug995wqj21kw2dcqln.jpg',
-        'alt':'许诺Sabrina的自拍照',
-        'src':'http://ww1.sinaimg.cn/large/3d463f6cgw1ek7ug995wqj21kw2dcqln.jpg',
-        'smallSrc':'http://ww1.sinaimg.cn/thumbnail/3d463f6cgw1ek7ug995wqj21kw2dcqln.jpg'
-                                    },]</script>                            
+                         <for start="0" end="$nvshen_detail['pic_number']" >
+                         	{
+                                        'href':"{$nvshen_detail['pic'][$i]['large_pic']}",
+        								'alt':'{$nvshen_detail["nvshen_screen_name"]}的自拍照',
+        								'src':"{$nvshen_detail['pic'][$i]['large_pic']}",
+        								'smallSrc':"{$nvshen_detail['pic'][$i]['thumbnail_pic']}"
+                            },
+                         </for>
+                         ]</script>                            
     <div class="imgContainer">
     <!--大图-->
     <div class="detailImg"> 
