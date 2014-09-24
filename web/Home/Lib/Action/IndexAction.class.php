@@ -73,6 +73,50 @@ class IndexAction extends Action {
 		
 	}
 	
+	
+	// 点击一个图片或者视屏后， 进入到详细的这个微博的各种的网页
+	public function wb(){
+		$wb_id = $_GET['id'];
+		$nvshendata = M("nvshendata");
+		
+		$getdata['wb_id'] = $wb_id;
+		$wb_result = $nvshendata->where($getdata)->select();
+		// 如果有
+		if($wb_result){
+			if(count($wb_result) >0 ){
+				$type = $wb_result[0]['type'];
+				
+				$result['wb_text'] 				= $wb_result[0]['wb_text'];
+				$result['nvshen_screen_name'] 	= $wb_result[0]['nvshen_screen_name'];
+				$result['nvshen_profile_image'] = $wb_result[0]['nvshen_profile_image'];
+				$result['like_times'] 			= $wb_result[0]['like_times'];
+				
+				
+				// pic weibo
+				if($type == 2){
+					$result['pic_number'] 					= count($wb_result);
+					$result['nvshen_screen_name_title'] 	= $wb_result[0]['nvshen_screen_name'].'的自拍照['.$result['pic_number'].'P]';
+					
+					for($i=0; $i<count($wb_result); $i++){
+						$result['pic'][$i]['thumbnail_pic'] = $wb_result[$i]['thumbnail_pic'];
+						$result['pic'][$i]['bmiddle_pic'] 	= $wb_result[$i]['bmiddle_pic'];
+						$result['pic'][$i]['large_pic'] 	= $wb_result[$i]['large_pic'];
+					}
+					
+					$this->assign("nvshen_detail", $result);
+					$this->display("Index:wb_pic");
+				}
+				
+				
+				// video weibo 
+				if($type == 3){
+					
+				}
+			}
+		}
+		
+	}
+	
 	// 根据微博的id获取到这个微博的详细信息
 	private function get_wb_detail($wb_id){
 		$nvshendata = M("nvshendata");

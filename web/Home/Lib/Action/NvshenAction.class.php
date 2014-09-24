@@ -107,7 +107,7 @@ class NvshenAction extends Action {
 					$add_data['video_image'] = $video_image;
 					$add_data['video_embed_code'] = $video_embed_code;
 					$add_data['like_times'] = 0;
-					$add_data['isok'] = 0;
+					$add_data['isok'] = 1;
 					
 					
 					
