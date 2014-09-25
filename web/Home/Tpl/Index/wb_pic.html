@@ -20,7 +20,7 @@ color: #707070;">
                                     <div class="ui compact menu" style="float:left;margin:15px 0px 10px 25px;">
             <a class="item luyixia" data-id="29721" style="padding: 0.4em 0.7em;">
                 <i style="background-image:url('img/lu.gif');width:22px;height:22px;display: block;background-size: 22px 22px;float:left"></i><span style="position: relative;top:5px;width:90px">操一把</span>
-                <div id="jia1" class="floating ui red label" >7</div>
+                <div id="jia1" class="floating ui red label" >{$nvshen_detail['like_times']}</div>
             </a>
             
         </div>
@@ -89,23 +89,23 @@ color: #707070;">
 padding-right: 0.8%;margin-top:0px">
             <div class="ui segment" >
                 <div style='width:120px;float:left'>
-                <a title="{$nvshen_detail['nvshen_screen_name']}的主页" href="/u?name=许诺Sabrina">
-                <img class="ui avatar image" src="{$nvshen_detail['nvshen_profile_image']}" style="margin-right:4px;width:120px;height:120px;border-radius:5px" alt="{$nvshen_detail['nvshen_screen_name']}的主页，{$nvshen_detail['nvshen_screen_name']}的自拍照与自拍视频">
+                <a title="{$nvshen_detail['nvshen_screen_name']}的主页" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}">
+                <img class="ui avatar image" src="{$nvshen_detail['avatar_large']}" style="margin-right:4px;width:120px;height:120px;border-radius:5px" alt="{$nvshen_detail['nvshen_screen_name']}的主页，{$nvshen_detail['nvshen_screen_name']}的自拍照与自拍视频">
                 </a>
                 </div>
                     <div style='width:145px;float:right;margin-left:8px'>
-                <a  title="{$nvshen_detail['nvshen_screen_name']}的主页" style="font-size:1.2em" href="http://localhost:8080/u?name=许诺Sabrina">{$nvshen_detail['nvshen_screen_name']}</a>
+                <a  title="{$nvshen_detail['nvshen_screen_name']}的主页" style="font-size:1.2em" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}">{$nvshen_detail['nvshen_screen_name']}</a>
                 <br/><br/>
-                <a title="{$nvshen_detail['nvshen_screen_name']}的自拍照" href="http://localhost:8080/u?name=许诺Sabrina&type=pp" class="ui red label" >
-21相册
+                <a title="{$nvshen_detail['nvshen_screen_name']}的自拍照" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}&type=pp" class="ui red label" >
+{$nvshen_detail['album_num']}相册
         </a>
-        <a title="{$nvshen_detail['nvshen_screen_name']}的自拍视频" href="http://localhost:8080/u?name=许诺Sabrina&type=video" class="ui red label">
-3视频
+        <a title="{$nvshen_detail['nvshen_screen_name']}的自拍视频" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}&type=video" class="ui red label">
+{$nvshen_detail['video_num']}视频
         </a>
         <br/>
         
         <div class="ui pointing green top label">
-                    已有 245 撸友撸过
+                    已有 {$nvshen_detail['all_like_times']} 撸友撸过
                 </div>
                 
             </div>
@@ -116,20 +116,12 @@ padding-right: 0.8%;margin-top:0px">
 
 
  <div style="margin-bottom:0.6em;margin-top:0.6em">              
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- 撸女神-详情页右侧 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-5486123269162001"
-     data-ad-slot="3130067373"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
  </div> 
 
  <div class="ui divider" style="margin:0px;margin-top:5px" ></div>
             <div style="margin-bottom:0.6em;margin-top:0.6em">
-                <script src="http://e.70e.com/cpc_img.asp?u=62610&m=6&n=&s_px=2" charset="gb2312"></script>
 
 
 </div>
@@ -147,7 +139,8 @@ padding-right: 0.8%;margin-top:0px">
                     </a>
                 </div>
                 <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div><div style='width:285px;height:90px;overflow:hidden;'>
+                </div>
+                <div style='width:285px;height:90px;overflow:hidden;'>
                     <a  href='http://localhost:8080/29064.html'>
                         <img style='width:120px;float:left' src='http://ww1.sinaimg.cn/bmiddle/dca40ee5jw1ek43ima5u4j20no0vkgqh.jpg' alt='顾欣怡-的自拍照'>
                         <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>顾欣怡-的自拍照[6P]</p>
@@ -155,7 +148,8 @@ padding-right: 0.8%;margin-top:0px">
                     </a>
                 </div>
                 <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div><div style='width:285px;height:90px;overflow:hidden;'>
+                </div>
+                <div style='width:285px;height:90px;overflow:hidden;'>
                     <a  href='http://localhost:8080/29353.html'>
                         <img style='width:120px;float:left' src='http://ww3.sinaimg.cn/bmiddle/005ENEYMjw1ek5jyisrhcj30bu0hsdh7.jpg' alt='love陆瓷的自拍照'>
                         <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>love陆瓷的自拍照[1P]</p>
@@ -171,7 +165,8 @@ padding-right: 0.8%;margin-top:0px">
                     </a>
                 </div>
                 <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div><div style='width:285px;height:90px;overflow:hidden;'>
+                </div>
+                <div style='width:285px;height:90px;overflow:hidden;'>
                     <a  href='http://localhost:8080/28906.html'>
                         <img style='width:120px;float:left' src='http://localhost:8080/weibo/uploads/new/1410008035-2333.jpg' alt='陈美琳Mandy的自拍视频'>
                                                 <i class='circular small inverted blue facetime video icon imgvideo'></i>
@@ -179,8 +174,10 @@ padding-right: 0.8%;margin-top:0px">
                         <p style='float:left;margin:-26px 5px 0px 5px;height:68px;width:155px'>陈美琳Mandy的自拍视频</p>
                         <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>260人撸过</p>
                     </a>
-                </div><div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div><div style='width:285px;height:90px;overflow:hidden;'>
+                </div>
+                <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
+                </div>
+                <div style='width:285px;height:90px;overflow:hidden;'>
                     <a  href='http://localhost:8080/28700.html'>
                         <img style='width:120px;float:left' src='http://mvimg2.meitudata.com/540988dac67527109.jpg' alt='童小芯上帝寵兒的自拍视频'>
                                                 <i class='circular small inverted blue facetime video icon imgvideo'></i>
@@ -188,7 +185,8 @@ padding-right: 0.8%;margin-top:0px">
                         <p style='float:left;margin:-26px 5px 0px 5px;height:68px;width:155px'>童小芯上帝寵兒的自拍视频</p>
                         <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>91人撸过</p>
                     </a>
-                </div></div>
+                </div>
+           </div>
 
 
   

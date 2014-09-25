@@ -87,11 +87,40 @@ class IndexAction extends Action {
 				$type = $wb_result[0]['type'];
 				
 				$result['wb_text'] 				= $wb_result[0]['wb_text'];
+				$result['nvshen_user_id'] 		= $wb_result[0]['nvshen_user_id'];
 				$result['nvshen_screen_name'] 	= $wb_result[0]['nvshen_screen_name'];
 				$result['nvshen_profile_image'] = $wb_result[0]['nvshen_profile_image'];
+				$result['avatar_large'] 		= $wb_result[0]['avatar_large'];
+				
 				$result['nvshen_big_profile_image'] = $wb_result[0]['nvshen_big_profile_image'];
 				
 				$result['like_times'] 			= $wb_result[0]['like_times'];
+				
+				
+				// 所有的喜欢的次数
+				$result['all_like_times'] = 0;
+				$sql = "select sum(like_times) as all_like_times from cns_nvshendata where wb_id=".$wb_id;
+				$like_times_result = $nvshendata->query($sql);
+				if($like_times_result){
+					$result['all_like_times'] = $like_times_result[0]['all_like_times'];
+				}
+				
+				// 总共的相册个数
+				$result['album_num'] = 0;
+				$sql = "select count(distinct wb_id) as album_num from cns_nvshendata where type=2 and nvshen_user_id=".$result['nvshen_user_id'];
+				$album_result = $nvshendata->query($sql);
+				if($album_result){
+					$result['album_num'] = $album_result[0]['album_num'];
+				}
+				
+				
+				// 总共的视频个数
+				$result['video_num'] = 0;
+				$sql = "select count(distinct wb_id) as video_num from cns_nvshendata where type=3 and nvshen_user_id=".$result['nvshen_user_id'];
+				$video_result = $nvshendata->query($sql);
+				if($video_result){
+					$result['video_num'] = $video_result[0]['video_num'];
+				}
 				
 				
 				// pic weibo
@@ -165,6 +194,20 @@ class IndexAction extends Action {
 		}
 		else{
 			return -1;
+		}
+	}
+
+	
+	// 获取最热微博， 就是like_times最多的吧
+	private function hotest_wb($start, $end){
+		$nvshendata = M("nvshendata");
+		$sql = "select distinct wb_id from cns_nvshendata where isok=1 order by like_times desc limit  ".$start.",".$end;
+		$hot_result = $nvshendata->query($sql);
+		
+		if($hot_result){
+			for($i=0; $i<count($hot_result); $i++){
+				
+			}
 		}
 	}
 	

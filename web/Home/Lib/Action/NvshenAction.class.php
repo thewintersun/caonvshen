@@ -20,6 +20,8 @@ class NvshenAction extends Action {
 		
 		
 		$follow_result = $c->follow_by_name($wb_username);
+		echo json_encode($follow_result);
+		echo "<br>";
 		if(isset($follow_result['screen_name']) && $follow_result['screen_name'] == $wb_username){
 			ddlog::notice("follow ". $wb_username." success");
 			
@@ -78,6 +80,7 @@ class NvshenAction extends Action {
 			for( $i=count($wblist)-1; $i>=0; $i--){
 				$add_data['wb_text'] = $wblist[$i]['text'];
 				$add_data['wb_id'] = $wblist[$i]['id'];
+				$add_data['created_at'] = strtotime($wblist[$i]['created_at']);
 				
 				//  匹配短网址
 				if(preg_match('/(http:\/\/t\.cn)+[\w\/\.\-]*/', $add_data['wb_text'], $matched)){
@@ -101,6 +104,7 @@ class NvshenAction extends Action {
 					$add_data['nvshen_user_id'] 			= $wblist[$i]['user']['id'];
 					$add_data['nvshen_screen_name'] 		= $wblist[$i]['user']['screen_name'];
 					$add_data['nvshen_profile_image'] 		= $wblist[$i]['user']['profile_image_url'];
+					$add_data['avatar_large']				= $wblist[$i]['user']['avatar_large'];
 					$add_data['nvshen_big_profile_image'] 	= $wblist[$i]['user']['cover_image_phone'];
 					
 					$add_data['video_url'] = $video_url;
@@ -128,6 +132,7 @@ class NvshenAction extends Action {
 		if(isset($pic_weibo) && isset($pic_weibo['statuses']) && count($pic_weibo['statuses'])>0 )
 		{
 			$wblist = $pic_weibo['statuses'];
+			
 			for( $i=count($wblist)-1; $i>=0; $i--){
 				unset($add_data);
 			//for( $i=0;$i<count($wblist);  $i++){
@@ -140,15 +145,17 @@ class NvshenAction extends Action {
 				
 				$add_data['wb_text'] = $wblist[$i]['text'];
 				$add_data['wb_id'] = $wblist[$i]['id'];
+				$add_data['created_at'] = strtotime($wblist[$i]['created_at']);
 				
 				$add_data['type'] = 2;
 				$add_data['nvshen_user_id'] 			= $wblist[$i]['user']['id'];
 				$add_data['nvshen_screen_name'] 		= $wblist[$i]['user']['screen_name'];
 				$add_data['nvshen_profile_image'] 		= $wblist[$i]['user']['profile_image_url'];
+				$add_data['avatar_large']				= $wblist[$i]['user']['avatar_large'];
 				$add_data['nvshen_big_profile_image'] 	= $wblist[$i]['user']['cover_image_phone'];
 				
 				$add_data['like_times'] = 0;
-				$add_data['isok'] = 0;
+				$add_data['isok'] = 1;
 				
 				for($j=0;$j<count($pic_array);$j++){
 					$thumbnail_pic = $pic_array[$j]['thumbnail_pic'];
@@ -172,9 +179,10 @@ class NvshenAction extends Action {
   
 	public function test(){
 		$wb_token = C('WEIBO_TOKEN');
+		echo WB_AKEY;
 		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
 		
-		$a = $c->get_info_by_shorturl('http://t.cn/RvTbPbi');
+		$a = $c->show_user_by_name('罗罗可爱多');
 		echo json_encode($a);
 	}
 }
