@@ -60,7 +60,54 @@ class IndexAction extends Action {
 	}
   	
 	public function video(){
-		$this->display();
+		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
+    	$hot= 0; // 是否是最热的排序
+		if(isset($_GET['sort']) && $_GET['sort']=='hot'){
+			$hot = 1;
+		}
+		
+		// 第几页
+		$p = 0;
+		if(isset($_GET['p']) ){
+			$p = $_GET['p'];
+		}
+		
+		if($hot == 0){
+			// 最新的排序
+			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by id desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+		}
+		else{
+			// 最热排序
+			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+		}
+		
+		$nvshendata = M("nvshendata");
+		$wb_id_list = $nvshendata->query($sql);
+		if($wb_id_list){
+			$j = 0;
+			
+			for($i=0;$i<count($wb_id_list); $i++){
+				$wb_id = $wb_id_list[$i]['wb_id'];
+				$wb_result = $this->get_wb_detail($wb_id);
+				if($wb_result != -1){
+					$result[$j] = $wb_result;
+					$j++;
+				}
+			}
+			
+			$this->assign("ns_count", $j);
+			$this->assign("ns_detail",$result);
+		}
+		
+		$next_page = $p+1;
+		$next_page_param = "sort=new";
+		if($hot ==1){
+			$next_page_param = "sort=hot";
+		}
+		$this->assign('next_page',$next_page);
+		$this->assign("next_page_param", $next_page_param);
+		
+    	$this->display("Index:video");
 	}
 	
 	public function random(){
@@ -77,6 +124,7 @@ class IndexAction extends Action {
 	// 点击一个图片或者视屏后， 进入到详细的这个微博的各种的网页
 	public function wb(){
 		$wb_id = $_GET['id'];
+		$this->assign("nvshen_wb_id", $wb_id);
 		$nvshendata = M("nvshendata");
 		
 		$getdata['wb_id'] = $wb_id;
@@ -137,17 +185,22 @@ class IndexAction extends Action {
 					$this->assign("nvshen_detail", $result);
 					$this->display("Index:wb_pic");
 				}
-				
-				
+								
 				// video weibo 
 				if($type == 3){
-					
+					$result['v_number'] 					= count($wb_result);
+					$result['nvshen_screen_name_title'] 	= $wb_result[0]['nvshen_screen_name'].'的自拍视频['.$result['pic_number'].'P]';
+					$result['v']['video_url'] = $wb_result[0]['video_url'];
+					$result['v']['video_image'] 	= $wb_result[0]['video_image'];
+										
+					$this->assign("nvshen_detail", $result);
+					$this->display("Index:v");
 				}
 			}
 		}
 		
 	}
-	
+		
 	// 根据微博的id获取到这个微博的详细信息
 	private function get_wb_detail($wb_id){
 		$nvshendata = M("nvshendata");
