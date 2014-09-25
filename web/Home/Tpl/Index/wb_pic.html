@@ -32,7 +32,7 @@ color: #707070;">
                </div>
 
                         <div style="padding-top:0px;margin-top:0px;width:100%;margin-bottom:0px;padding-bottom:0px;text-align:center;clear:both">
-                         <img src='http://ww3.sinaimg.cn/bmiddle/3d463f6cgw1ek7ukb88l7j21kw2dc1cb.jpg' style=' display:block;/*统一转化为块级元素*/ overflow: hidden; width: 0; height: 0;'/>
+                         <img src='{$nvshen_detail['pic'][0]['bmiddle_pic']}' style=' display:block;/*统一转化为块级元素*/ overflow: hidden; width: 0; height: 0;'/>
                          <script>
                          var img=[
                          
@@ -89,17 +89,17 @@ color: #707070;">
 padding-right: 0.8%;margin-top:0px">
             <div class="ui segment" >
                 <div style='width:120px;float:left'>
-                <a title="许诺Sabrina的主页" href="http://localhost:8080/u?name=许诺Sabrina">
-                <img class="ui avatar image" src="http://tp1.sinaimg.cn/1028013932/180/5686619970/0" style="margin-right:4px;width:120px;height:120px;border-radius:5px" alt="许诺Sabrina的主页，许诺Sabrina的自拍照与自拍视频">
+                <a title="{$nvshen_detail['nvshen_screen_name']}的主页" href="/u?name=许诺Sabrina">
+                <img class="ui avatar image" src="{$nvshen_detail['nvshen_profile_image']}" style="margin-right:4px;width:120px;height:120px;border-radius:5px" alt="{$nvshen_detail['nvshen_screen_name']}的主页，{$nvshen_detail['nvshen_screen_name']}的自拍照与自拍视频">
                 </a>
                 </div>
                     <div style='width:145px;float:right;margin-left:8px'>
-                <a  title="许诺Sabrina的主页" style="font-size:1.2em" href="http://localhost:8080/u?name=许诺Sabrina">许诺Sabrina</a>
+                <a  title="{$nvshen_detail['nvshen_screen_name']}的主页" style="font-size:1.2em" href="http://localhost:8080/u?name=许诺Sabrina">{$nvshen_detail['nvshen_screen_name']}</a>
                 <br/><br/>
-                <a title="许诺Sabrina的自拍照" href="http://localhost:8080/u?name=许诺Sabrina&type=pp" class="ui red label" >
+                <a title="{$nvshen_detail['nvshen_screen_name']}的自拍照" href="http://localhost:8080/u?name=许诺Sabrina&type=pp" class="ui red label" >
 21相册
         </a>
-        <a title="许诺Sabrina的自拍视频" href="http://localhost:8080/u?name=许诺Sabrina&type=video" class="ui red label">
+        <a title="{$nvshen_detail['nvshen_screen_name']}的自拍视频" href="http://localhost:8080/u?name=许诺Sabrina&type=video" class="ui red label">
 3视频
         </a>
         <br/>
@@ -385,6 +385,7 @@ $(function(){
         len=img.length,//img数组的长度
         cur=0;//当前图片编号
         j=7,//默认显示小图个数
+        j=img.length,
         page=0,//小图的页码
         $s_next=$('#smallImg-next'),//小图下一页
         $s_pre=$('#smallImg-pre'),//小图上一页

@@ -89,6 +89,8 @@ class IndexAction extends Action {
 				$result['wb_text'] 				= $wb_result[0]['wb_text'];
 				$result['nvshen_screen_name'] 	= $wb_result[0]['nvshen_screen_name'];
 				$result['nvshen_profile_image'] = $wb_result[0]['nvshen_profile_image'];
+				$result['nvshen_big_profile_image'] = $wb_result[0]['nvshen_big_profile_image'];
+				
 				$result['like_times'] 			= $wb_result[0]['like_times'];
 				
 				
