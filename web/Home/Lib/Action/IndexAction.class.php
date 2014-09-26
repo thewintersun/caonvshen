@@ -301,7 +301,42 @@ class IndexAction extends Action {
 				}
 			}
 		}
+	}
 
+	//  女神排行榜
+	public function users(){
+		$sort= "caotimes"; // 是否是最热的排序
+		if(isset($_GET['sort']) ){
+			$sort = $_GET['sort'];
+		}
+		
+		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
+		
+		if($sort == "caotimes"){
+			$sql = "select wb_id, sum(like_times) as like_times from cns_nvshendata group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+		}
+		if($sort == "caotimes"){
+			$sql = "select wb_id, sum(like_times) as like_times from cns_nvshendata group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+		}
+		if($sort == "caotimes"){
+			$sql = "select wb_id, sum(like_times) as like_times from cns_nvshendata group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+		}
+		
+		
+		// 第几页
+		$p = 0;
+		if(isset($_GET['p']) ){
+			$p = $_GET['p'];
+		}
+		
+		
+		$next_page = $p+1;
+		$next_page_param = "sort=".$sort;
+		$this->assign('next_page',$next_page);
+		$this->assign("next_page_param", $next_page_param);
+		
+		
+		$this->display();
 	}
 		
 	// 根据微博的id获取到这个微博的详细信息
