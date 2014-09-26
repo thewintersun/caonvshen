@@ -19,7 +19,7 @@ class IndexAction extends Action {
 		
 		if($hot == 0){
 			// 最新的排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by id desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
 		}
 		else{
 			// 最热排序
@@ -49,6 +49,7 @@ class IndexAction extends Action {
 		if($hot ==1){
 			$next_page_param = "sort=hot";
 		}
+		$this->assign("ishot", $hot);
 		$this->assign('next_page',$next_page);
 		$this->assign("next_page_param", $next_page_param);
 		
@@ -111,6 +112,8 @@ class IndexAction extends Action {
 	}
 	
 	public function random(){
+		
+		
 		$this->display();
 	}
 	
@@ -129,6 +132,7 @@ class IndexAction extends Action {
 		
 		$getdata['wb_id'] = $wb_id;
 		$wb_result = $nvshendata->where($getdata)->select();
+		
 		// 如果有
 		if($wb_result){
 			if(count($wb_result) >0 ){
@@ -153,6 +157,19 @@ class IndexAction extends Action {
 					$result['all_like_times'] = $like_times_result[0]['all_like_times'];
 				}
 				
+				// 获取上一个下一个的数据
+				$next_wb_id = $this->get_next_wb($wb_id);
+				$last_wb_id = $this->get_last_wb($wb_id);
+				if($next_wb_id != -1){
+					$next_wb = $this->get_wb_detail($next_wb_id);
+					$this->assign("next_wb",$next_wb);
+				}
+				if($last_wb_id != -1){
+					$last_wb = $this->get_wb_detail($last_wb_id);
+					$this->assign("last_wb",$last_wb);
+				}
+				
+				
 				// 总共的相册个数
 				$result['album_num'] = 0;
 				$sql = "select count(distinct wb_id) as album_num from cns_nvshendata where type=2 and nvshen_user_id=".$result['nvshen_user_id'];
@@ -169,7 +186,6 @@ class IndexAction extends Action {
 				if($video_result){
 					$result['video_num'] = $video_result[0]['video_num'];
 				}
-				
 				
 				// pic weibo
 				if($type == 2){
@@ -203,7 +219,6 @@ class IndexAction extends Action {
 			}
 		}
 
-		
 	}
 		
 	// 根据微博的id获取到这个微博的详细信息
@@ -273,6 +288,47 @@ class IndexAction extends Action {
 				}
 			}
 			return $final_result;
+		}
+		return -1;
+	}
+	
+	// 获取比输入的微博id更新的一个微博的id
+	private function get_next_wb($wb_id){
+		$nvshendata = M("nvshendata");
+		$sql = "select created_at from cns_nvshendata where wb_id=".$wb_id;
+		$created_at_result = $nvshendata->query($sql);
+		if($created_at_result ){
+			$created_at = $created_at_result[0]['created_at'];
+		}else{
+			return -1;
+		}
+	
+		$sql = "select wb_id from cns_nvshendata where created_at>".$created_at." limit 2";
+		$wb_id_result = $nvshendata->query($sql);
+		if($wb_id_result){
+			$result_wb_id = $wb_id_result[0]['wb_id'];
+			return $result_wb_id;
+		}
+		return -1;
+	}
+	
+	
+	//  获取更加老的微博的id
+	private function get_last_wb($wb_id){
+		$nvshendata = M("nvshendata");
+		$sql = "select created_at from cns_nvshendata where wb_id=".$wb_id;
+		$created_at_result = $nvshendata->query($sql);
+		if($created_at_result ){
+			$created_at = $created_at_result[0]['created_at'];
+		}else{
+			return -1;
+		}
+	
+		$sql = "select wb_id from cns_nvshendata where created_at<".$created_at." limit 2";
+		$wb_id_result = $nvshendata->query($sql);
+		if($wb_id_result){
+			$result_wb_id = $wb_id_result[0]['wb_id'];
+			return $result_wb_id;
 		}
 		return -1;
 	}

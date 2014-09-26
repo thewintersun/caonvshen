@@ -68,11 +68,37 @@ color: #707070;">
                    </div>
 
                         <div  class="ui two column grid" style="margin-left:15px">
-                        <div class="column" style="text-align: left;"><a href="http://localhost:8080/29790.html"><i style="text-align: left;float:left;margin: 0em 0.2em 0em 0.2em;" class="long arrow left icon"></i><span style="float:left;">樊玲Jolie的自拍视频</span></a></div>
-                        <div class="column" style="text-align: right;"><a href="http://localhost:8080/29665.html"><i style="text-align: right;float:right;margin: 0em 0.2em 0em 0.2em;" class="long arrow right icon"></i><span style="float:right;">模特-杨伊的自拍照[6P]</span></a></div>
+                        <div class="column" style="text-align: left;">
+                        	<a href="/index.php/Index/wb?id={$last_wb['wb_id']}"><i style="text-align: left;float:left;margin: 0em 0.2em 0em 0.2em;" class="long arrow left icon"></i>
+                        	<span style="float:left;">
+                        		<if condition="$last_wb['type'] eq 2 ">
+                        			{$last_wb['nvshen_screen_name']}的自拍照[{$last_wb['pic_count']}P]
+								<else /> 
+								</if>
+								<if condition="$last_wb['type'] eq 3 ">
+          							{$last_wb['nvshen_screen_name']}的自拍视频
+								<else /> 
+								</if>
+                        		</span>
+                        	</a>
+                        </div>
+                        <div class="column" style="text-align: right;">
+                        	<a href="/index.php/Index/wb?id={$next_wb['wb_id']}"><i style="text-align: right;float:right;margin: 0em 0.2em 0em 0.2em;" class="long arrow right icon"></i>
+                        	<span style="float:right;">
+                        		<if condition="$last_wb['type'] eq 2 ">
+                        			{$next_wb['nvshen_screen_name']}的自拍照[{$next_wb['pic_count']}P]
+								<else /> 
+								</if>
+								<if condition="$last_wb['type'] eq 3 ">
+          							{$next_wb['nvshen_screen_name']}的自拍视频
+								<else /> 
+								</if>
+							</span>
+                        	</a>
+                        </div>
                     </div>
                     <div style="width:100%;text-align: center;">
-                    <span style="color:#ccc;font-size:12px">按键盘 ← → 方向键也可以换女神撸哦</span>
+                    <span style="color:#ccc;font-size:12px">按键盘 ← → 方向键也可以换女神操哦</span>
                 </div>
             </div>
                 <div class="ui divider" style="margin:0px;margin-top:10px" ></div>
@@ -105,7 +131,7 @@ padding-right: 0.8%;margin-top:0px">
         <br/>
         
         <div class="ui pointing green top label">
-                    已有 {$nvshen_detail['all_like_times']} 撸友撸过
+                    已有 {$nvshen_detail['all_like_times']} 操友操过
                 </div>
                 
             </div>
@@ -116,7 +142,7 @@ padding-right: 0.8%;margin-top:0px">
 
 
  <div style="margin-bottom:0.6em;margin-top:0.6em">              
-<!-- 撸女神-详情页右侧 -->
+<!-- 操女神-详情页右侧 -->
 </script>
  </div> 
 
@@ -135,69 +161,24 @@ padding-right: 0.8%;margin-top:0px">
                     
                 <for start="0" end="$hotest_wb_number" >
                 	<div style='width:285px;height:90px;overflow:hidden;'>
-                    <a  href='/index.php/Index/wb?id={$hotest}'>
-                        <img style='width:120px;float:left' src='http://ww2.sinaimg.cn/bmiddle/005wH9UOjw1ek2pfn83stj30dc0hsab5.jpg' alt='黄可christine的自拍照'>
-                        <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>黄可christine的自拍照[9P]</p>
-                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>51人撸过</p>
+                    <a  href='/index.php/Index/wb?id={$hotest_wb[$i]["wb_id"]}'>
+                    	<if condition="$hotest_wb[$i]['type'] eq 2 ">
+          					<img style='width:120px;float:left' src='{$hotest_wb[$i]['pic'][0]['bmiddle_pic']}' alt='{$hotest_wb[$i]['nvshen_screen_name']}的自拍照'>
+          					<p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>{$hotest_wb[$i]['nvshen_screen_name']}的自拍照[{$hotest_wb[$i]['pic_count']}P]</p>
+						<else /> 
+						</if>
+						<if condition="$hotest_wb[$i]['type'] eq 3 ">
+          					<img style='width:120px;float:left' src='{$hotest_wb[$i]['video_image']}' alt='{$hotest_wb[$i]['nvshen_screen_name']}的自拍视频'>
+          					<p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>{$hotest_wb[$i]['nvshen_screen_name']}的自拍视频</p>
+						<else /> 
+						</if>
+
+                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>{$hotest_wb[$i]['like_times']}人操过</p>
                     </a>
                 	</div>
-                	<div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
+                	<div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'></div>
 				</for>
-                <div style='width:285px;height:90px;overflow:hidden;'>
-                    <a  href='http://localhost:8080/28836.html'>
-                        <img style='width:120px;float:left' src='http://ww2.sinaimg.cn/bmiddle/005wH9UOjw1ek2pfn83stj30dc0hsab5.jpg' alt='黄可christine的自拍照'>
-                        <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>黄可christine的自拍照[9P]</p>
-                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>51人撸过</p>
-                    </a>
-                </div>
-                <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div>
-                <div style='width:285px;height:90px;overflow:hidden;'>
-                    <a  href='http://localhost:8080/29064.html'>
-                        <img style='width:120px;float:left' src='http://ww1.sinaimg.cn/bmiddle/dca40ee5jw1ek43ima5u4j20no0vkgqh.jpg' alt='顾欣怡-的自拍照'>
-                        <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>顾欣怡-的自拍照[6P]</p>
-                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>27人撸过</p>
-                    </a>
-                </div>
-                <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div>
-                <div style='width:285px;height:90px;overflow:hidden;'>
-                    <a  href='http://localhost:8080/29353.html'>
-                        <img style='width:120px;float:left' src='http://ww3.sinaimg.cn/bmiddle/005ENEYMjw1ek5jyisrhcj30bu0hsdh7.jpg' alt='love陆瓷的自拍照'>
-                        <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>love陆瓷的自拍照[1P]</p>
-                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>26人撸过</p>
-                    </a>
-                </div>
-                <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div><div style='width:285px;height:90px;overflow:hidden;'>
-                    <a  href='http://localhost:8080/29093.html'>
-                        <img style='width:120px;float:left' src='http://ww1.sinaimg.cn/bmiddle/767e22c5jw1ek480lz9u9j20oa0xi787.jpg' alt='陈思琪Art的自拍照'>
-                        <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>陈思琪Art的自拍照[3P]</p>
-                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>20人撸过</p>
-                    </a>
-                </div>
-                <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div>
-                <div style='width:285px;height:90px;overflow:hidden;'>
-                    <a  href='http://localhost:8080/28906.html'>
-                        <img style='width:120px;float:left' src='http://localhost:8080/weibo/uploads/new/1410008035-2333.jpg' alt='陈美琳Mandy的自拍视频'>
-                                                <i class='circular small inverted blue facetime video icon imgvideo'></i>
-
-                        <p style='float:left;margin:-26px 5px 0px 5px;height:68px;width:155px'>陈美琳Mandy的自拍视频</p>
-                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>260人撸过</p>
-                    </a>
-                </div>
-                <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'>
-                </div>
-                <div style='width:285px;height:90px;overflow:hidden;'>
-                    <a  href='http://localhost:8080/28700.html'>
-                        <img style='width:120px;float:left' src='http://mvimg2.meitudata.com/540988dac67527109.jpg' alt='童小芯上帝寵兒的自拍视频'>
-                                                <i class='circular small inverted blue facetime video icon imgvideo'></i>
-
-                        <p style='float:left;margin:-26px 5px 0px 5px;height:68px;width:155px'>童小芯上帝寵兒的自拍视频</p>
-                        <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>91人撸过</p>
-                    </a>
-                </div>
+                
            </div>
 
 
@@ -206,28 +187,25 @@ padding-right: 0.8%;margin-top:0px">
  <div class="ui divider" style="margin:0px;margin-top:5px" ></div>
 
  <div style="margin-bottom:0.6em;margin-top:0.6em">
-    <script type="text/javascript">
-var sogou_ad_id=360917;
-var sogou_ad_height=250;
-var sogou_ad_width=300;
-</script>
-<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
-
-
+广告script
 </div>
 <div class="ui divider" style="margin:0px;margin-top:8px" ></div>
                                 <div style="margin-bottom:0.3em;margin-top:0.6em">
-<div style="float:left;width:150px"><img src='img/wx.jpg' width='150' height='150' title='微信扫描二维码，手机上撸女神' alt='撸女神的微信'/>
+<!--
+<div style="float:left;width:150px"><img src='img/wx.jpg' width='150' height='150' title='微信扫描二维码，手机上操女神' alt='操女神的微信'/>
 </div>
+-->
 <div style="float:right;width:150px;height:160px">
-<a style="width:150px" href="http://weibo.com/lunvshen" target="_blank" title="撸女神的新浪微博"><img style='width: 28px;
-height: 28px;margin-top:5px;margin-left:15px' src="/public/image/wb.png" alt="撸女神的新浪微博"><span style="position: relative;top:-8px;left:5px">撸女神新浪微博</span></a>
-<a href="http://t.qq.com/lunvshen"  target="_blank" title="撸女神的腾讯微博"><img style='
+<a style="width:150px" href="http://weibo.com/u/1436870027" target="_blank" title="操女神的新浪微博"><img style='width: 28px;
+height: 28px;margin-top:5px;margin-left:15px' src="/public/image/wb.png" alt="操女神的新浪微博"><span style="position: relative;top:-8px;left:5px">操女神新浪微博</span></a>
+<!--
+<a href="http://t.qq.com/lunvshen"  target="_blank" title="操女神的腾讯微博"><img style='
 width: 28px;
-height: 28px;margin-top:20px;margin-left:15px' src="/public/image/qq.png" alt="撸女神的腾讯微博" ><span style="position: relative;top:-8px;left:5px">撸女神腾讯微博</span></a>
-<a href="http://www.douban.com/group/526577"  target="_blank" title="撸女神的豆瓣小组"><img style='
+height: 28px;margin-top:20px;margin-left:15px' src="/public/image/qq.png" alt="操女神的腾讯微博" ><span style="position: relative;top:-8px;left:5px">操女神腾讯微博</span></a>
+<a href="http://www.douban.com/group/526577"  target="_blank" title="操女神的豆瓣小组"><img style='
 width: 28px;
-height: 28px;margin-top:20px;margin-left:15px' src="img/dou48.gif" alt="撸女神的豆瓣小组" ><span style="position: relative;top:-8px;left:5px">撸女神豆瓣小组</span></a>
+height: 28px;margin-top:20px;margin-left:15px' src="img/dou48.gif" alt="操女神的豆瓣小组" ><span style="position: relative;top:-8px;left:5px">操女神豆瓣小组</span></a>
+-->
 </div>
 </div>
          
@@ -357,10 +335,10 @@ function setCookie(name, value, seconds) {
                 var code=ev.keyCode;
                 //alert(code);
                 if(code==37){
-                    window.location.href='http://localhost:8080/29790.html';
+                    window.location.href="/index.php/Index/wb?id={$last_wb['wb_id']}";
                 }
                 if(code==39){
-                    window.location.href='http://localhost:8080/29665.html';
+                    window.location.href="/index.php/Index/wb?id={$next_wb['wb_id']}"
                 }
              });  
         $(".luyixia").click(function(){
