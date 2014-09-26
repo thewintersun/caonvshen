@@ -1,3 +1,75 @@
+<style type="text/css">
+.foota{
+    font-size: 13px;
+}
+.sl-fixed-right {
+right: 0 !important;
+left: auto;
+_right: auto;
+_left: expression(eval(document.documentElement.scrollLeft+document.documentElement.clientWidth-this.offsetWidth)-(parseInt(this.currentStyle.marginLeft,10)||0)-(parseInt(this.currentStyle.marginRight,10)||0));
+}
+.sl-fixed-bottom {
+bottom: 0;
+top: auto;
+_bottom: auto;
+_top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
+}
+.sl-fixed {
+position: fixed!important;
+z-index: 300;
+}
+.backtop a {
+display: block;
+cursor: pointer;
+position: absolute;
+z-index: 99;
+bottom: 10px;
+right: 20px;
+width: 34px;
+height: 60px;
+background: url('/public/image/rocket.png') no-repeat 0 0;
+box-shadow: none;
+}
+.backtop a:hover {
+background-image: url('/public/image/rocket-active.png');
+}
+.f-sina,.f-qq{
+float: right;
+width: 28px;
+height: 28px;
+background-image: url('/public/image/follow.png');
+background-repeat: no-repeat;
+margin: 0 2px 0 0;
+}
+.f-qq {
+background-position: -75px top;
+}
+.signupp{
+margin:0.1em 0px 0.6em 0em;
+color:#bbb;
+font-size: 0.9em;
+}
+ul li .NO {
+width: 16px;
+height: 16px;
+float: left;
+display: inline;
+margin: 0 13px 0 3px;
+line-height: 16px;
+font-size: 12px;
+color: white;
+background-color: #78cd58;
+text-align: center;
+}
+.redp{
+    color: #D95C5C;
+}
+.greenp{
+    color: #A1CF64;
+}
+</style>
+<div class="ui divider" style="margin:25px 0px 20px 0px;clear:both"></div>
+
 <div class="ui inverted" id="nvshenmenu">
     <div class="container" style="height:60px;padding:0px 10px;clear:both">
         <div style="width:70%;float:left">
@@ -120,3 +192,7 @@ $(document).ready(function () {
         
     });
     </script>
+    
+<div id="toolBackTop" class="backtop sl-fixed sl-fixed-bottom sl-fixed-right" style="display: none;">
+<a class="br-s bs-l" onclick="window.scrollTo(0,0);return false;"></a>
+</div>
