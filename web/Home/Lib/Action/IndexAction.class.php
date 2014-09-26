@@ -183,6 +183,10 @@ class IndexAction extends Action {
 					}
 					
 					$this->assign("nvshen_detail", $result);
+					$hotest_wb = $this->hotest_wb(0,5);
+					$this->assign("hotest_wb_number", count($hotest_wb));
+					$this->assign("hotest_wb", $hotest_wb);
+		
 					$this->display("Index:wb_pic");
 				}
 								
@@ -198,6 +202,7 @@ class IndexAction extends Action {
 				}
 			}
 		}
+
 		
 	}
 		
@@ -258,10 +263,18 @@ class IndexAction extends Action {
 		$hot_result = $nvshendata->query($sql);
 		
 		if($hot_result){
+			$j = 0;
 			for($i=0; $i<count($hot_result); $i++){
-				
+				$wb_id = $hot_result[$i]['wb_id'];
+				$detail_result = $this->get_wb_detail($wb_id);
+				if($detail_result != -1){
+					$final_result[$j] = $detail_result;
+					$j++;
+				}
 			}
+			return $final_result;
 		}
+		return -1;
 	}
 	
 	
