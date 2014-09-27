@@ -159,6 +159,7 @@ class IndexAction extends Action {
 		
     	$this->display("Index:video");
 	}
+
 	
 	public function random(){
 		
@@ -202,8 +203,72 @@ class IndexAction extends Action {
 	
 	// 单个的女神
 	public function nvshen(){
-		$name = $_GET['name'];
+		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
+		// 第几页
+		$p = 0;
+		$next_page = $p+1;
+		if(isset($_GET['p']) ){
+			$p = $_GET['p'];
+		}		
 		
+		$wb_id = $_GET['id'];
+		
+		$type = $_GET['type'];
+		
+		$sql = 
+		"select nd.*, ndgp.pic_num, nl.wb_user_description from caonvshen.cns_nvshendata nd 
+inner join 
+(SELECT min(id) as id, count(1) as pic_num 
+FROM caonvshen.cns_nvshendata 
+where nvshen_user_id = ".$wb_id."
+group by wb_id) as ndgp on nd.id = ndgp.id 
+left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
+";
+		if (isset($_GET['type']) && $_GET['type']=='pp') {
+			$sql = $sql."where type = 2 limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$typeclass['pp'] ='active item';
+			$typeclass['v'] = ' item';
+			$typeclass['all'] = ' item';
+		} else if (isset($_GET['type']) && $_GET['type']=='video') {
+			$sql = $sql."where type = 3 limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$typeclass['pp'] =' item';
+			$typeclass['v'] = 'active item';
+			$typeclass['all'] = ' item';
+		} else {
+			$sql = $sql." limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$typeclass['pp'] =' item';
+			$typeclass['v'] = ' item';
+			$typeclass['all'] = 'active item';
+		}
+		
+		$nvshendata = M("nvshendata");
+		$wb_result = $nvshendata->query($sql);
+		
+		if($wb_result){
+			$j = MAX(count($wb_result), $pagenumber);
+			
+			$result['nvshen_screen_name'] = $wb_result[0]['nvshen_screen_name'];
+			$result['nvshen_user_id'] = $wb_result[0]['nvshen_user_id'];
+			$result['avatar_large'] = $wb_result[0]['avatar_large'];
+			
+			for($i=0; $i<$j; $i++){				
+				$result[$i]['type'] = $wb_result[$i]['type'];
+				$result[$i]['wb_user_description'] = $wb_result[$i]['wb_user_description'];
+				$result[$i]['wb_id'] = $wb_result[$i]['wb_id'];
+				$result[$i]['video_image'] = $wb_result[$i]['video_image'];
+				$result[$i]['wb_text'] = $wb_result[$i]['wb_text'];
+				$result[$i]['pic_num'] = $wb_result[$i]['pic_num'];	
+				$result[$i]['bmiddle_pic'] = $wb_result[$i]['bmiddle_pic'];			
+			}
+			
+			$this->assign("type", $type);
+			$this->assign("typeclass", $typeclass);
+			$this->assign("next_page", $next_page);
+			$this->assign("ns_count", $j);
+			$this->assign("ns_detail",$result);
+		}
+		
+    	$this->display("Index:nvshen");
 	}
 	
 	
@@ -290,13 +355,16 @@ class IndexAction extends Action {
 				}
 								
 				// video weibo 
-				if($type == 3){
+				if($type == 3){					
 					$result['v_number'] 					= count($wb_result);
 					$result['nvshen_screen_name_title'] 	= $wb_result[0]['nvshen_screen_name'].'的自拍视频['.$result['pic_number'].'P]';
 					$result['v']['video_url'] = $wb_result[0]['video_url'];
 					$result['v']['video_image'] 	= $wb_result[0]['video_image'];
 										
-					$this->assign("nvshen_detail", $result);
+					$this->assign("nvshen_detail", $result);					
+					$hotest_wb = $this->hotest_wb(0,5);
+					$this->assign("hotest_wb_number", count($hotest_wb));
+					$this->assign("hotest_wb", $hotest_wb);
 					$this->display("Index:v");
 				}
 			}
@@ -449,7 +517,6 @@ class IndexAction extends Action {
 			return $result_wb_id;
 		}
 		return -1;
-	}
-	
+	}	
 	
 }
