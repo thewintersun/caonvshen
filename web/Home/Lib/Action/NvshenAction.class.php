@@ -179,44 +179,70 @@ class NvshenAction extends Action {
 		$this->ajaxReturn('ok','ok',0);
 	}
   
-  
+  	// 更新nvshenlist表， 主要是计算相册个数， 视频个数， like次数
   	public function update_nvshen(){
   		$album_num = 0;
 		$video_num = 0;
   		$nslist = M('nvshenlist');
-		$wb_user_list = $nslist->select('wb_userid');
+		$nvshendata = M('nvshendata');
+		
+		$wb_user_list = $nslist->query('select id,wb_userid from cns_nvshenlist');
 		if($wb_user_list){
 			for($i=0; $i<count($wb_user_list); $i++){
 				$wb_user_id = $wb_user_list[$i]['wb_userid'];
 				
+				
 				// album 
+				$album_num = 0;
 				$sql = "select count(distinct wb_id) as album_num from cns_nvshendata where type=2 and nvshen_user_id=".$wb_user_id;
-				$album_result = $nslist->query($sql);
+				$album_result = $nvshendata->query($sql);
 				if($album_result){
-					$album_num = $album_result['album_num'];
+					$album_num = $album_result[0]['album_num'];
 				}
 				
 				
 				// video num 
+				$video_num = 0;
 				$sql = "select count(distinct wb_id) as video_num from cns_nvshendata where type=3 and nvshen_user_id=".$wb_user_id;
-				$video_result = $nslist->query($sql);
+				$video_result = $nvshendata->query($sql);
 				if($video_result){
-					$video_num = $video_result['video_num'];
+					$video_num = $video_result[0]['video_num'];
 				}
 				
-				// video num 
-				$sql = "select distinct wb_id from cns_nvshendata where type=3 and nvshen_user_id=".$wb_user_id;
-				$video_result = $nslist->query($sql);
-				if($video_result){
-					$video_num = $video_result['video_num'];
-				}
 				
 				// all like times
+				$total_like = 0;
+				$sql = "select distinct wb_id from cns_nvshendata where nvshen_user_id=".$wb_user_id;
+				$wblist=$nvshendata->query($sql);
+				if($wblist){
+					for($j=0; $j<count($wblist); $j++){
+						$sql = "select like_times from cns_nvshendata where wb_id=".$wblist[$j]['wb_id'];
+						$like_result = $nvshendata->query($sql);
+						if($like_result && count($like_result)>0){
+							$total_like += $like_result[0]['like_times'];
+						}
+					}
+				}
 				
+				$savedata['id'] 		= $wb_user_list[$i]['id'];
+				$savedata['like_times'] = $total_like;
+				$savedata['album_num'] 	= $album_num;
+				$savedata['video_num'] 	= $video_num;
+				
+				
+				echo json_encode($savedata)."<br>";
+				
+				$r = $nslist->save($savedata);
+				if($r===FALSE){
+					ddlog::warn("save liketimes fail");
+					echo "fail<br>";
+				}
 			}
 		}
   	}
 	public function test(){
+		
+		
 		$wb_token = C('WEIBO_TOKEN');
 		echo WB_AKEY;
 		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类

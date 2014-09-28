@@ -69,32 +69,40 @@ color: #707070;">
 
                         <div  class="ui two column grid" style="margin-left:15px">
                         <div class="column" style="text-align: left;">
-                        	<a href="/index.php/Index/wb?id={$last_wb['wb_id']}"><i style="text-align: left;float:left;margin: 0em 0.2em 0em 0.2em;" class="long arrow left icon"></i>
-                        	<span style="float:left;">
-                        		<if condition="$last_wb['type'] eq 2 ">
-                        			{$last_wb['nvshen_screen_name']}的自拍照[{$last_wb['pic_count']}P]
-								<else /> 
-								</if>
-								<if condition="$last_wb['type'] eq 3 ">
-          							{$last_wb['nvshen_screen_name']}的自拍视频
-								<else /> 
-								</if>
-                        		</span>
-                        	</a>
+                        	<if condition="$last_wb eq -1">
+                            		
+                            <else />
+	                            <a href="/index.php/Index/wb?id={$last_wb['wb_id']}"><i style="text-align: left;float:left;margin: 0em 0.2em 0em 0.2em;" class="long arrow left icon"></i>
+	                        	<span style="float:left;">
+	                        		<if condition="$last_wb['type'] eq 2 ">
+	                        			{$last_wb['nvshen_screen_name']}的自拍照[{$last_wb['pic_count']}P]
+									<else /> 
+									</if>
+									<if condition="$last_wb['type'] eq 3 ">
+	          							{$last_wb['nvshen_screen_name']}的自拍视频
+									<else /> 
+									</if>
+	                        		</span>
+	                        	</a>
+                        	</if>
                         </div>
                         <div class="column" style="text-align: right;">
-                        	<a href="/index.php/Index/wb?id={$next_wb['wb_id']}"><i style="text-align: right;float:right;margin: 0em 0.2em 0em 0.2em;" class="long arrow right icon"></i>
-                        	<span style="float:right;">
-                        		<if condition="$last_wb['type'] eq 2 ">
-                        			{$next_wb['nvshen_screen_name']}的自拍照[{$next_wb['pic_count']}P]
-								<else /> 
-								</if>
-								<if condition="$last_wb['type'] eq 3 ">
-          							{$next_wb['nvshen_screen_name']}的自拍视频
-								<else /> 
-								</if>
-							</span>
-                        	</a>
+                        	<if condition="$next_wb eq -1">
+                            		
+                            <else />
+	                        	<a href="/index.php/Index/wb?id={$next_wb['wb_id']}"><i style="text-align: right;float:right;margin: 0em 0.2em 0em 0.2em;" class="long arrow right icon"></i>
+	                        	<span style="float:right;">
+	                        		<if condition="$next_wb['type'] eq 2 ">
+	                        			{$next_wb['nvshen_screen_name']}的自拍照[{$next_wb['pic_count']}P]
+									<else /> 
+									</if>
+									<if condition="$next_wb['type'] eq 3 ">
+	          							{$next_wb['nvshen_screen_name']}的自拍视频
+									<else /> 
+									</if>
+								</span>
+	                        	</a>
+                        	</if>
                         </div>
                     </div>
                     <div style="width:100%;text-align: center;">
@@ -262,12 +270,19 @@ function setCookie(name, value, seconds) {
        $(document).keyup(function(ev){
                 var code=ev.keyCode;
                 //alert(code);
+                <if condition="$next_wb eq -1">
+                <else />
+                if(code==39){
+                    window.location.href="/index.php/Index/wb?id={$next_wb['wb_id']}";
+                }
+                </if>
+                
+                <if condition="$last_wb eq -1">
+                <else />
                 if(code==37){
                     window.location.href="/index.php/Index/wb?id={$last_wb['wb_id']}";
                 }
-                if(code==39){
-                    window.location.href="/index.php/Index/wb?id={$next_wb['wb_id']}"
-                }
+                </if>
              });  
         $(".luyixia").click(function(){
                                 var weiboid=$(this).attr("data-id");

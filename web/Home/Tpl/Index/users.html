@@ -14,10 +14,10 @@
 
             <input type="hidden" name="sort" id="sortedinput">
             <div class="default sorttext text">
-                被撸次数（哪些女神是撸友最爱）</div>
+                被操次数（哪些女神是操友最爱）</div>
             <i class="dropdown icon"></i>
             <div class="menu">
-                <div class="item active" data-value="caotimes">被撸次数（哪些女神是撸友最爱）</div>
+                <div class="item active" data-value="caotimes">被操次数（哪些女神是操友最爱）</div>
                 <div class="item " data-value="ppnum">作品数量（哪些女神的自拍最多）</div>
                 <div class="item " data-value="new">最新加入（瞅瞅最近加入的女神）</div>                
             </div>
@@ -31,28 +31,22 @@
 
 				<for start="0" end="$ns_count" >
                 <div class='item' style="margin:5px 0px">
-	                <a style="float:left" target="_blank" href="http://localhost:8080/u?name=唐馨baby">
-	                <img class="ui avatar image" style="width:50px;height:50px" src="http://tp2.sinaimg.cn/3294758381/50/5688903401/0" alt="唐馨baby的主页，唐馨baby的自拍照与自拍视频">
+	                <a style="float:left" target="_blank" href="/index.php/Index/nvshen?id={$nvshen_list[$i]['wb_userid']}">
+	                <img class="ui avatar image" style="width:50px;height:50px" src="{$nvshen_list[$i]['profile_image_url']}" alt="{$nvshen_list[$i]['wb_username']}的主页，{$nvshen_list[$i]['wb_username']}的自拍照与自拍视频">
 	                </a>
 	                <div class="content" style="float:left">
 	                    <div style="padding:15px 0px;width:220px;text-align:left">
-	                        <a target="_blank" href="http://localhost:8080/u?name=唐馨baby">
-	                            唐馨baby                        </a></div>
+	                        <a target="_blank" href="/index.php/Index/nvshen?id={$nvshen_list[$i]['wb_userid']}">
+	                            {$nvshen_list[$i]['wb_username']}                       </a></div>
 	                </div>
 	                <div class="left floated ui" style="padding:15px;width:250px;text-align:left;float:left">
-	                        <a target="_blank" href="http://localhost:8080/u?name=唐馨baby&type=pp">27 相册</a>  |  <a target="_blank" href="http://localhost:8080/u?name=唐馨baby&type=video">1 视频</a>
+	                        <a target="_blank" href="/index.php/Index/nvshen?id={$nvshen_list[$i]['wb_userid']}&type=pp">{$nvshen_list[$i]['album_num']} 相册</a>  |  <a target="_blank" href="/index.php/Index/nvshen?id={$nvshen_list[$i]['wb_userid']}&type=video">{$nvshen_list[$i]['video_num']} 视频</a>
 	                </div>
 	                <div class="left floated ui" style="padding:15px;width:100px;text-align:left;float:left">
-	                        5048 撸友撸过
+	                       {$nvshen_list[$i]['like_times']} 操友操过
 	            	</div>
             	</div>
             </for>
-            
-            
-            
-            
-            
-            
                   </div>
       <p class='go-to-next-page'><a href='http://localhost:8080/users?sort=lutimes&p=2'>下一页</a></p>                        <div style="width:100%;text-align: center;clear:both;">
 70e广告

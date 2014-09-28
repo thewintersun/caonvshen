@@ -110,10 +110,10 @@ padding-right: 0.8%;margin-top:0px">
                     <div style='width:145px;float:right;margin-left:8px'>
                 <a  title="{$nvshen_detail['nvshen_screen_name']}的主页" style="font-size:1.2em" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}">{$nvshen_detail['nvshen_screen_name']}</a>
                 <br/><br/>
-                <a title="{$nvshen_detail['nvshen_screen_name']}的自拍照" href="/index.php/Index/wb?id={$nvshen_wb_id}&type=pp" class="ui red label" >
+                <a title="{$nvshen_detail['nvshen_screen_name']}的自拍照" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}&type=pp" class="ui red label" >
 {$nvshen_detail['album_num']}相册
         </a>
-        <a title="{$nvshen_detail['nvshen_screen_name']}的自拍视频" href="/index.php/Index/wb?id={$nvshen_wb_id}&type=video" class="ui red label">
+        <a title="{$nvshen_detail['nvshen_screen_name']}的自拍视频" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}&type=video" class="ui red label">
 {$nvshen_detail['video_num']}视频
         </a>
         <br/>
@@ -225,12 +225,19 @@ $(document).ready(function() {
        $(document).keyup(function(ev){
                 var code=ev.keyCode;
                 //alert(code);
-                if(code==37){
-                    window.location.href="/index.php/Index/wb?id={$last_wb['wb_id']}";
-                }
+                <if condition="$next_wb eq -1">
+                <else />
                 if(code==39){
                     window.location.href="/index.php/Index/wb?id={$next_wb['wb_id']}";
                 }
+                </if>
+                
+                <if condition="$last_wb eq -1">
+                <else />
+                if(code==37){
+                    window.location.href="/index.php/Index/wb?id={$last_wb['wb_id']}";
+                }
+                </if>
              });
              
         $(".luyixia").click(function(){
