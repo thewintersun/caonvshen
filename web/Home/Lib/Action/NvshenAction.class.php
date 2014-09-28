@@ -32,9 +32,11 @@ class NvshenAction extends Action {
 			$adddata['like_times'] = 0;
 			$adddata['wb_user_description'] = $follow_result['description'];
 			$adddata['profile_image_url'] 	= $follow_result['profile_image_url'];
+			$adddata['avatar_large'] 		= $follow_result['avatar_large'];
 			$adddata['big_profile_image_url'] = $follow_result['cover_image_phone'];
 			$adddata['profile_url']	= $follow_result['profile_url'];
 			$adddata['wb_address'] = "http://www.weibo.com/".$follow_result['profile_url'];
+			$add_data['add_time'] = time();
 			
 			$result = $nslist->add($adddata);
 			if(!$result){
