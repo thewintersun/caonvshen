@@ -36,7 +36,7 @@ class NvshenAction extends Action {
 			$adddata['big_profile_image_url'] = $follow_result['cover_image_phone'];
 			$adddata['profile_url']	= $follow_result['profile_url'];
 			$adddata['wb_address'] = "http://www.weibo.com/".$follow_result['profile_url'];
-			$add_data['add_time'] = time();
+			$adddata['add_time'] = time();
 			
 			$result = $nslist->add($adddata);
 			if(!$result){
@@ -179,6 +179,43 @@ class NvshenAction extends Action {
 		$this->ajaxReturn('ok','ok',0);
 	}
   
+  
+  	public function update_nvshen(){
+  		$album_num = 0;
+		$video_num = 0;
+  		$nslist = M('nvshenlist');
+		$wb_user_list = $nslist->select('wb_userid');
+		if($wb_user_list){
+			for($i=0; $i<count($wb_user_list); $i++){
+				$wb_user_id = $wb_user_list[$i]['wb_userid'];
+				
+				// album 
+				$sql = "select count(distinct wb_id) as album_num from cns_nvshendata where type=2 and nvshen_user_id=".$wb_user_id;
+				$album_result = $nslist->query($sql);
+				if($album_result){
+					$album_num = $album_result['album_num'];
+				}
+				
+				
+				// video num 
+				$sql = "select count(distinct wb_id) as video_num from cns_nvshendata where type=3 and nvshen_user_id=".$wb_user_id;
+				$video_result = $nslist->query($sql);
+				if($video_result){
+					$video_num = $video_result['video_num'];
+				}
+				
+				// video num 
+				$sql = "select distinct wb_id from cns_nvshendata where type=3 and nvshen_user_id=".$wb_user_id;
+				$video_result = $nslist->query($sql);
+				if($video_result){
+					$video_num = $video_result['video_num'];
+				}
+				
+				// all like times
+				
+			}
+		}
+  	}
 	public function test(){
 		$wb_token = C('WEIBO_TOKEN');
 		echo WB_AKEY;
