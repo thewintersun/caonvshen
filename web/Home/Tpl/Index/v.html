@@ -15,8 +15,8 @@ color: #707070;">
                         
                                 
                                     <div class="ui compact menu" style="float:left;margin:15px 0px 10px 25px;">
-            <a class="item luyixia" data-id="30655" style="padding: 0.4em 0.7em;">
-                <i style="background-image:url('img/lu.gif');width:22px;height:22px;display: block;background-size: 22px 22px;float:left"></i><span style="position: relative;top:5px;width:90px">操一把</span>
+            <a class="item luyixia" data-id="{$nvshen_detail['wb_id']}" style="padding: 0.4em 0.7em;">
+                <i style="background-image:url('/Public/image/cao.gif');width:22px;height:22px;display: block;background-size: 22px 22px;float:left"></i><span style="position: relative;top:5px;width:90px">操一把</span>
                 <div id="jia1" class="floating ui red label" >{$nvshen_detail['like_times']}</div>
             </a>
             
@@ -33,56 +33,53 @@ color: #707070;">
              <video id="videohtml5" style="margin-bottom:15px" width="600" height="440" autobuffer="" autoplay="" loop="" controls="" preload="metadata" x-webkit-airplay="" poster="{$nvshen_detail['v']['video_image']}">
                 <source src="{$nvshen_detail['v']['video_url']}"></video>                                     
 
-                          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <ins class="adsbygoogle"
      style="display:inline-block;width:468px;height:60px"
      data-ad-client="ca-pub-5486123269162001"
      data-ad-slot="2201404172"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script> 
 
-<!--
-<script type="text/javascript" language="javascript">
-yiqifa_sz_sid='225e386703f0d587';
-yiqifa_sz_wid='739773';
-yiqifa_sz_adid='543';
-yiqifa_sz_w='468';
-yiqifa_sz_h='60';
-yiqifa_sz_type='16';
-</script>
-<script type="text/javascript" language="javascript" src="http://smartzone.yiqifa.com/js/show.js"></script> 
--->                        </div>
+                        </div>
 
                         <div  class="ui two column grid" style="margin-left:15px">
                         <div class="column" style="text-align: left;">
-                            <a href="/index.php/Index/wb?id={$last_wb['wb_id']}"><i style="text-align: left;float:left;margin: 0em 0.2em 0em 0.2em;" class="long arrow left icon"></i>
-                            <span style="float:left;">
-                                <if condition="$last_wb['type'] eq 2 ">
-                                    {$last_wb['nvshen_screen_name']}的自拍照[{$last_wb['pic_count']}P]
-                                <else /> 
-                                </if>
-                                <if condition="$last_wb['type'] eq 3 ">
-                                    {$last_wb['nvshen_screen_name']}的自拍视频
-                                <else /> 
-                                </if>
-                                </span>
-                            </a>
+                        	<if condition="$last_wb eq -1">
+                            		
+                            <else /> 
+	                            <a href="/index.php/Index/wb?id={$last_wb['wb_id']}"><i style="text-align: left;float:left;margin: 0em 0.2em 0em 0.2em;" class="long arrow left icon"></i>
+	                            <span style="float:left;">
+	                            	
+	                                <if condition="$last_wb['type'] eq 2 ">
+	                                    {$last_wb['nvshen_screen_name']}的自拍照[{$last_wb['pic_count']}P]
+	                                <else /> 
+	                                </if>
+	                                <if condition="$last_wb['type'] eq 3 ">
+	                                    {$last_wb['nvshen_screen_name']}的自拍视频
+	                                <else /> 
+	                                </if>
+	                                </span>
+	                            </a>
+                            </if>
+                                
+                            
                         </div>
                         <div class="column" style="text-align: right;">
-                            <a href="/index.php/Index/wb?id={$next_wb['wb_id']}"><i style="text-align: right;float:right;margin: 0em 0.2em 0em 0.2em;" class="long arrow right icon"></i>
-                            <span style="float:right;">
-                                <if condition="$last_wb['type'] eq 2 ">
-                                    {$next_wb['nvshen_screen_name']}的自拍照[{$next_wb['pic_count']}P]
-                                <else /> 
-                                </if>
-                                <if condition="$last_wb['type'] eq 3 ">
-                                    {$next_wb['nvshen_screen_name']}的自拍视频
-                                <else /> 
-                                </if>
-                            </span>
-                            </a>
+                        	<if condition="$next_wb eq -1">
+                            		
+                            <else />
+	                            <a href="/index.php/Index/wb?id={$next_wb['wb_id']}"><i style="text-align: right;float:right;margin: 0em 0.2em 0em 0.2em;" class="long arrow right icon"></i>
+	                            <span style="float:right;">
+	                                <if condition="$next_wb['type'] eq 2">
+	                                    {$next_wb['nvshen_screen_name']}的自拍照[{$next_wb['pic_count']}P]
+	                                <else /> 
+	                                </if>
+	                                <if condition="$next_wb['type'] eq 3">
+	                                    {$next_wb['nvshen_screen_name']}的自拍视频
+	                                <else /> 
+	                                </if>
+	                            </span>
+	                            </a>
+                            </if>
                         </div>
                     </div>
                     <div style="width:100%;text-align: center;">
@@ -94,36 +91,11 @@ yiqifa_sz_type='16';
                                             <script type="text/javascript" id="wumiiRelatedItems"></script>
                     </div>
 <div class="ui segment" style="padding:0em 0.8em 0.5em 0.8em">
-<script type="text/javascript">
-     document.write('<a style="display:none!important" id="tanx-a-mm_34049255_7662100_25768226"></a>');
-     tanx_s = document.createElement("script");
-     tanx_s.type = "text/javascript";
-     tanx_s.charset = "gbk";
-     tanx_s.id = "tanx-s-mm_34049255_7662100_25768226";
-     tanx_s.async = true;
-     tanx_s.src = "http://p.tanx.com/ex?i=mm_34049255_7662100_25768226";
-     tanx_h = document.getElementsByTagName("head")[0];
-     if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
-</script>
+tanx广告
                  </div>   
                     <div class="ui divider" style="margin:0px;margin-top:8px" ></div>
                         <div id="duoshuopinglun" class="ui segment" style="padding-bottom:0px">
-                                                  <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="30655" data-title="请替换成文章的标题" data-url="http://caonvshen.com/30655.html"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"caonvshen"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.unstable.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-<!-- 多说公共JS代码 end -->
+                                                 
                     </div>
 
             </div>
@@ -132,22 +104,22 @@ padding-right: 0.8%;margin-top:0px">
             <div class="ui segment" >
                 <div style='width:120px;float:left'>
                 <a title="{$nvshen_detail['nvshen_screen_name']}的主页" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}">
-                <img class="ui avatar image" src="{$nvshen_detail['nvshen_profile_image']}" style="margin-right:4px;width:120px;height:120px;border-radius:5px" alt="{$nvshen_detail['nvshen_screen_name']}的主页，{$nvshen_detail['nvshen_screen_name']}的自拍照与自拍视频">
+                <img class="ui avatar image" src="{$nvshen_detail['avatar_large']}" style="margin-right:4px;width:120px;height:120px;border-radius:5px" alt="{$nvshen_detail['nvshen_screen_name']}的主页，{$nvshen_detail['nvshen_screen_name']}的自拍照与自拍视频">
                 </a>
                 </div>
                     <div style='width:145px;float:right;margin-left:8px'>
                 <a  title="{$nvshen_detail['nvshen_screen_name']}的主页" style="font-size:1.2em" href="/index.php/Index/nvshen?id={$nvshen_detail['nvshen_user_id']}">{$nvshen_detail['nvshen_screen_name']}</a>
                 <br/><br/>
                 <a title="{$nvshen_detail['nvshen_screen_name']}的自拍照" href="/index.php/Index/wb?id={$nvshen_wb_id}&type=pp" class="ui red label" >
-8相册
+{$nvshen_detail['album_num']}相册
         </a>
         <a title="{$nvshen_detail['nvshen_screen_name']}的自拍视频" href="/index.php/Index/wb?id={$nvshen_wb_id}&type=video" class="ui red label">
-{$nvshen_detail['v_number']}视频
+{$nvshen_detail['video_num']}视频
         </a>
         <br/>
         
         <div class="ui pointing green top label">
-                    已有{$nvshen_detail['all_like_times']} 操友操过
+                    已有 {$nvshen_detail['all_like_times']} 操友操过
                 </div>
                 
             </div>
@@ -158,34 +130,12 @@ padding-right: 0.8%;margin-top:0px">
 
 
  <div style="margin-bottom:0.6em;margin-top:0.6em">              
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 操女神-详情页右侧 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-5486123269162001"
-     data-ad-slot="3130067373"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+谷歌广告
  </div> 
 
  <div class="ui divider" style="margin:0px;margin-top:5px" ></div>
             <div style="margin-bottom:0.6em;margin-top:0.6em">
-                <script src="http://e.70e.com/cpc_img.asp?u=62610&m=6&n=&s_px=2" charset="gb2312"></script>
-
-<!--
-<script type="text/javascript">
-     document.write('<a style="display:none!important" id="tanx-a-mm_34049255_6222608_21558836"></a>');
-     tanx_s = document.createElement("script");
-     tanx_s.type = "text/javascript";
-     tanx_s.charset = "gbk";
-     tanx_s.id = "tanx-s-mm_34049255_6222608_21558836";
-     tanx_s.async = true;
-     tanx_s.src = "http://p.tanx.com/ex?i=mm_34049255_6222608_21558836";
-     tanx_h = document.getElementsByTagName("head")[0];
-     if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
-</script>
--->
+70e广告
 </div>
                        
                       
@@ -213,177 +163,103 @@ padding-right: 0.8%;margin-top:0px">
                     </div>
                     <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'></div>
                 </for>
-            </div><!-- 
-<div class="ui divider" style="margin:0px;margin-top:5px" ></div>
-
- <div style="margin-bottom:0.6em;margin-top:0.6em">
-                <script> var dsaid=32536; var dwidth=300; var dheight=250; </script> <script type="text/javascript" src="http://unionjs.dianxin.com/showPic.js" name="showpic" charset="utf-8" ></script>
-
-<script type="text/javascript">
-/*300*250，创建于2014-7-8(caonvshen)*/
-var cpro_id = "u1614897";
-</script>
-<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
-</div>
--->
+            </div>
 
 
 
-  
+  </div>
 
  <div class="ui divider" style="margin:0px;margin-top:5px" ></div>
 
  <div style="margin-bottom:0.6em;margin-top:0.6em">
-    <script type="text/javascript">
-var sogou_ad_id=360917;
-var sogou_ad_height=250;
-var sogou_ad_width=300;
-</script>
-<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
-
-<!--
-                <script> var dsaid=32536; var dwidth=300; var dheight=250; </script> <script type="text/javascript" src="http://unionjs.dianxin.com/showPic.js" name="showpic" charset="utf-8" ></script>
--->
+搜狐广告
 </div>
-<div class="ui divider" style="margin:0px;margin-top:8px" ></div>
-                                <div style="margin-bottom:0.3em;margin-top:0.6em">
-<div style="float:left;width:150px"><img src='img/wx.jpg' width='150' height='150' title='微信扫描二维码，手机上操女神' alt='操女神的微信'/>
-</div>
-<div style="float:right;width:150px;height:160px">
-<a style="width:150px" href="http://weibo.com/caonvshen" target="_blank" title="操女神的新浪微博"><img style='width: 28px;
-height: 28px;margin-top:5px;margin-left:15px' src="img/wb.png" alt="操女神的新浪微博"><span style="position: relative;top:-8px;left:5px">操女神新浪微博</span></a>
-<a href="http://t.qq.com/caonvshen"  target="_blank" title="操女神的腾讯微博"><img style='
-width: 28px;
-height: 28px;margin-top:20px;margin-left:15px' src="img/qq.png" alt="操女神的腾讯微博" ><span style="position: relative;top:-8px;left:5px">操女神腾讯微博</span></a>
-<a href="http://www.douban.com/group/526577"  target="_blank" title="操女神的豆瓣小组"><img style='
-width: 28px;
-height: 28px;margin-top:20px;margin-left:15px' src="img/dou48.gif" alt="操女神的豆瓣小组" ><span style="position: relative;top:-8px;left:5px">操女神豆瓣小组</span></a>
-</div>
-</div>
-         
-            </div>
 
-        </div>
-         <script type="text/javascript">
-    var wumiiPermaLink = ""; //请用代码生成文章永久的链接
-    var wumiiTitle = ""; //请用代码生成文章标题
-    var wumiiTags = ""; //请用代码生成文章标签，以英文逗号分隔，如："标签1,标签2"
-    var wumiiCategories = []; //请用代码生成文章分类，分类名放在 JSONArray 中，如: ["分类1", "分类2"]
-    var wumiiSitePrefix = "http://caonvshen.com/";
-    var wumiiParams = "&num=5&mode=2&pf=JAVASCRIPT";
-</script>
-<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
-<a href="http://www.wumii.com/widget/relatedItems" style="border:0;">
-    <img src="http://static.wumii.cn/images/pixel.png" alt="无觅关联推荐，快速提升流量" style="border:0;padding:0;margin:0;" />
-</a>
-            <style type="text/css">
-.foota{
-    font-size: 13px;
-}
-.sl-fixed-right {
-right: 0 !important;
-left: auto;
-_right: auto;
-_left: expression(eval(document.documentElement.scrollLeft+document.documentElement.clientWidth-this.offsetWidth)-(parseInt(this.currentStyle.marginLeft,10)||0)-(parseInt(this.currentStyle.marginRight,10)||0));
-}
-.sl-fixed-bottom {
-bottom: 0;
-top: auto;
-_bottom: auto;
-_top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
-}
-.sl-fixed {
-position: fixed!important;
-z-index: 300;
-}
-.backtop a {
-display: block;
-cursor: pointer;
-position: absolute;
-z-index: 99;
-bottom: 10px;
-right: 20px;
-width: 34px;
-height: 60px;
-background: url('../img/rocket.png') no-repeat 0 0;
-box-shadow: none;
-}
-.backtop a:hover {
-background-image: url('../img/rocket-active.png');
-}
-.f-sina,.f-qq{
-float: right;
-width: 28px;
-height: 28px;
-background-image: url('../img/follow.png');
-background-repeat: no-repeat;
-margin: 0 2px 0 0;
-}
-.f-qq {
-background-position: -75px top;
-}
-.signupp{
-margin:0.1em 0px 0.6em 0em;
-color:#bbb;
-font-size: 0.9em;
-}
-ul li .NO {
-width: 16px;
-height: 16px;
-float: left;
-display: inline;
-margin: 0 13px 0 3px;
-line-height: 16px;
-font-size: 12px;
-color: white;
-background-color: #78cd58;
-text-align: center;
-}
-.redp{
-    color: #D95C5C;
-}
-.greenp{
-    color: #A1CF64;
-}
-</style>
-<div class="ui divider" style="margin:25px 0px 20px 0px;clear:both"></div>
-<div class="ui inverted" id="nvshenmenu">
-    <div class="container" style="height:60px;padding:0px 10px;clear:both">
-        <div style="width:70%;float:left">
-         <div class="ui divided horizontal list">
-            <div class="item"><a href="http://caonvshen.com/about" target="_blank" class="foota">关于我们</a></div>
-            <div class="item"><a href="http://caonvshen.com/advertise" target="_blank" class="foota">广告投放</a></div>
-            <div class="item"><a href="http://caonvshen.com/link" target="_blank" class="foota">友链交换</a></div>
-             <div class="item"><a href="http://caonvshen.com/declear" target="_blank" class="foota">免责申明</a></div>
-             <!--
-                         <div class="item"><a href="http://caonvshen.com/pp" target="_blank" class="foota">女神相册</a></div>
-                          <div class="item"><a href="http://caonvshen.com/video" target="_blank" class="foota">女神视频</a></div>
-            <div class="item"><a href="http://caonvshen.com/users" target="_blank" class="foota">女神排行</a></div>
-            <div class="item"><a href="http://caonvshen.com/add" target="_blank" class="foota">推荐女神</a></div>
-        -->
-
-        </div>
-        <br/><br/>
-
-        <div style="font-size: 13px;">
-            <span>友情链接:&nbsp;&nbsp;&nbsp;</span> <a style="margin-right:10px" target="_blank" href="http://youai123.com">有爱导航</a>
-            <a style="margin-right:10px" target="_blank" href="http://site.youai123.com">上什么</a>
-        </div>
-
-    </div>
-     <div style="width:30%;float:right;text-align:right">
-        <span style="font-weight:500">关注操女神</span>
-        <br/>
-        <br/>
-                <a href="http://t.qq.com/caonvshen" class="f-qq" target="_blank" title="操女神的腾讯微博"></a>
-        <a href="http://weibo.com/caonvshen" class="f-sina" target="_blank" title="操女神的新浪微博"></a>
-
-     </div>
-    </div>
-</div>
-<div id="toolBackTop" class="backtop sl-fixed sl-fixed-bottom sl-fixed-right" style="display: none;">
-<a class="br-s bs-l" onclick="window.scrollTo(0,0);return false;"></a>
-</div>
 <include file="Index:footer" />
+
+<script type="text/javascript">
+    function shoucang(id){
+          $.get("ajax/shoucang.php", {id:id},function(data){
+                        if(data==1){
+                         $('#loginbox').modal('show');
+                        }else{
+                            $("#shoucang").addClass("disabled");
+                            $("#shoucang").html("已收藏");
+                        }
+         });
+
+    }
+function getCookie(name) {
+ var nameEQ = name + "=";  
+ var ca = document.cookie.split(';');    //把cookie分割成组  
+ for(var i=0;i < ca.length;i++) {  
+ var c = ca[i];                      //取得字符串  
+ while (c.charAt(0)==' ') {          //判断一下字符串有没有前导空格  
+ c = c.substring(1,c.length);      //有的话，从第二位开始取  
+ }  
+ if (c.indexOf(nameEQ) == 0) {       //如果含有我们要的name  
+ return unescape(c.substring(nameEQ.length,c.length));    //解码并截取我们要值  
+ }  
+ }  
+ return false;  
+}  
+  
+//清除cookie  
+function clearCookie(name) {
+ setCookie(name, "", -1);  
+}  
+  
+//设置cookie  
+function setCookie(name, value, seconds) { 
+ seconds = seconds || 0;   //seconds有值就直接赋值，没有为0，这个根php不一样。  
+ var expires = "";  
+ if (seconds != 0 ) {      //设置cookie生存时间  
+ var date = new Date();  
+ date.setTime(date.getTime()+(seconds*1000));  
+ expires = "; expires="+date.toGMTString();  
+ }  
+ document.cookie = name+"="+escape(value)+expires+"; path=/";   //转码并赋值  
+}
+
+$(document).ready(function() {
+       $(document).keyup(function(ev){
+                var code=ev.keyCode;
+                //alert(code);
+                if(code==37){
+                    window.location.href="/index.php/Index/wb?id={$last_wb['wb_id']}";
+                }
+                if(code==39){
+                    window.location.href="/index.php/Index/wb?id={$next_wb['wb_id']}";
+                }
+             });
+             
+        $(".luyixia").click(function(){
+                                var weiboid=$(this).attr("data-id");
+                                $("#jia1").after("<b id='jia1tag'>+1</b>");
+                                //$("#jia1tag").remove();
+                                $("#jia1tag").animate({ top: '-=40px',opacity:'0' }, 1000,function(){
+                                     $("#jia1tag").remove();
+                                });
+                                if(!getCookie(weiboid)){
+                                 $.ajax({
+                      url:"/index.php/Index/caoyixia",
+                      type:"POST",
+                      data:{"id":weiboid},
+                      timeout:5000, 
+                      success:function (){ 
+                           $("#jia1").html(parseInt($("#jia1").html())+1);
+
+                      }
+                      });
+                                 setCookie(weiboid,1);
+                                 }
+                                 else{
+                                 }
+                                //stopDefault(e);
+                                });
+    });
+    </script>
+    
+    
 </body>
 </html>

@@ -18,8 +18,8 @@ color: #707070;">
                         
                                 
                                     <div class="ui compact menu" style="float:left;margin:15px 0px 10px 25px;">
-            <a class="item luyixia" data-id="29721" style="padding: 0.4em 0.7em;">
-                <i style="background-image:url('img/lu.gif');width:22px;height:22px;display: block;background-size: 22px 22px;float:left"></i><span style="position: relative;top:5px;width:90px">操一把</span>
+            <a class="item luyixia" data-id="{$nvshen_detail['wb_id']}" style="padding: 0.4em 0.7em;">
+                <i style="background-image:url('/Public/image/cao.gif');width:22px;height:22px;display: block;background-size: 22px 22px;float:left"></i><span style="position: relative;top:5px;width:90px">操一把</span>
                 <div id="jia1" class="floating ui red label" >{$nvshen_detail['like_times']}</div>
             </a>
             
@@ -143,12 +143,10 @@ padding-right: 0.8%;margin-top:0px">
 
  <div style="margin-bottom:0.6em;margin-top:0.6em">              
 <!-- 操女神-详情页右侧 -->
-</script>
  </div> 
 
  <div class="ui divider" style="margin:0px;margin-top:5px" ></div>
             <div style="margin-bottom:0.6em;margin-top:0.6em">
-
 
 </div>
                        
@@ -213,76 +211,6 @@ height: 28px;margin-top:20px;margin-left:15px' src="img/dou48.gif" alt="操女�
 
         </div>
          
-            <style type="text/css">
-.foota{
-    font-size: 13px;
-}
-.sl-fixed-right {
-right: 0 !important;
-left: auto;
-_right: auto;
-_left: expression(eval(document.documentElement.scrollLeft+document.documentElement.clientWidth-this.offsetWidth)-(parseInt(this.currentStyle.marginLeft,10)||0)-(parseInt(this.currentStyle.marginRight,10)||0));
-}
-.sl-fixed-bottom {
-bottom: 0;
-top: auto;
-_bottom: auto;
-_top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
-}
-.sl-fixed {
-position: fixed!important;
-z-index: 300;
-}
-.backtop a {
-display: block;
-cursor: pointer;
-position: absolute;
-z-index: 99;
-bottom: 10px;
-right: 20px;
-width: 34px;
-height: 60px;
-background: url('/public/image/rocket.png') no-repeat 0 0;
-box-shadow: none;
-}
-.backtop a:hover {
-background-image: url('/public/image/rocket-active.png');
-}
-.f-sina,.f-qq{
-float: right;
-width: 28px;
-height: 28px;
-background-image: url('/public/image/follow.png');
-background-repeat: no-repeat;
-margin: 0 2px 0 0;
-}
-.f-qq {
-background-position: -75px top;
-}
-.signupp{
-margin:0.1em 0px 0.6em 0em;
-color:#bbb;
-font-size: 0.9em;
-}
-ul li .NO {
-width: 16px;
-height: 16px;
-float: left;
-display: inline;
-margin: 0 13px 0 3px;
-line-height: 16px;
-font-size: 12px;
-color: white;
-background-color: #78cd58;
-text-align: center;
-}
-.redp{
-    color: #D95C5C;
-}
-.greenp{
-    color: #A1CF64;
-}
-</style>
 <div class="ui divider" style="margin:25px 0px 20px 0px;clear:both"></div>
 
 <include file="Index:footer" />
@@ -350,7 +278,7 @@ function setCookie(name, value, seconds) {
                                 });
                                 if(!getCookie(weiboid)){
                                  $.ajax({
-                      url:"http://localhost:8080/luyixia.php",
+                      url:"/index.php/Index/caoyixia",
                       type:"POST",
                       data:{"id":weiboid},
                       timeout:5000, 
@@ -363,7 +291,7 @@ function setCookie(name, value, seconds) {
                                  }
                                  else{
                                  }
-                                stopDefault(e);
+                                //stopDefault(e);
                                 });  
     });
     </script>

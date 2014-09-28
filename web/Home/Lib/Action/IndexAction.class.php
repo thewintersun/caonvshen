@@ -206,10 +206,11 @@ class IndexAction extends Action {
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		// 第几页
 		$p = 0;
-		$next_page = $p+1;
+		
 		if(isset($_GET['p']) ){
 			$p = $_GET['p'];
 		}		
+		$next_page = $p+1;
 		
 		$wb_id = $_GET['id'];
 		
@@ -261,6 +262,10 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 				$result[$i]['bmiddle_pic'] = $wb_result[$i]['bmiddle_pic'];			
 			}
 			
+			// 女神说明
+			$nvshen_description = $this->get_nvshen_description($wb_id);
+			$this->assign("nvshen_description", $nvshen_description);
+			
 			$this->assign("type", $type);
 			$this->assign("typeclass", $typeclass);
 			$this->assign("next_page", $next_page);
@@ -285,7 +290,7 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 		if($wb_result){
 			if(count($wb_result) >0 ){
 				$type = $wb_result[0]['type'];
-				
+				$result['wb_id'] 				= $wb_id;
 				$result['wb_text'] 				= $wb_result[0]['wb_text'];
 				$result['nvshen_user_id'] 		= $wb_result[0]['nvshen_user_id'];
 				$result['nvshen_screen_name'] 	= $wb_result[0]['nvshen_screen_name'];
@@ -312,9 +317,16 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 					$next_wb = $this->get_wb_detail($next_wb_id);
 					$this->assign("next_wb",$next_wb);
 				}
+				else{
+					$this->assign("next_wb",-1);
+				}
+				
 				if($last_wb_id != -1){
 					$last_wb = $this->get_wb_detail($last_wb_id);
 					$this->assign("last_wb",$last_wb);
+				}
+				else{
+					$this->assign("last_wb",-1);
 				}
 				
 				
@@ -406,7 +418,21 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 		
 		$this->display();
 	}
-		
+	
+	
+	// 添加喜欢次数
+	public function caoyixia(){
+		$wb_id = $_POST['id'];
+		$nvshendata = M("nvshendata");
+		$sql = "update cns_nvshendata set like_times = like_times +1 where wb_id=".$wb_id;
+		$result = $nvshendata->execute($sql);
+		if(!$result){
+			ddlog::warn("update caoyixia fail ".$wb_id);
+		}
+		return 0;
+	}
+	
+	
 	// 根据微博的id获取到这个微博的详细信息
 	private function get_wb_detail($wb_id){
 		$nvshendata = M("nvshendata");
@@ -486,6 +512,7 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 		if($created_at_result ){
 			$created_at = $created_at_result[0]['created_at'];
 		}else{
+			ddlog::warn("next wb fail ". $wb_id);
 			return -1;
 		}
 	
@@ -495,6 +522,7 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 			$result_wb_id = $wb_id_result[0]['wb_id'];
 			return $result_wb_id;
 		}
+		ddlog::warn("next wb fail2 ". $wb_id);
 		return -1;
 	}
 	
@@ -517,6 +545,19 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 			return $result_wb_id;
 		}
 		return -1;
-	}	
+	}
+	
+	// 获取微博主的说明
+	private function get_nvshen_description($wb_userid){
+		$nvshenlist = M("nvshenlist");
+		$getdata['wb_userid'] = $wb_userid;
+		
+		$result = $nvshenlist->where($wb_userid)->find();
+		if($result){
+			return $result['wb_user_description'];
+		}
+		return -1;
+		
+	}
 	
 }
