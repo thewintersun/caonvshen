@@ -33,7 +33,7 @@ return array(
 		'__WEBSITE_URL__'=>"http://".$domain,
 	),
 	'WEIBO_TOKEN' => '2.00BXxOZBTP2dPD933a0af6f80efIys',
-	'ONE_WEIBO_TOKEN' => '2.00BXxOZBTP2dPD933a0af6f80efIys',
+	'ONE_WEIBO_TOKEN' => '2.00TdHFfFTP2dPD09065096c50j5X5j',
 	'PAGE_NUMBER' => 24,
 );
 ?>

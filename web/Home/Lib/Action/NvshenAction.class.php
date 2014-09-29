@@ -55,8 +55,8 @@ class NvshenAction extends Action {
 
 	// 用另外一个微博账号， 获取某个单独的女神的微博信息
 	public function scan_one_nvshen(){
-		if(!isset($_POST['weibo_name']) || trim($_POST['weibo_name'])==""){
-    		ddlog::warn("weibo name param not set. weibo name is ". $_POST['weibo_name']);
+		if(!isset($_GET['weibo_name']) || trim($_GET['weibo_name'])==""){
+    		ddlog::warn("weibo name param not set. weibo name is ". $_GET['weibo_name']);
 			$this->ajaxReturn('param not set', 'param not set', 1);
 			return;
     	}
@@ -64,7 +64,7 @@ class NvshenAction extends Action {
 		$nvshendata = M('nvshendata');
 		
 		
-    	$wb_username = $_POST['weibo_name'];
+    	$wb_username = $_GET['weibo_name'];
 		$wb_token = C('ONE_WEIBO_TOKEN');
 		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
 		
@@ -96,7 +96,7 @@ class NvshenAction extends Action {
 			//echo "add db success"." <br>";
 		}
 		else {
-			$this->ajaxReturn('not find weibo', 'fail', 2);	
+			$this->ajaxReturn($follow_result, 'fail', 2);	
 		}
 		
 		// 获取微博信息， 然后存到数据库
