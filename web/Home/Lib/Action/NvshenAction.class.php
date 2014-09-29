@@ -53,6 +53,168 @@ class NvshenAction extends Action {
 	}
 
 
+	// 用另外一个微博账号， 获取某个单独的女神的微博信息
+	public function scan_one_nvshen(){
+		if(!isset($_POST['weibo_name']) || trim($_POST['weibo_name'])==""){
+    		ddlog::warn("weibo name param not set. weibo name is ". $_POST['weibo_name']);
+			$this->ajaxReturn('param not set', 'param not set', 1);
+			return;
+    	}
+		
+		$nvshendata = M('nvshendata');
+		
+		
+    	$wb_username = $_POST['weibo_name'];
+		$wb_token = C('ONE_WEIBO_TOKEN');
+		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
+		
+		$follow_result = $c->follow_by_name($wb_username);
+		
+		// 添加到数据库
+		if(isset($follow_result['screen_name']) && $follow_result['screen_name'] == $wb_username){
+			//echo "follow ". $wb_username." success <br>";
+			
+			// add to database
+			$nslist = M('nvshenlist');
+			$adddata['wb_userid'] = $follow_result['id'];
+			$adddata['wb_username'] = $wb_username;
+			$adddata['like_times'] = 0;
+			$adddata['wb_user_description'] = $follow_result['description'];
+			$adddata['profile_image_url'] 	= $follow_result['profile_image_url'];
+			$adddata['avatar_large'] 		= $follow_result['avatar_large'];
+			$adddata['big_profile_image_url'] = $follow_result['cover_image_phone'];
+			$adddata['profile_url']	= $follow_result['profile_url'];
+			$adddata['wb_address'] = "http://www.weibo.com/".$follow_result['profile_url'];
+			$adddata['add_time'] = time();
+			
+			$result = $nslist->add($adddata);
+			if($result === false){
+				//echo 'add db fail '.$wb_username."<br>";
+				//return;
+				$this->ajaxReturn($wb_username.' add to db fail', 'fail', 3);
+			}
+			//echo "add db success"." <br>";
+		}
+		else {
+			$this->ajaxReturn('not find weibo', 'fail', 2);	
+		}
+		
+		// 获取微博信息， 然后存到数据库
+		// 视频微博，3
+		$video_weibo = $c->home_timeline(1, 100, 0, 0, 0, 3);
+		// 图片微博，3
+		$pic_weibo 	= $c->home_timeline(1, 100, 0, 0, 0, 2);
+		
+		if(isset($video_weibo) && isset($video_weibo['statuses']) && count($video_weibo['statuses'])>0 )
+		{
+			$wblist = $video_weibo['statuses'];
+			for( $i=count($wblist)-1; $i>=0; $i--){
+				$add_data['wb_text'] = $wblist[$i]['text'];
+				$add_data['wb_id'] = $wblist[$i]['id'];
+				$add_data['created_at'] = strtotime($wblist[$i]['created_at']);
+				
+				//  匹配短网址
+				if(preg_match('/(http:\/\/t\.cn)+[\w\/\.\-]*/', $add_data['wb_text'], $matched)){
+					$short_url = 	$matched[0];
+					$short_detail = $c->get_info_by_shorturl($short_url);
+					$detail_object = $short_detail['urls'][0]['annotations'][0]['object'];
+					$video_url = $detail_object['stream']['hd_url'];
+					$video_image = $detail_object['image']['url'];
+					$video_embed_code  = $detail_object['embed_code'];
+					
+					//  可能存在获取视频不对的情况
+					if($video_url==null || $video_url==""){
+						$annotations 	= $short_detail['urls'][0]['annotations'][0];
+						$video_url 		= $annotations['url'];
+						$video_image	= $annotations['pic'];
+					}
+					
+					$add_data['type'] = 3;
+					$add_data['nvshen_user_id'] 			= $wblist[$i]['user']['id'];
+					$add_data['nvshen_screen_name'] 		= $wblist[$i]['user']['screen_name'];
+					$add_data['nvshen_profile_image'] 		= $wblist[$i]['user']['profile_image_url'];
+					$add_data['avatar_large']				= $wblist[$i]['user']['avatar_large'];
+					$add_data['nvshen_big_profile_image'] 	= $wblist[$i]['user']['cover_image_phone'];
+					
+					$add_data['video_url'] = $video_url;
+					$add_data['video_image'] = $video_image;
+					$add_data['video_embed_code'] = $video_embed_code;
+					$add_data['like_times'] = 0;
+					$add_data['isok'] = 1;
+					
+					
+					
+					$result = $nvshendata->add($add_data);
+					if(!$result){
+						//echo "add nvshen video data fail. wb_id is  ". $add_data['wb_id']. " <br>";
+						$this->ajaxReturn($add_data['wb_id'].' scan to db fail', 'fail', 1);
+					}else{
+						//echo "add nvshen video data success. wb_id is  ". $add_data['wb_id']. " <br>";
+					}
+					
+					unset($add_data);
+				}
+				else{
+					continue;
+				}
+			}
+		}
+		
+		
+		// 图片
+		if(isset($pic_weibo) && isset($pic_weibo['statuses']) && count($pic_weibo['statuses'])>0 )
+		{
+			$wblist = $pic_weibo['statuses'];
+			
+			for( $i=count($wblist)-1; $i>=0; $i--){
+				unset($add_data);
+				$pic_array 	= $wblist[$i]['pic_urls'];
+				$pic_number =  count($pic_array);
+				// 没有图片
+				if($pic_number==0){
+					continue;
+				}
+				
+				$add_data['wb_text'] = $wblist[$i]['text'];
+				$add_data['wb_id'] = $wblist[$i]['id'];
+				$add_data['created_at'] = strtotime($wblist[$i]['created_at']);
+				
+				$add_data['type'] = 2;
+				$add_data['nvshen_user_id'] 			= $wblist[$i]['user']['id'];
+				$add_data['nvshen_screen_name'] 		= $wblist[$i]['user']['screen_name'];
+				$add_data['nvshen_profile_image'] 		= $wblist[$i]['user']['profile_image_url'];
+				$add_data['avatar_large']				= $wblist[$i]['user']['avatar_large'];
+				$add_data['nvshen_big_profile_image'] 	= $wblist[$i]['user']['cover_image_phone'];
+				
+				$add_data['like_times'] = 0;
+				$add_data['isok'] = 1;
+				
+				for($j=0;$j<count($pic_array);$j++){
+					$thumbnail_pic = $pic_array[$j]['thumbnail_pic'];
+					$bmiddle_pic = str_replace("thumbnail", "bmiddle", $thumbnail_pic);
+					$large_pic 	= str_replace("thumbnail", "large", $thumbnail_pic);
+					
+					$add_data['pic_url'] 		= $large_pic;
+					$add_data['thumbnail_pic'] 	= $thumbnail_pic;
+					$add_data['bmiddle_pic'] 	= $bmiddle_pic;
+					$add_data['large_pic'] 		= $large_pic;
+					
+					$result = $nvshendata->add($add_data);
+					if(!$result){
+						//echo "add nvshen video data fail. wb_id is  ". $add_data['wb_id']." <br>";
+						$this->ajaxReturn($add_data['wb_id'].' scan to db fail', 'fail', 1);
+					}else{
+						//echo "add nvshen video data success. wb_id is  ". $add_data['wb_id']." <br>";
+					}
+				}
+			}
+		}
+		
+		
+		$unfollow_result = $c->unfollow_by_name($wb_username);
+		$this->ajaxReturn('success', 'ok', 0);
+	}
+
 	//  定期扫描女神的微博的更新
 	public function scan_nvshen(){
 		// read newest weibo
