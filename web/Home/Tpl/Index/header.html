@@ -132,11 +132,18 @@ ul{
          <a class="item" href="/index.php/Index/add">推荐女神</a>
      </div>
          <div style="float:right">
-             <a class='item' id='loginbt'>登录</a><a class='item' id='signupbt'>注册</a><div class="ui small modal" id="signupbox">
+         	<if condition="$user_login eq 1">
+         		<a class="item" href="/index.php/Index/me">{$session_username}</a><a class="item" href="/index.php/User/logout">退出</a>
+         	<else /> 
+         		<a class='item' id='loginbt'>登录</a><a class='item' id='signupbt'>注册</a>
+         	</if>
+        <div class="ui small modal" id="signupbox">
         <i class="close icon"></i>
         <div class="header">
             注册
         </div>
+        
+        
         <div class="content">
             <div class="ui" style="width:55%;float:left">
                 <div class="ui left labeled icon input">
@@ -245,7 +252,7 @@ function login(){
     $("#loginp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>密码不能为空");
             return false;
     }
-            $.get("../ajax/login.php", {password:$("#loginpassword").val(),username:$("#loginusername").val()},function(data){
+            $.get("/index.php/User/login", {password:$("#loginpassword").val(),username:$("#loginusername").val()},function(data){
                         if(data==1){
                           window.location.reload();
                         }else if(data==0){
@@ -273,7 +280,7 @@ function signup(){
                 $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>邮箱格式不正确");
                  return false;
         }
-        $.get("../ajax/signupcheck.php", {password:$("#password").val(),email:$("#email").val(),username:$("#username").val()},function(data){
+        $.get("/index.php/User/signupcheck", {password:$("#password").val(),email:$("#email").val(),username:$("#username").val()},function(data){
                         if(data==1){
                             $("#email_flag").val("-1");
                             $("#emailp").addClass("redp");
@@ -291,9 +298,8 @@ function signup(){
                             window.location.reload();
                         }
          });
-
 }
-$("#username").focus(function(){
+	$("#username").focus(function(){
         $("#usernamep").removeClass("redp");
         $("#usernamep").removeClass("greenp");
         $("#usernamep").html("<i class='large info icon' style='color:#009FDA'></i>2-18个字符,可使用中文,字母,数字,下划线");
@@ -305,7 +311,7 @@ $("#username").focus(function(){
             $("#usernamep").html("<i class='large red remove sign icon' style='color:#009FDA'></i>用户名必须为2-18个字符");
             return false;
         }else{
-                $.get("../ajax/checkusername.php", {username:$("#username").val()},function(data){
+                $.get("/index.php/User/checkusername", {username:$("#username").val()},function(data){
                         if(data!=0){
                             $("#username_flag").val("-1");
                             $("#usernamep").addClass("redp");
@@ -348,7 +354,7 @@ $("#username").focus(function(){
                 $("#emailp").html("<i class='large red remove sign icon' style='color:#009FDA'></i>邮箱格式不正确");
                  return false;
         }else{
-            $.get("../ajax/checkemail.php", {email:$("#email").val()},function(data){
+            $.get("/index.php/User/checkemail", {email:$("#email").val()},function(data){
                         if(data!=0){
                             $("#email_flag").val("-1");
                             $("#emailp").addClass("redp");

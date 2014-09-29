@@ -4,7 +4,17 @@ require_once 'Home/Common/DDlog.class.php';
 
 // 本类由系统自动生成，仅供测试用途
 class IndexAction extends Action {
+	private function check_session(){
+		if(isset($_SESSION['username'])){
+			$this->assign("user_login", 1);
+			$this->assign("session_username", $_SESSION['username']);
+		}
+	}
+	
+	
     public function index(){
+    	$this->check_session();
+		
     	$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
     	$hot= 0; // 是否是最热的排序
 		if(isset($_GET['sort']) && $_GET['sort']=='hot'){
@@ -57,6 +67,7 @@ class IndexAction extends Action {
 	}
 	
 	public function pp(){
+		$this->check_session();
 		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
     	$hot= 0; // 是否是最热的排序
@@ -110,6 +121,8 @@ class IndexAction extends Action {
 	}
   	
 	public function video(){
+		$this->check_session();
+		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
     	$hot= 0; // 是否是最热的排序
 		if(isset($_GET['sort']) && $_GET['sort']=='hot'){
@@ -162,6 +175,7 @@ class IndexAction extends Action {
 
 	
 	public function random(){
+		$this->check_session();
 		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		
@@ -203,6 +217,8 @@ class IndexAction extends Action {
 	
 	// 单个的女神
 	public function nvshen(){
+		$this->check_session();
+		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		// 第几页
 		$p = 0;
@@ -279,6 +295,8 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 	
 	// 点击一个图片或者视屏后， 进入到详细的这个微博的各种的网页
 	public function wb(){
+		$this->check_session();
+		
 		$wb_id = $_GET['id'];
 		$this->assign("nvshen_wb_id", $wb_id);
 		$nvshendata = M("nvshendata");
@@ -385,6 +403,8 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 
 	//  女神排行榜
 	public function users(){
+		$this->check_session();
+		
 		$sort= "caotimes"; // 是否是最热的排序
 		if(isset($_GET['sort']) ){
 			$sort = $_GET['sort'];
@@ -445,6 +465,43 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 		$this->display();
 	}
 	
+	
+	// 个人页面
+	public function me(){
+		$this->check_session();
+		
+		if(!isset($_SESSION['username'])){
+			$this->redirect("/");
+			return;
+		}
+		
+		$username = $_SESSION['username'];
+		
+		$j=0;
+		
+		$shoucang = M('shoucang');
+		$getdata['username'] =$username;
+		
+		$wb_id_list = $shoucang->where($getdata)->select();
+		if($wb_id_list){
+			for( $i = 0; $i<count($wb_id_list); $i++){
+				$wb_id = $wb_id_list[$i]['wb_id'];
+				$wb_result = $this->get_wb_detail($wb_id);
+				if($wb_result != -1){
+					$result[$j] = $wb_result;
+					$j++;
+				}
+			}
+		}
+		
+		$this->assign("session_username",$username);
+		$this->assign("ns_count", $j);
+		$this->assign("ns_detail",$result);
+		
+		
+		$this->display();
+		
+	}
 	
 	// 添加喜欢次数
 	public function caoyixia(){
