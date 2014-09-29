@@ -162,6 +162,234 @@ padding-right: 0.8%;margin-top:0px">
   </div>
 
  <include file="Index:footer" />
+<script type="text/javascript">
+    function shoucang(id){
+          $.get("/index.php/User/shoucang", {id:id},function(data){
+                        if(data==1){
+                         $('#loginbox').modal('show');
+                        }else{
+                            $("#shoucang").addClass("disabled");
+                            $("#shoucang").html("已收藏");
+                        }
+         });
 
+    }
+          function getCookie(name) {  
+ var nameEQ = name + "=";  
+ var ca = document.cookie.split(';');    //把cookie分割成组  
+ for(var i=0;i < ca.length;i++) {  
+ var c = ca[i];                      //取得字符串  
+ while (c.charAt(0)==' ') {          //判断一下字符串有没有前导空格  
+ c = c.substring(1,c.length);      //有的话，从第二位开始取  
+ }  
+ if (c.indexOf(nameEQ) == 0) {       //如果含有我们要的name  
+ return unescape(c.substring(nameEQ.length,c.length));    //解码并截取我们要值  
+ }  
+ }  
+ return false;  
+}  
+  
+//清除cookie  
+function clearCookie(name) {  
+ setCookie(name, "", -1);  
+}  
+  
+//设置cookie  
+function setCookie(name, value, seconds) {  
+ seconds = seconds || 0;   //seconds有值就直接赋值，没有为0，这个根php不一样。  
+ var expires = "";  
+ if (seconds != 0 ) {      //设置cookie生存时间  
+ var date = new Date();  
+ date.setTime(date.getTime()+(seconds*1000));  
+ expires = "; expires="+date.toGMTString();  
+ }  
+ document.cookie = name+"="+escape(value)+expires+"; path=/";   //转码并赋值  
+}  
+    $(document).ready(function() {
+       $(document).keyup(function(ev){
+                var code=ev.keyCode;
+                //alert(code);
+                <if condition="$next_wb eq -1">
+                <else />
+                if(code==39){
+                    window.location.href="/index.php/Index/wb?id={$next_wb['wb_id']}";
+                }
+                </if>
+                
+                <if condition="$last_wb eq -1">
+                <else />
+                if(code==37){
+                    window.location.href="/index.php/Index/wb?id={$last_wb['wb_id']}";
+                }
+                </if>
+             });  
+        $(".luyixia").click(function(){
+                                var weiboid=$(this).attr("data-id");
+                                $("#jia1").after("<b id='jia1tag'>+1</b>");
+                                //$("#jia1tag").remove();
+                                $("#jia1tag").animate({ top: '-=40px',opacity:'0' }, 1000,function(){
+                                     $("#jia1tag").remove();
+                                });
+                                if(!getCookie(weiboid)){
+                                 $.ajax({
+                      url:"/index.php/Index/caoyixia",
+                      type:"POST",
+                      data:{"id":weiboid},
+                      timeout:5000, 
+                      success:function (){ 
+                           $("#jia1").html(parseInt($("#jia1").html())+1);
+
+                      }
+                      });
+                                 setCookie(weiboid,1);
+                                 }
+                                 else{
+                                 }
+                                //stopDefault(e);
+                                });  
+    });
+    </script>
+    <script>
+$(function(){
+    var i=0,//大图编号
+        len=img.length,//img数组的长度
+        cur=0;//当前图片编号
+        j=7,//默认显示小图个数
+        j=img.length,
+        page=0,//小图的页码
+        $s_next=$('#smallImg-next'),//小图下一页
+        $s_pre=$('#smallImg-pre'),//小图上一页
+        box=$('#smallImg-box').width(),//显示的长度
+        $ul=$('#smallImg-ul'),//小图外层
+        $imgLi=$ul.find('li'),//小图li
+        html=_html='';//存放载入的代码     
+    $('#detailImg-box').append('<a target=\"_blank\" title=\"点击下载高清大图\" href=\"'+img[0].href+'\" class=\"detailImg_1\"><img alt=\"'+img[0].alt+'\" src=\"'+img[i].src+'\"></a>');
+    //大图    
+    $('#detailImg-next').click(function(){
+        if(i<(len-1)){
+        ++i;
+        }
+        detailImg_click($s_next,i,len);
+    })
+    $('#detailImg-pre').click(function(){
+        if(i>0){
+        --i;}
+        detailImg_click($s_pre,i,len);
+    })
+    //小图
+    for(var k=0;k<j;k++){
+        var _k=k%len;
+        s_html(_k);
+        html+=h;
+    }
+    $ul.append(html);
+    $('.smallImg_1').addClass('cur');   
+    //小图下一页
+    $('#smallImg-next').click(function(){
+        if(!$ul.is(':animated')){
+            page++;
+            var a=page*j,_a,c;
+            for(var k=0;k<j;k++,a++){
+                smallImg_click(a,_a,len,i);
+                _html+=h;
+            }
+            $ul.append(_html);
+            $ul.css({'left':0,'right':'auto'});
+            $ul.animate({left:-box},1600,function(){
+                $ul.find('li:lt('+j+')').detach();
+                $ul.css('left',0);
+                _html='';
+            });//动画执行后,再删除前9个li,将left设回0
+            $('#smallImg-ul li').click(function(){
+                var _this=$(this);
+                i=_this.attr('class').replace(/[^0-9]/ig,'')-1;
+                img_info(i);
+                s_a_r(_this,'cur');
+                cur=i;
+            })
+        }
+    })
+    //小图上一页
+    $('#smallImg-pre').click(function(){
+        if(!$ul.is(':animated')){
+            page--;
+            var a=(page-1)*j,_a,c;
+            for(var k=0;k<j;k++,a--){
+                smallImg_click(a,_a,len,i);
+                _html=h+_html;
+            }
+            $ul.prepend(_html).css({'right':box,'left':'auto'});
+            $ul.animate({right:0},1600,function(){
+                $ul.find('li:gt('+(j-1)+')').detach();//删除后9个li,从8开始
+                _html='';
+            });
+            $('#smallImg-ul li').click(function(){
+                var _this=$(this);
+                i=_this.attr('class').replace(/[^0-9]/ig,'')-1;
+                img_info(i);
+                s_a_r(_this,'cur');
+                cur=i;
+            })
+        }
+            
+    })
+    //点击小图
+    $('#smallImg-ul li').click(function(){
+        var _this=$(this);
+        i=_this.attr('class').replace(/[^0-9]/ig,'')-1;
+        img_info(i);
+        s_a_r(_this,'cur');
+        cur=i;
+    })
+})
+
+/*----自定义函数-----------*/
+//大图图片信息
+function img_info(i){
+    var href=img[i].href,
+        alt=img[i].alt,
+        src=img[i].src,
+        title=img[i].title,
+        $main=$('#detailImg-box');
+    $main.find('a').attr({'href':href,'class':'detailImg_'+(i+1)});
+    $main.find('img').attr({'alt':alt,'src':src});
+    $main.find('p').text(title);
+}
+function s_a_r(o,c){
+    o.addClass(c).siblings().removeClass(c);    
+}
+//大图左右点击
+function i_cur(i,len){
+    i=i%len;
+    if(i<0){
+        i=len+i;
+    }
+    return i;   
+}
+function detailImg_click($pn,i,len){
+    i_cur(i,len);
+    img_info(i);
+    var imgCur=$('.smallImg_'+(i+1));
+    if(!imgCur.html()){
+        $pn.click();
+    } 
+    s_a_r($('.smallImg_'+(i+1)),'cur');//小图选中
+}
+//小图左右点击
+function smallImg_click(a,_a,len,i){
+    _a=a;
+    _a=a%len;
+    if(_a<0){
+        _a+=len;
+    }
+    c=_a==i?'cur':'';
+    s_html(_a,c);
+}
+function s_html(_a,c){
+    return h='<li class=\"smallImg_'+(_a+1)+' '+c+'\"><a><img alt=\"'+img[_a].alt+'\" src=\"'+img[_a].smallSrc+'\"></a></li>';
+}
+
+
+</script>
 </body>
 </html>
