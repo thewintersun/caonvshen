@@ -194,7 +194,7 @@ class NvshenAction extends Action {
 				
 				// album 
 				$album_num = 0;
-				$sql = "select count(distinct wb_id) as album_num from cns_nvshendata where type=2 and nvshen_user_id=".$wb_user_id;
+				$sql = "select count(distinct wb_id) as album_num from cns_nvshendata where isok=1 and type=2 and nvshen_user_id=".$wb_user_id;
 				$album_result = $nvshendata->query($sql);
 				if($album_result){
 					$album_num = $album_result[0]['album_num'];
@@ -203,7 +203,7 @@ class NvshenAction extends Action {
 				
 				// video num 
 				$video_num = 0;
-				$sql = "select count(distinct wb_id) as video_num from cns_nvshendata where type=3 and nvshen_user_id=".$wb_user_id;
+				$sql = "select count(distinct wb_id) as video_num from cns_nvshendata where  isok=1 and type=3 and nvshen_user_id=".$wb_user_id;
 				$video_result = $nvshendata->query($sql);
 				if($video_result){
 					$video_num = $video_result[0]['video_num'];
@@ -212,7 +212,7 @@ class NvshenAction extends Action {
 				
 				// all like times
 				$total_like = 0;
-				$sql = "select distinct wb_id from cns_nvshendata where nvshen_user_id=".$wb_user_id;
+				$sql = "select distinct wb_id from cns_nvshendata where  isok=1 and nvshen_user_id=".$wb_user_id;
 				$wblist=$nvshendata->query($sql);
 				if($wblist){
 					for($j=0; $j<count($wblist); $j++){

@@ -395,6 +395,10 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 			$p = $_GET['p'];
 		}
 		
+		
+		
+		
+		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		
 		if($sort == "caotimes"){
@@ -404,14 +408,31 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by album_num desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
 		}
 		if($sort == "new"){
-			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by add_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by add_time desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
 		}
+		
+		// 结果数， 如果小于阈值，就不显示下一页
+		$count_result = 0;
+		$more_page = 1;
 		
 		$nslist = M('nvshenlist');
 		$result = $nslist->query($sql);
 		if($result){
+			$count_result = count($result);
+			
+			if($count_result<$pagenumber){
+				$more_page = 0;
+				$this->assign("more_page", $more_page);
+			}
 			$this->assign("ns_count", count($result));
 			$this->assign('nvshen_list',$result);
+		}
+		
+		// 所有女神个数
+		$sql = "select count(distinct wb_username) as all_nvshen_number from cns_nvshenlist";
+		$all_number_result = $nslist->query($sql);
+		if($all_number_result){
+			$this->assign("all_nvshen_number", $all_number_result[0]['all_nvshen_number']);
 		}
 		
 		
@@ -521,7 +542,7 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 			return -1;
 		}
 	
-		$sql = "select wb_id from cns_nvshendata where created_at>".$created_at." order by created_at asc limit 2";
+		$sql = "select wb_id from cns_nvshendata where isok=1 and created_at>".$created_at." order by created_at asc limit 20";
 		$wb_id_result = $nvshendata->query($sql);
 		if($wb_id_result){
 			$result_wb_id = $wb_id_result[0]['wb_id'];
@@ -543,7 +564,7 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 			return -1;
 		}
 	
-		$sql = "select wb_id from cns_nvshendata where created_at<".$created_at." order by created_at desc limit 2";
+		$sql = "select wb_id from cns_nvshendata where isok=1 and created_at<".$created_at." order by created_at desc limit 2";
 		$wb_id_result = $nvshendata->query($sql);
 		if($wb_id_result){
 			$result_wb_id = $wb_id_result[0]['wb_id'];

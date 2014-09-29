@@ -8,7 +8,7 @@
 
             <div class="ui one column middle aligned relaxed grid basic segment">
             <div class="column" style="text-align: center;">
-                <h3 class="ui header" style="color: #bc543f;font-size: 28px;font-weight: bold;">目前共 264 位女神</h3> 
+                <h3 class="ui header" style="color: #bc543f;font-size: 28px;font-weight: bold;">目前共 {$all_nvshen_number} 位女神</h3> 
                 <label>女神排行&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <div class="ui selection dropdown">
 
@@ -48,9 +48,33 @@
             	</div>
             </for>
                   </div>
-      <p class='go-to-next-page'><a href='http://localhost:8080/users?sort=lutimes&p=2'>下一页</a></p>                        <div style="width:100%;text-align: center;clear:both;">
+       <if condition="$more_page eq 1">
+      <p class='go-to-next-page'><a href='/index.php/Index/users?{$next_page_param}&p={$next_page}'>下一页</a></p>    
+      </if>
+      <div class="ui divider" style="margin:25px 0px 20px 0px;clear:both"></div>
+                          <div style="width:100%;text-align: center;clear:both;">
 70e广告
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.ui.selection.dropdown')
+      .dropdown();
+      $(".sorttext").bind('DOMNodeInserted',function(e) {
+        //alert($(this).val());
+        //var sortchange=$(this).html();
+        var sortchange='';
+        if($(this).html()=='作品数量（哪些女神的自拍最多）'){
+            sortchange='ppnum';
+        }else if($(this).html()=='被操次数（哪些女神是操友最爱）'){
+            sortchange='caotimes';
+        }else{
+            sortchange='new';
+        }
+
+            self.location.href="/index.php/Index/users?sort="+sortchange;
+});
+    });
+    </script>
 <include file="Index:footer" />
 </body>
 </html>
