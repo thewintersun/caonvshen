@@ -4,7 +4,17 @@ require_once 'Home/Common/DDlog.class.php';
 
 // 本类由系统自动生成，仅供测试用途
 class IndexAction extends Action {
+	private function check_session(){
+		if(isset($_SESSION['username'])){
+			$this->assign("user_login", 1);
+			$this->assign("session_username", $_SESSION['username']);
+		}
+	}
+	
+	
     public function index(){
+    	$this->check_session();
+		
     	$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
     	$hot= 0; // 是否是最热的排序
 		if(isset($_GET['sort']) && $_GET['sort']=='hot'){
@@ -57,6 +67,7 @@ class IndexAction extends Action {
 	}
 	
 	public function pp(){
+		$this->check_session();
 		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
     	$hot= 0; // 是否是最热的排序
@@ -110,6 +121,8 @@ class IndexAction extends Action {
 	}
   	
 	public function video(){
+		$this->check_session();
+		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
     	$hot= 0; // 是否是最热的排序
 		if(isset($_GET['sort']) && $_GET['sort']=='hot'){
@@ -162,6 +175,7 @@ class IndexAction extends Action {
 
 	
 	public function random(){
+		$this->check_session();
 		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		
@@ -203,16 +217,18 @@ class IndexAction extends Action {
 	
 	// 单个的女神
 	public function nvshen(){
+		$this->check_session();
+		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		// 第几页
 		$p = 0;
 		
 		if(isset($_GET['p']) ){
 			$p = $_GET['p'];
-		}
+		}		
 		$next_page = $p+1;
 		
-		$user_id = $_GET['id'];
+		$wb_id = $_GET['id'];
 		
 		$type = $_GET['type'];
 		
@@ -221,25 +237,22 @@ class IndexAction extends Action {
 inner join 
 (SELECT min(id) as id, count(1) as pic_num 
 FROM caonvshen.cns_nvshendata 
-where nvshen_user_id = ".$user_id."
+where nvshen_user_id = ".$wb_id."
 group by wb_id) as ndgp on nd.id = ndgp.id 
 left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
-where isok = 1
 ";
-		
-		$upper_limit = ($p+1)*$pagenumber + 1;
 		if (isset($_GET['type']) && $_GET['type']=='pp') {
-			$sql = $sql."and type = 2 limit ".$p*$pagenumber.",".$upper_limit;
+			$sql = $sql."where type = 2 limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
 			$typeclass['pp'] ='active item';
 			$typeclass['v'] = ' item';
 			$typeclass['all'] = ' item';
 		} else if (isset($_GET['type']) && $_GET['type']=='video') {
-			$sql = $sql."and type = 3 limit ".$p*$pagenumber.",".$upper_limit;
+			$sql = $sql."where type = 3 limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
 			$typeclass['pp'] =' item';
 			$typeclass['v'] = 'active item';
 			$typeclass['all'] = ' item';
 		} else {
-			$sql = $sql." limit ".$p*$pagenumber.",".$upper_limit;
+			$sql = $sql." limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
 			$typeclass['pp'] =' item';
 			$typeclass['v'] = ' item';
 			$typeclass['all'] = 'active item';
@@ -249,12 +262,11 @@ where isok = 1
 		$wb_result = $nvshendata->query($sql);
 		
 		if($wb_result){
-			$j = MIN(count($wb_result), $pagenumber);
+			$j = MAX(count($wb_result), $pagenumber);
 			
 			$result['nvshen_screen_name'] = $wb_result[0]['nvshen_screen_name'];
 			$result['nvshen_user_id'] = $wb_result[0]['nvshen_user_id'];
 			$result['avatar_large'] = $wb_result[0]['avatar_large'];
-			$result['nvshen_description'] = $wb_result[0]['nvshen_description'];
 			
 			for($i=0; $i<$j; $i++){				
 				$result[$i]['type'] = $wb_result[$i]['type'];
@@ -264,50 +276,35 @@ where isok = 1
 				$result[$i]['wb_text'] = $wb_result[$i]['wb_text'];
 				$result[$i]['pic_num'] = $wb_result[$i]['pic_num'];	
 				$result[$i]['bmiddle_pic'] = $wb_result[$i]['bmiddle_pic'];			
-			}		
-			
-			if (count($wb_result) <= $pagenumber) {
-				$this->assign("show_next_page", "yes");	
-			} else {
-				$this->assign("show_next_page", "no");					
 			}
+			
 			// 女神说明
-			/*$nvshen_description = $this->get_nvshen_description($user_id);
-			$this->assign("nvshen_description", $nvshen_description);*/
-			$nvshen_description = $result[0]['wb_user_description'];
-			$this->assign("nvshen_description", $nvshen_description);		
+			$nvshen_description = $this->get_nvshen_description($wb_id);
+			$this->assign("nvshen_description", $nvshen_description);
+			
 			$this->assign("type", $type);
 			$this->assign("typeclass", $typeclass);
 			$this->assign("next_page", $next_page);
 			$this->assign("ns_count", $j);
 			$this->assign("ns_detail",$result);
-			$this->display("Index:nvshen");
 		}
-	}
-
-	public function about() {
-		$this->display();
-	}
-	
-	public function advertise() {
-		$this->display();
-	}
-	
-	public function declaration() {
-		$this->display();
-	}
-	
-	public function linker() {
-		$this->display();
-	}
-	
-	public function Admin() {
-		$this->display();
-	}	
 		
+    	$this->display("Index:nvshen");
+	}
+	
+	
 	// 点击一个图片或者视屏后， 进入到详细的这个微博的各种的网页
 	public function wb(){
+		$this->check_session();
+		
 		$wb_id = $_GET['id'];
+		
+		// 是否已经收藏这个wb
+		if(isset($_SESSION['username'])){
+			$is_shoucang = $this->is_shoucang($_SESSION['username'], $wb_id);
+			$this->assign("is_shoucang", $is_shoucang);
+		}
+		
 		$this->assign("nvshen_wb_id", $wb_id);
 		$nvshendata = M("nvshendata");
 		
@@ -413,6 +410,8 @@ where isok = 1
 
 	//  女神排行榜
 	public function users(){
+		$this->check_session();
+		
 		$sort= "caotimes"; // 是否是最热的排序
 		if(isset($_GET['sort']) ){
 			$sort = $_GET['sort'];
@@ -474,6 +473,43 @@ where isok = 1
 	}
 	
 	
+	// 个人页面
+	public function me(){
+		$this->check_session();
+		
+		if(!isset($_SESSION['username'])){
+			$this->redirect("/");
+			return;
+		}
+		
+		$username = $_SESSION['username'];
+		
+		$j=0;
+		
+		$shoucang = M('shoucang');
+		$getdata['username'] =$username;
+		
+		$wb_id_list = $shoucang->where($getdata)->select();
+		if($wb_id_list){
+			for( $i = 0; $i<count($wb_id_list); $i++){
+				$wb_id = $wb_id_list[$i]['wb_id'];
+				$wb_result = $this->get_wb_detail($wb_id);
+				if($wb_result != -1){
+					$result[$j] = $wb_result;
+					$j++;
+				}
+			}
+		}
+		
+		$this->assign("session_username",$username);
+		$this->assign("ns_count", $j);
+		$this->assign("ns_detail",$result);
+		
+		
+		$this->display();
+		
+	}
+	
 	// 添加喜欢次数
 	public function caoyixia(){
 		$wb_id = $_POST['id'];
@@ -486,6 +522,18 @@ where isok = 1
 		return 0;
 	}
 	
+	
+	//看是否已经收藏了这个wb了
+	private function is_shoucang($username, $wb_id){
+		$shoucang = M("shoucang");
+		$getdata['username'] = $username;
+		$getdata['wb_id'] = $wb_id;
+		$result = $shoucang->where($getdata)->find();
+		if($result){
+			return 1;
+		}
+		return 0;
+	}
 	
 	// 根据微博的id获取到这个微博的详细信息
 	private function get_wb_detail($wb_id){
