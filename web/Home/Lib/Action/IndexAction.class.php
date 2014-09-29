@@ -137,7 +137,7 @@ class IndexAction extends Action {
 		
 		if($hot == 0){
 			// 最新的排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by id desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
 		}
 		else{
 			// 最热排序
@@ -358,7 +358,7 @@ where isok = 1
 				
 				// 所有的喜欢的次数
 				$result['all_like_times'] = 0;
-				$sql = "select sum(like_times) as all_like_times from cns_nvshendata where wb_id=".$wb_id;
+				$sql = "select sum(like_times) as all_like_times from cns_nvshenlist where wb_userid=".$result['nvshen_user_id'];
 				$like_times_result = $nvshendata->query($sql);
 				if($like_times_result){
 					$result['all_like_times'] = $like_times_result[0]['all_like_times'];

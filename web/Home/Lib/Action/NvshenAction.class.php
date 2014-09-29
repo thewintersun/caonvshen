@@ -15,40 +15,46 @@ class NvshenAction extends Action {
 			return;
     	}
     	$wb_username = $_GET['weibo_name'];
-		$wb_token = C('WEIBO_TOKEN');
+		$wb_token = C('ONE_WEIBO_TOKEN'); //  没有关注任何人的微博账号
 		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
 		
-		
-		$follow_result = $c->follow_by_name($wb_username);
-		echo json_encode($follow_result);
-		echo "<br>";
-		if(isset($follow_result['screen_name']) && $follow_result['screen_name'] == $wb_username){
-			ddlog::notice("follow ". $wb_username." success");
-			
-			// add to database
-			$nslist = M('nvshenlist');
-			$adddata['wb_userid'] = $follow_result['id'];
-			$adddata['wb_username'] = $wb_username;
-			$adddata['like_times'] = 0;
-			$adddata['wb_user_description'] = $follow_result['description'];
-			$adddata['profile_image_url'] 	= $follow_result['profile_image_url'];
-			$adddata['avatar_large'] 		= $follow_result['avatar_large'];
-			$adddata['big_profile_image_url'] = $follow_result['cover_image_phone'];
-			$adddata['profile_url']	= $follow_result['profile_url'];
-			$adddata['wb_address'] = "http://www.weibo.com/".$follow_result['profile_url'];
-			$adddata['add_time'] = time();
-			
-			$result = $nslist->add($adddata);
-			if(!$result){
-				$this->ajaxReturn('add db fail'.$wb_username, 'fail', 1);
-				return;
-			}
-			$this->ajaxReturn($wb_username, 'success', 0);
+		//  先查找是否在nvshenlist里面
+		$nvshenlist = M("nvshenlist");
+		$getdata['wb_username'] = $wb_username;
+		$ns_list_result = $nvshenlist->where($getdata)->find();
+		if($ns_list_result){
+			echo 3;
 			return;
 		}
 		
-		ddlog::notice($wb_username.'not exist');
-		$this->ajaxReturn($wb_username.'not exist', 'fail', 1);
+		//  再查找是否在推荐列表里
+		$tuijian = M("tuijian");
+		$getdata2['nvshen_name'] = $wb_username;
+		$tuijian_list_result = $tuijian->where($getdata2)->find();
+		if($tuijian_list_result){
+			echo 3;
+			return;
+		}
+		
+		
+		// 测试关注微博是否成功
+		$follow_result = $c->follow_by_name($wb_username);
+		if(isset($follow_result['screen_name']) && $follow_result['screen_name'] == $wb_username){
+			// 成功, 取消关注
+			$unfollow_result = $c->unfollow_by_name($wb_username);
+			
+			// 添加到数据库中
+			$adddata['nvshen_name'] = $wb_username;
+			$tuijian->add($adddata);
+			
+			echo 0;
+			return;
+		}else{
+			// 不成功，没有这个微博
+			echo 2;
+			return;
+		}
+		
     	return;
 	}
 
