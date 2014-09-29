@@ -298,6 +298,13 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 		$this->check_session();
 		
 		$wb_id = $_GET['id'];
+		
+		// 是否已经收藏这个wb
+		if(isset($_SESSION['username'])){
+			$is_shoucang = $this->is_shoucang($_SESSION['username'], $wb_id);
+			$this->assign("is_shoucang", $is_shoucang);
+		}
+		
 		$this->assign("nvshen_wb_id", $wb_id);
 		$nvshendata = M("nvshendata");
 		
@@ -515,6 +522,18 @@ left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 		return 0;
 	}
 	
+	
+	//看是否已经收藏了这个wb了
+	private function is_shoucang($username, $wb_id){
+		$shoucang = M("shoucang");
+		$getdata['username'] = $username;
+		$getdata['wb_id'] = $wb_id;
+		$result = $shoucang->where($getdata)->find();
+		if($result){
+			return 1;
+		}
+		return 0;
+	}
 	
 	// 根据微博的id获取到这个微博的详细信息
 	private function get_wb_detail($wb_id){
