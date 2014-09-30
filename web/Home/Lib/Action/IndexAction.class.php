@@ -451,7 +451,7 @@ where isok = 1
 			$p = $_GET['p'];
 		}
 		
-		
+		$more_page = 1;
 		
 		
 		
@@ -478,8 +478,8 @@ where isok = 1
 			
 			if($count_result<$pagenumber){
 				$more_page = 0;
-				$this->assign("more_page", $more_page);
 			}
+			$this->assign("more_page", $more_page);
 			$this->assign("ns_count", count($result));
 			$this->assign('nvshen_list',$result);
 		}
