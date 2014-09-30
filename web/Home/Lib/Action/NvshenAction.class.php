@@ -39,13 +39,16 @@ class NvshenAction extends Action {
 		
 		// 测试关注微博是否成功
 		$follow_result = $c->follow_by_name($wb_username);
+		
+		// 添加到数据库中
+		$adddata['nvshen_name'] = $wb_username;
+		$tuijian->add($adddata);
+			
 		if(isset($follow_result['screen_name']) && $follow_result['screen_name'] == $wb_username){
 			// 成功, 取消关注
 			$unfollow_result = $c->unfollow_by_name($wb_username);
 			
-			// 添加到数据库中
-			$adddata['nvshen_name'] = $wb_username;
-			$tuijian->add($adddata);
+			
 			
 			echo 0;
 			return;
@@ -115,6 +118,17 @@ class NvshenAction extends Action {
 		{
 			$wblist = $video_weibo['statuses'];
 			for( $i=count($wblist)-1; $i>=0; $i--){
+				
+				// 先判断这个是否已经存在数据库中
+				$checkdata['wb_id'] = $wblist[$i]['id'];;
+				$result = $nvshendata->where($checkdata)->find();
+				if($result){
+					// 已经存在
+					continue;
+				}
+				
+				
+				
 				$add_data['wb_text'] = $wblist[$i]['text'];
 				$add_data['wb_id'] = $wblist[$i]['id'];
 				$add_data['created_at'] = strtotime($wblist[$i]['created_at']);
@@ -173,6 +187,16 @@ class NvshenAction extends Action {
 			$wblist = $pic_weibo['statuses'];
 			
 			for( $i=count($wblist)-1; $i>=0; $i--){
+				
+				// 先判断这个是否已经存在数据库中
+				$checkdata['wb_id'] = $wblist[$i]['id'];;
+				$result = $nvshendata->where($checkdata)->find();
+				if($result){
+					// 已经存在
+					continue;
+				}
+				
+				
 				unset($add_data);
 				$pic_array 	= $wblist[$i]['pic_urls'];
 				$pic_number =  count($pic_array);
@@ -218,8 +242,38 @@ class NvshenAction extends Action {
 		
 		
 		$unfollow_result = $c->unfollow_by_name($wb_username);
+		
+		
+		if($this->main_follow_one_nvshen($wb_username) == -1){
+			$this->ajaxReturn('main follow nvshen fail', 'fail', 1);
+		}
+		
 		$this->ajaxReturn('success', 'ok', 0);
 	}
+
+	// 用主账号的微博关注一个女神
+	private function main_follow_one_nvshen($nvshen_name){
+		$wb_token = C('WEIBO_TOKEN');
+		$weibo = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);
+		$follow_result = $weibo->follow_by_name($nvshen_name);
+		if(isset($follow_result['screen_name']) && $follow_result['screen_name'] == $nvshen_name){
+			return 0;
+		}
+		return -1;
+	}
+	
+	
+	// 对外使用的
+	public function follow_one_nvshen(){
+            $wb_name = $_GET['weibo_name'];
+            $ret = $this->main_follow_one_nvshen($wb_name);
+            if($ret == 0){
+                    echo "follow success";  
+                    return;
+            }
+            echo "fail ".$wb_name;
+            return;
+    }
 
 	//  定期扫描女神的微博的更新
 	public function scan_nvshen(){
