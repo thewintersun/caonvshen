@@ -8,6 +8,10 @@ class IndexAction extends Action {
 		if(isset($_SESSION['username'])){
 			$this->assign("user_login", 1);
 			$this->assign("session_username", $_SESSION['username']);
+			
+			if($_SESSION['username'] == "admin"){
+				$this->assign("admin", 1);
+			}
 		}
 	}
 	
@@ -414,6 +418,15 @@ where isok = 1
 				
 				$result['like_times'] 			= $wb_result[0]['like_times'];
 				
+				$result['isok']					= $wb_result[0]['isok'];
+				$result['isok_backgroud']		="green";
+				
+				if($result['isok'] == 1){
+					$result['isok_backgroud']="green";
+				}
+				else{
+					$result['isok_backgroud']="red";
+				}
 				
 				// 所有的喜欢的次数
 				$result['all_like_times'] = 0;
@@ -638,8 +651,16 @@ where isok = 1
 				$result['nvshen_screen_name']		= $wb_detail[0]['nvshen_screen_name'];
 				$result['nvshen_profile_image']		= $wb_detail[0]['nvshen_profile_image'];
 				$result['nvshen_big_profile_image']	= $wb_detail[0]['nvshen_big_profile_image'];
-
-			
+				$result['isok']				= $wb_detail[0]['isok'];
+				$result['isok_backgroud']	="green";
+				
+				if($result['isok'] == 1){
+					$result['isok_backgroud']="green";
+				}
+				else{
+					$result['isok_backgroud']="red";
+				}
+				
 				$type = $wb_detail[0]['type'];
 				
 				// 图片微博

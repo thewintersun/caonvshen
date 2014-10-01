@@ -26,6 +26,9 @@
                     <img class="ui avatar image" style="width:36px;height:36px;z-index:100" src="{$ns_detail[$i]['nvshen_profile_image']}" alt="{$ns_detail[$i]['nvshen_screen_name']}的主页，{$ns_detail[$i]['nvshen_screen_name']}的自拍照与自拍视频">
                 </a>
                 <a target="_blank" href="/index.php/Index/nvshen?id={$ns_detail[$i]['nvshen_user_id']}">{$ns_detail[$i]['nvshen_screen_name']}</a><br/>
+                <if condition="$admin eq 1">
+	    			<input id="{$ns_detail[$i]['wb_id']}" type="button" value="isok" onclick="swap_isok({$ns_detail[$i]['wb_id']})" align="right" style="background-color: {$ns_detail[$i]['isok_backgroud']}" />
+	    		</if>
                 <div class="imga meinvfirstimg thumbnails yoxview" style="margin-right:1.55em;width:295px;display:block;cursor:pointer">
                     <a class="imga boxer" target="_blank" href='/index.php/Index/wb?id={$ns_detail[$i]['wb_id']}' >
                         <if condition="$ns_detail[$i]['type'] eq 3 ">

@@ -122,6 +122,21 @@ $(document).ready(function () {
   ga('send', 'pageview');
 
 </script>
+<script type="text/javascript">
+	function swap_isok(id){			
+      $.get("/index.php/Admin/SwapISOK", {id:id},function(data){
+            if(data==0){
+                if ($('#' + id).css("background-color") == "rgb(0, 128, 0)")
+		            $('#' + id).css("background-color", "red");
+		        else
+			        $('#' + id).css("background-color", "green");
+            }else{
+            	alert("Failed, try again!");
+            }
+      });
+
+    }
+</script>
             </div>
     </div>
     

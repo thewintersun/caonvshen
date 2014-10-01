@@ -27,6 +27,9 @@ padding-right: 1.6%;margin-top:0px">
         收藏
         </div>
         </if>
+        <if condition="$admin eq 1">
+			<input id="{$nvshen_detail['wb_id']}" type="button" value="isok" onclick="swap_isok({$nvshen_detail['wb_id']})" align="right" style="background-color: {$nvshen_detail['isok_backgroud']}" />
+		</if>
         <div class="bdsharebuttonbox" style="float:right;margin:23px -10px 10px 0px;width:170px">
         	<a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
         	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
