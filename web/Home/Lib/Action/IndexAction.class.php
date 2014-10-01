@@ -342,7 +342,18 @@ where isok = 1
 				$result[$i]['video_image'] = $wb_result[$i]['video_image'];
 				$result[$i]['wb_text'] = $wb_result[$i]['wb_text'];
 				$result[$i]['pic_num'] = $wb_result[$i]['pic_num'];	
-				$result[$i]['bmiddle_pic'] = $wb_result[$i]['bmiddle_pic'];			
+				$result[$i]['bmiddle_pic'] = $wb_result[$i]['bmiddle_pic'];	
+				
+				$result[$i]['isok']				= $wb_result[0]['isok'];
+				$result[$i]['isok_backgroud']	="green";
+				
+				if($result[$i]['isok'] == 1){
+					$result[$i]['isok_backgroud']="green";
+				}
+				else{
+					$result[$i]['isok_backgroud']="red";
+				}
+					
 			}		
 			
 			if (count($wb_result) <= $pagenumber) {
