@@ -707,7 +707,7 @@ or type = 2)
 
 	private function get_wb_detail_v($wb_id){
 		$nvshendata = M("nvshendata");
-		$sql = "select * from cns_nvshendata where video_image is not null and video_url is not null and wb_id=".$wb_id;
+		$sql = "select * from cns_nvshendata where isok=1 and video_image is not null and video_url is not null and wb_id=".$wb_id;
 		$wb_detail = $nvshendata->query($sql);
 		if($wb_detail){
 			$wb_detail_count = count($wb_detail);
