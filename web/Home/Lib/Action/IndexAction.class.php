@@ -155,7 +155,7 @@ class IndexAction extends Action {
 			
 			for($i=0;$i<count($wb_id_list); $i++){
 				$wb_id = $wb_id_list[$i]['wb_id'];
-				$wb_result = $this->get_wb_detail($wb_id);
+				$wb_result = $this->get_wb_detail_v($wb_id);
 				if($wb_result != -1){
 					$result[$j] = $wb_result;
 					$j++;
@@ -303,7 +303,8 @@ FROM caonvshen.cns_nvshendata
 where nvshen_user_id = ".$user_id."
 group by wb_id) as ndgp on nd.id = ndgp.id 
 left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
-where isok = 1
+where isok = 1 and ((type = 3 and video_image is not null and video_url is not null)
+or type = 2)
 ";
 		
 		$upper_limit = ($p+1)*$pagenumber + 1;
@@ -691,6 +692,51 @@ where isok = 1
 						$result['video_url'] 		= $wb_detail[0]['video_url'];
 						$result['video_image'] 		= $wb_detail[0]['video_image'];
 						$result['video_embed_code'] = $wb_detail[0]['video_embed_code'];
+				}
+				
+				return $result;
+			}
+			else{
+				return -1;
+			}
+		}
+		else{
+			return -1;
+		}
+	}
+
+	private function get_wb_detail_v($wb_id){
+		$nvshendata = M("nvshendata");
+		$sql = "select * from cns_nvshendata where video_image is not null and video_url is not null and wb_id=".$wb_id;
+		$wb_detail = $nvshendata->query($sql);
+		if($wb_detail){
+			$wb_detail_count = count($wb_detail);
+			if($wb_detail_count>0){
+				$result['wb_text'] 			= $wb_detail[0]['wb_text'];
+				$result['wb_id'] 			= $wb_detail[0]['wb_id'];
+				$result['like_times'] 		= $wb_detail[0]['like_times'];
+				$result['nvshen_user_id'] 	= $wb_detail[0]['nvshen_user_id'];
+				$result['nvshen_screen_name']		= $wb_detail[0]['nvshen_screen_name'];
+				$result['nvshen_profile_image']		= $wb_detail[0]['nvshen_profile_image'];
+				$result['nvshen_big_profile_image']	= $wb_detail[0]['nvshen_big_profile_image'];
+				$result['isok']				= $wb_detail[0]['isok'];
+				$result['isok_backgroud']	="green";
+				
+				if($result['isok'] == 1){
+					$result['isok_backgroud']="green";
+				}
+				else{
+					$result['isok_backgroud']="red";
+				}
+				
+				$type = $wb_detail[0]['type'];
+				
+				// 视频微博
+				if($type == 3){
+					$result['type'] = 3;
+					$result['video_url'] 		= $wb_detail[0]['video_url'];
+					$result['video_image'] 		= $wb_detail[0]['video_image'];
+					$result['video_embed_code'] = $wb_detail[0]['video_embed_code'];
 				}
 				
 				return $result;
