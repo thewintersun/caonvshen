@@ -295,6 +295,24 @@ public function admincns(){
 		
 		$type = $_GET['type'];
 		
+		$sql0 = "select wb_username, wb_user_description, avatar_large from caonvshen.cns_nvshenlist where wb_userid=".$user_id;
+		
+		$nvshenlist = M("nvshenlist");
+		$nvshenlistresult = $nvshenlist->query($sql0);
+		
+		if($nvshenlistresult){
+			$nvshenname = $nvshenlistresult[0]['wb_username'];
+			$nvshen_description = $nvshenlistresult[0]['wb_user_description'];
+			$nvshen_avatar_large = $nvshenlistresult[0]['avatar_large'];
+			$this->assign("nvshenname", $nvshenname);
+			$this->assign("nvshen_profile_image", $nvshen_avatar_large);
+			$this->assign("nvshen_description", $nvshen_description);
+		}
+			
+		$this->assign("nvshen_user_id", $user_id);
+		$this->assign("type", $type);		
+		$this->assign("next_page", $next_page);
+		
 		$sql = 
 		"select nd.*, ndgp.pic_num, nl.wb_user_description from caonvshen.cns_nvshendata nd 
 inner join 
@@ -312,7 +330,7 @@ or type = 2)
 			$sql = $sql."and type = 2 limit ".$p*$pagenumber.",".$upper_limit;
 			$typeclass['pp'] ='active item';
 			$typeclass['v'] = ' item';
-			$typeclass['all'] = ' item';
+			$typeclass['all'] = ' item';			
 		} else if (isset($_GET['type']) && $_GET['type']=='video') {
 			$sql = $sql."and type = 3 limit ".$p*$pagenumber.",".$upper_limit;
 			$typeclass['pp'] =' item';
@@ -325,21 +343,19 @@ or type = 2)
 			$typeclass['all'] = 'active item';
 		}
 		
+		$this->assign("typeclass", $typeclass);
+		
 		$nvshendata = M("nvshendata");
 		$wb_result = $nvshendata->query($sql);
 		
+		$j = 0;
+		
 		if($wb_result){
 			$j = MIN(count($wb_result), $pagenumber);
-			
-			$result['nvshen_screen_name'] = $wb_result[0]['nvshen_screen_name'];
-			$result['nvshen_user_id'] = $wb_result[0]['nvshen_user_id'];
-			$result['avatar_large'] = $wb_result[0]['avatar_large'];
-			$result['nvshen_description'] = $wb_result[0]['nvshen_description'];
-			
-			for($i=0; $i<$j; $i++){				
-				$result[$i]['type'] = $wb_result[$i]['type'];
-				$result[$i]['wb_user_description'] = $wb_result[$i]['wb_user_description'];
+						
+			for($i=0; $i<$j; $i++){
 				$result[$i]['wb_id'] = $wb_result[$i]['wb_id'];
+				$result[$i]['type'] = $wb_result[$i]['type'];
 				$result[$i]['video_image'] = $wb_result[$i]['video_image'];
 				$result[$i]['wb_text'] = $wb_result[$i]['wb_text'];
 				$result[$i]['pic_num'] = $wb_result[$i]['pic_num'];	
@@ -362,18 +378,11 @@ or type = 2)
 			} else {
 				$this->assign("show_next_page", "no");					
 			}
-			// 女神说明
-			/*$nvshen_description = $this->get_nvshen_description($user_id);
-			$this->assign("nvshen_description", $nvshen_description);*/
-			$nvshen_description = $result[0]['wb_user_description'];
-			$this->assign("nvshen_description", $nvshen_description);		
-			$this->assign("type", $type);
-			$this->assign("typeclass", $typeclass);
-			$this->assign("next_page", $next_page);
+			// 女神说明		
 			$this->assign("ns_count", $j);
-			$this->assign("ns_detail",$result);
-			$this->display("Index:nvshen");
+			$this->assign("ns_detail",$result);			
 		}
+		$this->display("Index:nvshen");
 	}
 
 	public function about() {
