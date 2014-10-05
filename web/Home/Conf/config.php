@@ -32,7 +32,7 @@ return array(
 		'__PUBLIC__' => '/Public', // 更改默认的__PUBLIC__ 替换规则
 		'__WEBSITE_URL__'=>"http://".$domain,
 	),
-	'WEIBO_TOKEN' => '2.00BXxOZBTP2dPDd75c9ec9e8tYaFLD',
+	'WEIBO_TOKEN' => '2.00BXxOZBTP2dPDdc65745693OLDJhB',
 	'ONE_WEIBO_TOKEN' => '2.00TdHFfFTP2dPD09065096c50j5X5j',
 	'PAGE_NUMBER' => 24,
 );
