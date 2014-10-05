@@ -33,11 +33,11 @@ class IndexAction extends Action {
 		
 		if($hot == 0){
 			// 最新的排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		else{
 			// 最热排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		
 		$nvshendata = M("nvshendata");
@@ -87,11 +87,11 @@ class IndexAction extends Action {
 		
 		if($hot == 0){
 			// 最新的排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 and type=2 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 and type=2 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		else{
 			// 最热排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 and type=2 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 and type=2 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		
 		$nvshendata = M("nvshendata");
@@ -141,11 +141,11 @@ class IndexAction extends Action {
 		
 		if($hot == 0){
 			// 最新的排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		else{
 			// 最热排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 and type=3 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		
 		$nvshendata = M("nvshendata");
@@ -200,11 +200,11 @@ public function admincns(){
 		
 		if($hot == 0){
 			// 最新的排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by created_at desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		else{
 			// 最热排序
-			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_id from cns_nvshendata where isok=1 group by wb_id order by like_times desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		
 		$nvshendata = M("nvshendata");
@@ -307,7 +307,7 @@ where isok = 1 and ((type = 3 and video_image is not null and video_url is not n
 or type = 2)
 ";
 		
-		$upper_limit = ($p+1)*$pagenumber + 1;
+		$upper_limit = $pagenumber + 1;
 		if (isset($_GET['type']) && $_GET['type']=='pp') {
 			$sql = $sql."and type = 2 limit ".$p*$pagenumber.",".$upper_limit;
 			$typeclass['pp'] ='active item';
@@ -542,13 +542,13 @@ or type = 2)
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		
 		if($sort == "caotimes"){
-			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by like_times desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by like_times desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		if($sort == "ppnum"){
-			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by album_num desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by album_num desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		if($sort == "new"){
-			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by add_time desc limit ".$p*$pagenumber.",".($p+1)*$pagenumber;
+			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by add_time desc limit ".$p*$pagenumber.",".$pagenumber;
 		}
 		
 		// 结果数， 如果小于阈值，就不显示下一页
