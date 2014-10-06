@@ -24,4 +24,16 @@ class AdminAction extends Action {
 		echo 0;
 		return;
 	}
+	
+		// 添加喜欢次数
+	public function cao17xia(){
+		$wb_id = $_GET['id'];
+		$nvshendata = M("nvshendata");
+		$sql = "update cns_nvshendata set like_times = like_times +17 where wb_id=".$wb_id;
+		$result = $nvshendata->execute($sql);
+		if(!$result){
+			ddlog::warn("update caoyixia fail ".$wb_id);
+		}
+		return 0;
+	}
 }

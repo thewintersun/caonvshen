@@ -136,6 +136,14 @@ $(document).ready(function () {
       });
 
     }
+    
+    function cao17xia(id) {
+    	$.get("/index.php/Admin/cao17xia", {id:id},function(data){
+            if(data!=0){
+            	alert("Failed, try again!");
+            }
+      });
+    }
 </script>
             </div>
     </div>
