@@ -322,22 +322,22 @@ where nvshen_user_id = ".$user_id."
 group by wb_id) as ndgp on nd.id = ndgp.id 
 left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 where isok = 1 and ((type = 3 and video_image is not null and video_url is not null)
-or type = 2) order by created_at desc
+or type = 2) 
 ";
 		
 		$upper_limit = $pagenumber + 1;
 		if (isset($_GET['type']) && $_GET['type']=='pp') {
-			$sql = $sql."and type = 2 limit ".$p*$pagenumber.",".$upper_limit;
+			$sql = $sql."and type = 2 order by created_at desc limit ".$p*$pagenumber.",".$upper_limit;
 			$typeclass['pp'] ='active item';
 			$typeclass['v'] = ' item';
 			$typeclass['all'] = ' item';			
 		} else if (isset($_GET['type']) && $_GET['type']=='video') {
-			$sql = $sql."and type = 3 limit ".$p*$pagenumber.",".$upper_limit;
+			$sql = $sql."and type = 3 order by created_at desc limit ".$p*$pagenumber.",".$upper_limit;
 			$typeclass['pp'] =' item';
 			$typeclass['v'] = 'active item';
 			$typeclass['all'] = ' item';
 		} else {
-			$sql = $sql." limit ".$p*$pagenumber.",".$upper_limit;
+			$sql = $sql." order by created_at desc limit ".$p*$pagenumber.",".$upper_limit;
 			$typeclass['pp'] =' item';
 			$typeclass['v'] = ' item';
 			$typeclass['all'] = 'active item';
