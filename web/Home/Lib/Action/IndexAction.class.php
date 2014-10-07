@@ -322,7 +322,7 @@ where nvshen_user_id = ".$user_id."
 group by wb_id) as ndgp on nd.id = ndgp.id 
 left join caonvshen.cns_nvshenlist as nl on nd.nvshen_user_id = nl.wb_userid
 where isok = 1 and ((type = 3 and video_image is not null and video_url is not null)
-or type = 2)
+or type = 2) order by created_at desc
 ";
 		
 		$upper_limit = $pagenumber + 1;
