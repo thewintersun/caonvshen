@@ -17,21 +17,13 @@ return array(
 	
 	//错误页面
 	'TMPL_EXCEPTION_FILE'=>'./Home/Tpl/Public/error.html',
-	//邮件配置项
-	'SMTP_SERVER' =>'mail.ddkefu.com', //邮件服务器
-	'SMTP_PORT' =>25, //邮件服务器端口
-	'SMTP_USER_EMAIL' =>'service@ddkefu.com', //SMTP服务器的用户邮箱(一般发件人也得用这个邮箱)
-	'SMTP_USER'=>'service', //SMTP服务器账户名
-	'SMTP_PWD'=>'service2013', //SMTP服务器账户密码
-	'SMTP_MAIL_TYPE'=>'HTML', //发送邮件类型:HTML,TXT(注意都是大写)
-	'SMTP_TIME_OUT'=>30, //超时时间
-	'SMTP_AUTH'=>true, //邮箱验证(一般都要开启)
 	
 	//模板替换路径配置项
 	'TMPL_PARSE_STRING' =>array(
 		'__PUBLIC__' => '/Public', // 更改默认的__PUBLIC__ 替换规则
 		'__WEBSITE_URL__'=>"http://".$domain,
 	),
+	'DOMAIN' => $domain,
 	'WEIBO_TOKEN' => '2.00BXxOZBTP2dPDdc65745693OLDJhB',
 	'ONE_WEIBO_TOKEN' => '2.00TdHFfFTP2dPD09065096c50j5X5j',
 	'PAGE_NUMBER' => 24,

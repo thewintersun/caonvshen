@@ -645,6 +645,7 @@ or type = 2)
 	}
 	
 	
+	
 	//看是否已经收藏了这个wb了
 	private function is_shoucang($username, $wb_id){
 		$shoucang = M("shoucang");
