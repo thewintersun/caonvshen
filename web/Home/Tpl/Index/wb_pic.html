@@ -171,15 +171,14 @@ padding-right: 0.8%;margin-top:0px">
 
 
  <div style="margin-bottom:0.6em;margin-top:0.6em">              
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- caonvshen300 -->
+     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:inline-block;width:300px;height:250px"
      data-ad-client="ca-pub-4798818066964211"
      data-ad-slot="4964881775"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script>      
  </div> 
 
  <div class="ui divider" style="margin:0px;margin-top:5px" ></div>
@@ -189,30 +188,31 @@ padding-right: 0.8%;margin-top:0px">
                        
                       
             <div class="ui divider" style="margin:0px;margin-top:5px" ></div>
-            
+ 
 
             <div class='ui segment'>
                     <h2 style='margin-top:0px;margin-bottom:5px;font-size:1.25em'>最热女神作品</h2>
                     
                 <for start="0" end="$hotest_wb_number" >
-                	<div style='width:285px;height:90px;overflow:hidden;'>
+                    <div style='width:285px;height:90px;overflow:hidden;'>
+                    	
                     <a  href='/index.php/Index/wb?id={$hotest_wb[$i]["wb_id"]}'>
-                    	<if condition="$hotest_wb[$i]['type'] eq 2 ">
-          					<img style='width:120px;float:left' src='{$hotest_wb[$i]['pic'][0]['bmiddle_pic']}' alt='{$hotest_wb[$i]['nvshen_screen_name']}的自拍照'>
-          					<p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>{$hotest_wb[$i]['nvshen_screen_name']}的自拍照[{$hotest_wb[$i]['pic_count']}P]</p>
-						<else /> 
-						</if>
-						<if condition="$hotest_wb[$i]['type'] eq 3 ">
-          					<img style='width:120px;float:left' src='{$hotest_wb[$i]['video_image']}' alt='{$hotest_wb[$i]['nvshen_screen_name']}的自拍视频'>
-          					<p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>{$hotest_wb[$i]['nvshen_screen_name']}的自拍视频</p>
-						<else /> 
-						</if>
-
+                    	<a href='/index.php/Index/wb?id={$hotest_wb[$i]["wb_id"]}'>
+                    		<if condition="$hotest_wb[$i]['type'] eq 2 ">
+                            <img style='width:120px;float:left' src='{$hotest_wb[$i]['pic'][0]['bmiddle_pic']}' alt='{$hotest_wb[$i]['nvshen_screen_name']}的自拍照'>
+                            <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>{$hotest_wb[$i]['nvshen_screen_name']}的自拍照[{$hotest_wb[$i]['pic_count']}P]</p>
+                        </if>
+                        <if condition="$hotest_wb[$i]['type'] eq 3 ">
+                            <img style='width:120px;float:left' src='{$hotest_wb[$i]['video_image']}' alt='{$hotest_wb[$i]['nvshen_screen_name']}的自拍视频'>
+                            <p style='float:left;margin:5px 5px 0px 5px;height:68px;width:155px'>{$hotest_wb[$i]['nvshen_screen_name']}的自拍视频</p>
+                        </if>
                         <p style='float:left;margin:0px 5px;height:20px;width:155px;color:#b6b6b6;font-size:12px'>{$hotest_wb[$i]['like_times']}人操过</p>
+                    	</a>
+                        
                     </a>
-                	</div>
-                	<div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'></div>
-				</for>
+                    </div>
+                    <div style='border-bottom: 1px dashed #b3b3b3;height:10px;margin-bottom:10px'></div>
+                </for>
                 
            </div>
 
@@ -225,6 +225,7 @@ padding-right: 0.8%;margin-top:0px">
  	<!--
 广告script
 -->
+
 </div>
 <div class="ui divider" style="margin:0px;margin-top:8px" ></div>
                                 <div style="margin-bottom:0.3em;margin-top:0.6em">

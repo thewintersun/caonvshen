@@ -509,7 +509,6 @@ or type = 2)
 					$hotest_wb = $this->hotest_wb(0,5);
 					$this->assign("hotest_wb_number", count($hotest_wb));
 					$this->assign("hotest_wb", $hotest_wb);
-		
 					$this->display("Index:wb_pic");
 				}
 								
