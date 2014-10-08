@@ -343,7 +343,17 @@ class NvshenAction extends Action {
 					if(!$result){
 						ddlog::warn("add nvshen video data fail. wb_id is  ". $add_data['wb_id']);
 					}
+					
+					// 评论
+					$comment = "您的微博已经被操女神（caonvshen.com）收录.更多女神都在 @caonvshen";
+					if($i<2){
+						// 不能发多了， 不然提示账号异常
+						$weibo->send_comment($add_data['wb_id'] , $comment , 1);
+					}
+						
+					
 					unset($add_data);
+					
 				}
 				else{
 					continue;
@@ -395,6 +405,12 @@ class NvshenAction extends Action {
 					if(!$result){
 						ddlog::warn("add nvshen video data fail. wb_id is  ". $add_data['wb_id']);
 					}
+				}
+				// 评论
+				$comment = "您的微博已经被操女神（caonvshen.com）收录.更多女神都在 @caonvshen";
+				if($i<2){
+					// 不能发多了， 不然提示账号异常
+					$weibo->send_comment($add_data['wb_id'] , $comment , 1);
 				}
 			}
 		}
@@ -466,10 +482,9 @@ class NvshenAction extends Action {
 		
 		
 		$wb_token = C('WEIBO_TOKEN');
-		echo WB_AKEY;
 		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
-		
-		$a = $c->show_user_by_name('罗罗可爱多');
+		$comment = "您的微博已经被操女神（caonvshen.com）收录.更多女神都在 @caonvshen";
+		$a = $c->send_comment(3763489095379183 , $comment , 1);
 		echo json_encode($a);
 	}
 }

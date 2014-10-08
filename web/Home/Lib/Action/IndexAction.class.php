@@ -550,13 +550,13 @@ or type = 2)
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		
 		if($sort == "caotimes"){
-			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by like_times desc limit ".$p*$pagenumber.",".$pagenumber;
+			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by like_times desc limit ".$p*$pagenumber.",".$pagenumber*2;
 		}
 		if($sort == "ppnum"){
-			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by album_num desc limit ".$p*$pagenumber.",".$pagenumber;
+			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by album_num desc limit ".$p*$pagenumber.",".$pagenumber*2;
 		}
 		if($sort == "new"){
-			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by add_time desc limit ".$p*$pagenumber.",".$pagenumber;
+			$sql = "select wb_username, wb_userid, like_times, album_num, video_num, profile_image_url from cns_nvshenlist order by add_time desc limit ".$p*$pagenumber.",".$pagenumber*2;
 		}
 		
 		// 结果数， 如果小于阈值，就不显示下一页

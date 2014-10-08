@@ -24,7 +24,7 @@ return array(
 		'__WEBSITE_URL__'=>"http://".$domain,
 	),
 	'DOMAIN' => $domain,
-	'WEIBO_TOKEN' => '2.00BXxOZBTP2dPDdc65745693OLDJhB',
+	'WEIBO_TOKEN' => '2.00BXxOZBTP2dPDb7ba7fc1b56wmMRE',
 	'ONE_WEIBO_TOKEN' => '2.00TdHFfFTP2dPD09065096c50j5X5j',
 	'PAGE_NUMBER' => 24,
 );
