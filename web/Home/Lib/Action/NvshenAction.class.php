@@ -100,7 +100,7 @@ class NvshenAction extends Action {
 			if($result === false){
 				//echo 'add db fail '.$wb_username."<br>";
 				//return;
-				$this->ajaxReturn($wb_username.' add to db fail', 'fail', 3);
+				echo $wb_username.' add to db fail';
 			}
 			//echo "add db success"." <br>";
 		}
@@ -346,9 +346,10 @@ class NvshenAction extends Action {
 					
 					// 评论
 					$comment = "您的微博已经被操女神（caonvshen.com）收录.更多女神都在 @caonvshen";
-					if($i<2){
+					if($i<1){
 						// 不能发多了， 不然提示账号异常
 						$weibo->send_comment($add_data['wb_id'] , $comment , 1);
+						sleep(11);
 					}
 						
 					
@@ -408,9 +409,10 @@ class NvshenAction extends Action {
 				}
 				// 评论
 				$comment = "您的微博已经被操女神（caonvshen.com）收录.更多女神都在 @caonvshen";
-				if($i<2){
+				if($i<1){
 					// 不能发多了， 不然提示账号异常
 					$weibo->send_comment($add_data['wb_id'] , $comment , 1);
+					sleep(11);
 				}
 			}
 		}
@@ -468,12 +470,13 @@ class NvshenAction extends Action {
 				$savedata['video_num'] 	= $video_num;
 				
 				
-				echo json_encode($savedata)."<br>";
+				
 				
 				$r = $nslist->save($savedata);
 				if($r===FALSE){
 					ddlog::warn("save liketimes fail");
 					echo "fail<br>";
+					echo json_encode($savedata)."<br>";
 				}
 			}
 		}

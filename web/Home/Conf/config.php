@@ -25,7 +25,7 @@ return array(
 	),
 	'DOMAIN' => $domain,
 	'WEIBO_TOKEN' => '2.00BXxOZBTP2dPDb7ba7fc1b56wmMRE',
-	'ONE_WEIBO_TOKEN' => '2.00TdHFfFTP2dPD09065096c50j5X5j',
+	'ONE_WEIBO_TOKEN' => '2.00TdHFfFTP2dPD3cf1dccf55sVs_iB',
 	'PAGE_NUMBER' => 24,
 );
 ?>
