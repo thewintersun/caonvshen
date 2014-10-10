@@ -466,10 +466,9 @@ class NvshenAction extends Action {
 		
 		
 		$wb_token = C('WEIBO_TOKEN');
-		echo WB_AKEY;
 		$c = new SaeTClientV2( WB_AKEY , WB_SKEY ,$wb_token);//这是我获取的token 创建微博操作类
 		
-		$a = $c->show_user_by_name('罗罗可爱多');
-		echo json_encode($a);
+		$a = $c->friends_by_id(1436870027, 27, 200);
+		echo json_encode(count($a['users']));
 	}
 }
