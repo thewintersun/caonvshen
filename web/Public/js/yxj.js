@@ -57,10 +57,16 @@ function getScrollLeft(c) {
             return window.pageXOffset || e.documentElement.scrollLeft || e.body.scrollLeft
 }
 function scolse() {  document.getElementById("yxj001").style.display = 'none';}
- 
+function scolse2() {  document.getElementById("yxj002").style.display = 'none';}
 function rightBottomAd(){
-  document.getElementById("yxj001").style.top=getScrollTop()+getClientHeight()-280;
-  document.getElementById("yxj001").style.left=getClientWidth()-336;
+  document.getElementById("yxj001").style.top=getScrollTop()+getClientHeight()-360;
+  document.getElementById("yxj001").style.left=getClientWidth()-120;
   setTimeout(function(){rightBottomAd();},1);
 }
+function leftBottomAd(){
+  document.getElementById("yxj002").style.top=getScrollTop()+getClientHeight()-360;
+  document.getElementById("yxj002").style.left=0;
+  setTimeout(function(){leftBottomAd();},1);
+}
 rightBottomAd();
+leftBottomAd();
