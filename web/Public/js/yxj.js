@@ -59,13 +59,14 @@ function getScrollLeft(c) {
 function scolse() {  document.getElementById("yxj001").style.display = 'none';}
 function scolse2() {  document.getElementById("yxj002").style.display = 'none';}
 function rightBottomAd(){
-  document.getElementById("yxj001").style.top=getScrollTop()+getClientHeight()-360;
-  document.getElementById("yxj001").style.left=getClientWidth()-120;
+		
+  document.getElementById("yxj001").style.top=(getScrollTop()+getClientHeight()-460)+"px";
+  document.getElementById("yxj001").style.left=(getClientWidth()-120)+"px";
   setTimeout(function(){rightBottomAd();},1);
 }
 function leftBottomAd(){
-  document.getElementById("yxj002").style.top=getScrollTop()+getClientHeight()-360;
-  document.getElementById("yxj002").style.left=0;
+  document.getElementById("yxj002").style.top=getScrollTop()+getClientHeight()-460+"px";
+  document.getElementById("yxj002").style.left=0+"px";
   setTimeout(function(){leftBottomAd();},1);
 }
 rightBottomAd();
