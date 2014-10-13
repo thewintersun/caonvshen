@@ -122,6 +122,7 @@ $(document).ready(function () {
   ga('send', 'pageview');
 
 </script>
+<if condition="$admin eq 1">
 <script type="text/javascript">
 	function swap_isok(id){			
       $.get("/index.php/Admin/SwapISOK", {id:id},function(data){
@@ -145,6 +146,7 @@ $(document).ready(function () {
       });
     }
 </script>
+</if>
             </div>
     </div>
     
