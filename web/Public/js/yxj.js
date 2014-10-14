@@ -58,6 +58,7 @@ function getScrollLeft(c) {
 }
 function scolse() {  document.getElementById("yxj001").style.display = 'none';}
 function scolse2() {  document.getElementById("yxj002").style.display = 'none';}
+function scolse3() {  document.getElementById("yxj003").style.display = 'none';}
 function rightBottomAd(){
 		
   document.getElementById("yxj001").style.top=(getScrollTop()+getClientHeight()-460)+"px";
@@ -69,5 +70,11 @@ function leftBottomAd(){
   document.getElementById("yxj002").style.left=0+"px";
   setTimeout(function(){leftBottomAd();},1);
 }
+function youxiaAd(){
+  document.getElementById("yxj003").style.top=getScrollTop()+getClientHeight()-300+"px";
+  document.getElementById("yxj003").style.left=(getClientWidth()-336)+"px";
+  setTimeout(function(){youxiaAd();},1);
+}
 rightBottomAd();
 leftBottomAd();
+youxiaAd();
