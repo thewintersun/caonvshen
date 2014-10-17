@@ -5,6 +5,31 @@ require_once 'Home/Common/DDlog.class.php';
 // 本类由系统自动生成，仅供测试用途
 class IndexAction extends Action {
 	private function check_session(){
+		if(isset($_COOKIE['name']) && isset($_COOKIE['pwd'])){
+			$name = $_COOKIE['name'];
+			$pwd  = $_COOKIE['pwd'];
+			
+			$user = M("user");
+			$getdata['user_name'] = $name;
+			
+			$result = $user->where($getdata)->find();
+			if($result ){
+				if($result['passwd'] == $pwd ){
+					$_SESSION['username'] = $name;
+					
+					$this->assign("user_login", 1);
+					$this->assign("session_username", $_SESSION['username']);
+					
+					if($_SESSION['username'] == "admin"){
+						$this->assign("admin", 1);
+					}
+					
+					return;
+				}
+			}
+			
+		}
+		
 		if(isset($_SESSION['username'])){
 			$this->assign("user_login", 1);
 			$this->assign("session_username", $_SESSION['username']);
