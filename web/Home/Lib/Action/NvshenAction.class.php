@@ -302,6 +302,8 @@ class NvshenAction extends Action {
 		{
 			$wblist = $video_weibo['statuses'];
 			for( $i=count($wblist)-1; $i>=0; $i--){
+				unset($add_data);
+				
 				$add_data['wb_text'] = $wblist[$i]['text'];
 				$add_data['wb_id'] = $wblist[$i]['id'];
 				$add_data['created_at'] = strtotime($wblist[$i]['created_at']);
@@ -337,7 +339,10 @@ class NvshenAction extends Action {
 					$add_data['like_times'] = 0;
 					$add_data['isok'] = 1;
 					
-					
+					// 是自己就跳过
+					if($add_data['nvshen_user_id'] == 1436870027){
+						continue;
+					}
 					
 					$result = $nvshendata->add($add_data);
 					if(!$result){
@@ -353,7 +358,7 @@ class NvshenAction extends Action {
 					}
 						
 					
-					unset($add_data);
+					
 					
 				}
 				else{
@@ -392,6 +397,11 @@ class NvshenAction extends Action {
 				$add_data['like_times'] = 0;
 				$add_data['isok'] = 1;
 				
+				// 是自己就跳过
+				if($add_data['nvshen_user_id'] == 1436870027){
+					continue;
+				}
+				
 				for($j=0;$j<count($pic_array);$j++){
 					$thumbnail_pic = $pic_array[$j]['thumbnail_pic'];
 					$bmiddle_pic = str_replace("thumbnail", "bmiddle", $thumbnail_pic);
@@ -407,13 +417,26 @@ class NvshenAction extends Action {
 						ddlog::warn("add nvshen video data fail. wb_id is  ". $add_data['wb_id']);
 					}
 				}
+				
+				//  自己的账号发微博
+				$url = "http://www.caonvshen.com/index.php/Index/wb?id=".$add_data['wb_id'];
+				$short_text = substr($add_data['wb_text'], 0,300);
+				$self_wb_content = "女神@".$add_data['nvshen_screen_name']." 的自拍照[".$pic_number."P]: ".$short_text."....   ".$url;
+				$self_wb_pic     = str_replace("thumbnail", "large", $pic_array[0]['thumbnail_pic']);
+				if($i<5){
+					$weibo->upload($self_wb_content, $self_wb_pic);
+					sleep(10);
+				}
+				
 				// 评论
 				$comment = "您的微博已经被操女神（caonvshen.com）收录.更多女神都在 @caonvshen";
-				if($i<1){
+				if($i<3){
 					// 不能发多了， 不然提示账号异常
 					$weibo->send_comment($add_data['wb_id'] , $comment , 1);
 					sleep(11);
 				}
+
+
 			}
 		}
 		$this->ajaxReturn('ok','ok',0);

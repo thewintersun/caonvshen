@@ -319,7 +319,7 @@ function clearCookie(name) {
 }  
   
 //设置cookie  
-function setCookie(name, value, seconds) {  
+function setCookie(name, value, seconds) {
  seconds = seconds || 0;   //seconds有值就直接赋值，没有为0，这个根php不一样。  
  var expires = "";  
  if (seconds != 0 ) {      //设置cookie生存时间  
@@ -387,7 +387,38 @@ $(function(){
         $ul=$('#smallImg-ul'),//小图外层
         $imgLi=$ul.find('li'),//小图li
         html=_html='';//存放载入的代码     
-    $('#detailImg-box').append('<a target=\"_blank\" title=\"点击下载高清大图\" href=\"'+img[0].href+'\" class=\"detailImg_1\"><img alt=\"'+img[0].alt+'\" src=\"'+img[i].src+'\"></a>');
+    //$('#detailImg-box').append('<a target=\"_blank\" title=\"点击下载高清大图\" href=\"'+img[0].href+'\" class=\"detailImg_1\"><img alt=\"'+img[0].alt+'\" src=\"'+img[i].src+'\"></a>');
+    $('#detailImg-box').append('<div  class=\"detailImg_1\"><img alt=\"'+img[0].alt+'\" src=\"'+img[i].src+'\"></div>');
+    
+    // 大图点击左右操作
+    $('#detailImg-box').click(function(e){
+    	var positionX=e.originalEvent.x-$(this).offset().left||e.originalEvent.layerX-$(this).offset().left||0; 
+    	if (positionX < $(this).width()/2){
+    		if(i>0){
+        	--i;
+        	}
+        	detailImg_click($s_pre,i,len);
+    		
+		}
+		else{
+			if(i<(len-1)){
+        	++i;
+        	}
+        	detailImg_click($s_next,i,len);
+			
+		}
+     });
+     //换鼠标
+     $('#detailImg-box').mousemove(function(e){
+    	var positionX=e.originalEvent.x-$(this).offset().left||e.originalEvent.layerX-$(this).offset().left||0; 
+    	if (positionX < $(this).width()/2){
+    		$(this).css('cursor', 'url(/Public/image/pic_prev.cur), auto'); 
+		}
+		else{
+			$(this).css('cursor', 'url(/Public/image/pic_next.cur), auto'); 
+		}
+     });
+    
     //大图    
     $('#detailImg-next').click(function(){
         if(i<(len-1)){
@@ -475,7 +506,7 @@ function img_info(i){
         src=img[i].src,
         title=img[i].title,
         $main=$('#detailImg-box');
-    $main.find('a').attr({'href':href,'class':'detailImg_'+(i+1)});
+    //$main.find('a').attr({'href':href,'class':'detailImg_'+(i+1)});
     $main.find('img').attr({'alt':alt,'src':src});
     $main.find('p').text(title);
 }

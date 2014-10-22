@@ -267,7 +267,7 @@ public function admincns(){
 		
 		$pagenumber = C('PAGE_NUMBER');  // 每页的显示的个数
 		
-		$sql = "select distinct wb_id from cns_nvshendata where isok=1 order by created_at desc limit 1000";
+		$sql = "select distinct wb_id from cns_nvshendata where isok=1 order by created_at desc limit 3000";
 		
 		$nvshendata = M("nvshendata");
 		$wb_id_list = $nvshendata->query($sql);

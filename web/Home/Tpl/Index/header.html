@@ -196,12 +196,12 @@ border-bottom: 1px #ddd dashed;"><b class="NO">2</b> <span>关注你喜欢的女
         <div class="content">
             <div class="ui" style="width:55%;float:left">
                 <div class="ui left labeled icon input">
-                    <input id="loginusername" type="text" placeholder="用户名">
+                    <input id="loginusername" type="text" placeholder="用户名" onkeydown=keyLogin(event)>
                     <i class="user icon"></i>
                 </div>
                 <p class="signupp" style="height:12px"></p>
                 <div class="ui left labeled icon input">
-                    <input id="loginpassword" type="password" placeholder="密码">
+                    <input id="loginpassword" type="password" placeholder="密码" onkeydown=keyLogin(event)>
                     <i class="lock icon"></i>
                 </div>
                 <p class="signupp" style="height:12px" ></p>
@@ -228,6 +228,10 @@ border-bottom: 1px #ddd dashed;"><b class="NO">2</b> <span>关注你喜欢的女
         </div>
     </div>
     <script type="text/javascript">
+function keyLogin(e){
+  if (e.keyCode==13)   //回车键的键值为13
+     login();  //调用登录按钮的登录事件
+}
 function login1(){
     //$(".ui.modal").modal("hide others");
     $("#loginbox").modal("show");

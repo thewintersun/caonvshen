@@ -21,8 +21,8 @@ class UserAction extends Action {
 				$_SESSION['username'] = $username;
 				
 				$expire = time() + 86400*365;
-				setcookie ("name", $username, $expire);
-				setcookie ("pwd", $passwd, $expire);
+				cookie("name", $username, $expire);
+				cookie("pwd", $passwd, $expire);
 				
 				echo  1;
 				return;
@@ -34,8 +34,8 @@ class UserAction extends Action {
 	
 	public function logout(){
 		unset($_SESSION['username']);
-		setcookie("name","1",time()-1);
-		setcookie("pwd","1",time()-1);
+		cookie("name","1",time()-1);
+		cookie("pwd","1",time()-1);
 		$this->redirect("/");
 	}
 	
